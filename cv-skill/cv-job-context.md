@@ -46,3 +46,46 @@ Excel, Power BI, Tableau, Looker, MicroStrategy, QuickSight, Google Data Studio.
 - No direct legal/compliance background.
 
 These stay flagged as gaps if the JD emphasizes them.
+
+## CRM, CDP, and MarTech platform experience
+
+- **HubSpot, Salesforce, Marketo, Pardot:** Evaluated and integrated with product platforms
+- **Customer Data Platforms (CDPs):** Worked on data architecture and customer data integration
+- **MarTech domain:** Product integrations, lead-scoring workflows, marketing automation connectors
+- **Context:** Primarily through AdTech/retail media work (integrations with marketing platforms, customer data flows)
+
+**Hint for JD matching:** If the role mentions "CRM," "CDP," "martech," "marketing automation," or "lead-scoring," this is covered. Don't flag as a gap.
+
+## Title Blending Strategy (when tailoring for specific JDs)
+
+When a JD calls for a specific role title (e.g., "Product Director," "Senior Product Manager," "Solution Architect"), and your prior experience includes related but differently-titled roles, use **title blending** in the "Career & Key Achievements" section:
+
+Format: `{Functional Title}, {Actual Title}`
+
+### Examples from Hiran's background:
+
+- JD calls for "Product Director" → Past role was "VP of Product" (OneAdvanced)
+  - Blended: `Senior Product Director, VP of Product`
+  - Justification: VP is director-level scope, hands-on IC work matches the JD's emphasis
+
+- JD calls for "Head of Product" → Past role was "Principal AdTech Consultant" (Amazon)
+  - Blended: `Head of Product, Principal AdTech Consultant`
+  - Justification: Scope was head-of-product level (82 clients, $138M impact, strategy/roadmap), title was consultant-level
+
+- JD calls for "Senior Product Manager" → Past role was "Senior Product Director" (Dentsu)
+  - May not need blending (title is higher)
+  - Or blend downward if emphasizing hands-on IC: `Senior Product Manager, Senior Product Director`
+
+### Rules for title blending:
+
+1. **Only blend when the scope genuinely matches.** Don't invent seniority.
+2. **Functional title comes first** — it's what the JD sees first and what they're looking for.
+3. **Actual title comes second** — it maintains truthfulness and verifiability.
+4. **Use sparingly.** Only for roles where the scope-to-title mismatch is real and relevant to this JD.
+5. **Never blend toward a title you never held.** "Product Director" blending is fine if you were VP or Head of Product; "Chief Product Officer" blending is not if you were only VP.
+
+### When NOT to blend:
+
+- The actual title is already higher than what the JD asks for (VP blending for Senior Manager role — unnecessary)
+- The scope doesn't match (you were a consultant, don't blend to "Product Manager" unless you actually managed products)
+- The JD doesn't emphasize title; it emphasizes skills (focus on skills section instead)

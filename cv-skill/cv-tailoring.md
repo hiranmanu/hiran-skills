@@ -173,26 +173,52 @@ with both DOCX and PDF.
 
 Example: `2026.09.14_Monzo_ChiefOfStaff/` containing both files.
 
-## Phase 5 — Generation Summary Report
+## Phase 5 — Generation & Validation
+
+**Before generating DOCX:**
+1. Compute honest ATS score using keyword-presence methodology (see cv-scoring.md)
+2. Build the tailored profile using JD-title mirroring and keyword-first placement
+3. Rebuild skills section using JD-only keywords (no speculative tech)
+4. Reorder bullets to surface JD-relevant work first (search/discovery/ranking → hands-on IC → commercial)
+5. Apply blended titles where scope justifies it (e.g., "Senior Product Director, VP of Product")
+
+**Validation:**
+- No em dashes (grep "—" on PDF text extract)
+- No bullet wraps (visual PDF check)
+- pdftotext -layout readable (spot-check 3-4 bullets)
+- Filename format: {YYYY-MM-DD}_{Company}_{Role}
+
+## Phase 6 — Generation Summary Report
 
 After generation, output a markdown summary:
 
 ```markdown
 # CV Summary: [Company] – [Role]
 
+## ATS Coverage
+- Before: X%
+- After: Y%
+- Keywords found: Z/[total]
+
 ## Gaps Addressed
 - [Gap 1]: Addressed via [bullet/approach]
 - [Gap 2]: Left as-is (noted elsewhere)
 - [Gap 3]: No match (genuine gap)
 
-## Key Reframings
-- [Title/ordering changes and reasons]
+## Key Reframings & Bullet Reordering
+- Profile: Mirrored "[JD Title]" + surfaced [top 3 keywords]
+- Skills: Narrowed to JD-only keywords (removed speculative tech)
+- Top bullets: Reordered to surface [domain] work first
+- Titles: Blended [Functional Title] with [Actual Title] for role alignment
 
 ## Key Differentiators
-- [Strongest proof points from CV]
+- [Strongest proof point 1 from CV]
+- [Strongest proof point 2]
 
 ## Interview Prep Hints
-- Likely questions and prep angles
+- Likely questions on [gap/strength], prepare [STAR story/proof point]
+- [Company/role analogue in your background]
+- Watch for [red flag], have examples ready for [related skill]
 ```
 
 Share with user before logging.
