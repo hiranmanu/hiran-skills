@@ -11,6 +11,7 @@ Hard constraints on CV generation. Violating any of these is a bug, not a style 
   - Format: `{Functional Title}, {Actual Title}`
   - Example: `Head of Product, Principal AdTech Consultant` (Amazon)
   - Example: `Senior Product Director, VP of Product` (OneAdvanced)
+  - **Critical rule to avoid manufactured appearance:** Only blend 1-2 roles maximum per CV. Don't blend every role. Choose roles where the scope-to-title mismatch is genuinely significant and relevant to the JD. Blending all roles looks manufactured and fake.
   - Rule: Only blend if the functional title genuinely matches the scope. Never manufacture a title that isn't true.
   - For JD-specific tailoring: If the JD calls for "Product Director," and you held "VP of Product," blend it as `Senior Product Director, VP of Product` to show direct relevance without fabrication.
 - **Keyword placement in bullets.** When tailoring for a JD:

@@ -2,25 +2,33 @@
 
 This is a **transparent, repeatable heuristic**, not a vendor algorithm. Workday, Greenhouse, Taleo, etc. don't publish their methods, so this is a directional coverage signal.
 
-## Method: Keyword Presence Scoring
+## Method: Keyword Presence + Semantic Clustering Scoring
+
+Real ATS systems don't just match exact keywords — they match semantic clusters. When a JD mentions "MarTech," they're also scoring for "marketing automation," "lead scoring," "CDP," "CRM," etc.
 
 **Step 1: Extract keywords from the JD**
 Pull all nouns, noun phrases, and verb phrases that describe required skills, tools, domains, and capabilities. Be comprehensive — include both "must-have" and "nice-to-have" sections.
 
-**Step 2: Search the CV for exact matches or clear synonyms**
+**Step 2: Map keywords to semantic clusters**
+For each core keyword, check `cv-semantic-clusters.md` and pull its related semantic cluster (3-5 related terms).
+
+Example: JD mentions "MarTech" → cluster = marketing automation, lead scoring, CDP, CRM, customer data, Salesforce, HubSpot, etc.
+
+**Step 3: Search the CV for exact matches or clear synonyms (across core keyword + cluster)**
 - Exact match: "search" in JD, "search" in CV
-- Clear synonym: "ranking" ~ "rank", "personalization" ~ "personalisation", "end-to-end" ~ "from 0-to-1"
-- NOT a match: loose thematic connection ("discovery" in JD, "platform strategy" in CV with no mention of discovery)
+- Cluster match: "MarTech" in JD, "Salesforce integrations for marketing automation" in CV (hits 2 cluster terms)
+- Clear synonym: "ranking" ~ "rank", "personalization" ~ "personalisation"
+- NOT a match: loose thematic connection
 
-**Step 3: Count and score**
-- Keywords found in CV ÷ total keywords in JD = coverage percentage
-- No weighting (2x/1.5x/1x weights were invented heuristics, not grounded in actual ATS behavior)
-- Simple presence/absence, same weight for all
-
-**Step 4: Report**
-> ATS coverage: {before}% → {after}%
-> Found: {count} of {total} keywords
-> Still missing: {keyword 1}, {keyword 2}
+**Step 4: Count and score**
+- (Keywords found in CV, including cluster hits) ÷ (total keywords + cluster terms) = coverage percentage
+- No weighting — simple presence/absence across core + cluster
+- Example:
+  - Core: MarTech (1 keyword)
+  - Cluster: marketing automation, Salesforce, lead scoring, CDP, CRM (5 terms)
+  - CV has: Salesforce ✓, marketing automation ✓, CDP ✓
+  - Found: 3 cluster hits + 0 core (core not in CV)
+  - Score contribution for "MarTech" cluster: 3/6 = 50% for this cluster
 
 ## Example
 
