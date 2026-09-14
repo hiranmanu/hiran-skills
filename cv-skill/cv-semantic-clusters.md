@@ -34,6 +34,18 @@ This file maps role types and key terms to their semantic clusters so we can sco
 **Core keywords:** AI, LLM, prototyping, Claude Code, Cursor, Lovable, experimentation
 **Semantic cluster:** artificial intelligence, machine learning, large language models, generative AI, AI-powered features, AI tools, AI experimentation, rapid prototyping, no-code tools, low-code tools, developer tools, AI-assisted development, prompt engineering, AI product features, AI integration
 
+### Data Architect / Data Engineer (Role Type)
+**Core keywords:** data architecture, data engineering, data infrastructure, data platform, data pipeline, ETL, data modeling, database design, data warehouse
+**Semantic cluster:** data architecture, data engineering, infrastructure as code, cloud data platforms, Apache Spark, Airflow, dbt, Python, SQL, big data, distributed systems, data quality, data governance, schema design, data modeling, dimensional modeling, OLAP, data lake, data warehouse, Snowflake, BigQuery, Redshift, Databricks, Apache Kafka, streaming data, batch processing, real-time data
+
+### Retail Media / First-Party Data (Domain)
+**Core keywords:** first-party data, identity resolution, retail media, measurement, clean rooms, privacy & consent, data activation, customer data
+**Semantic cluster:** first-party data, identity resolution, customer identity platform, privacy-safe data, zero-party data, clean room technology, data activation, customer data, data unification, privacy compliance, GDPR, consent management, data anonymization, retail data network, advertiser outcomes, media measurement, attribution, brand safety, data marketplace, retail analytics, customer insights
+
+### AdTech / Measurement (Domain)
+**Core keywords:** AdTech, measurement, attribution, programmatic, ad-serving, RTB, impression tracking, conversion tracking, brand safety, campaign optimization
+**Semantic cluster:** AdTech, advertising technology, programmatic advertising, real-time bidding, ad-serving, impression tracking, conversion tracking, attribution modeling, multi-touch attribution, brand safety, campaign optimization, audience targeting, retargeting, cross-device tracking, viewability, measurement framework, marketing mix modeling, incrementality testing
+
 ## Term-to-Cluster Mapping (for scoring)
 
 When scoring a CV against a JD, if the JD mentions a key term, search the CV for:
@@ -55,6 +67,15 @@ Look for: SaaS, recurring revenue, customer success, enterprise software, platfo
 
 ### If JD mentions "AI/LLM":
 Look for: artificial intelligence, machine learning, generative AI, large language model, AI-powered, AI features, experimentation, prototyping, AI tools, prompt engineering
+
+### If JD mentions "Data Architect" or "Data Engineering":
+Look for: data architecture, data engineering, data infrastructure, pipeline, ETL, modeling, Spark, dbt, Airflow, Python, SQL, big data, Snowflake, BigQuery, Redshift, Databricks, Kafka, streaming, batch processing
+
+### If JD mentions "First-Party Data" or "Privacy & Consent":
+Look for: first-party data, identity resolution, customer identity, privacy-safe, clean room, consent management, GDPR, data anonymization, customer data, zero-party data, data activation
+
+### If JD mentions "Retail Media" or "Measurement":
+Look for: retail media, measurement, attribution, brand safety, advertiser outcomes, clean rooms, customer data, data activation, measurement framework, media network, retail analytics
 
 ## Scoring rule for semantic clusters
 

@@ -22,10 +22,16 @@ responsibility the user hasn't stated. If a JD requirement has no real
 match, surface it as a gap. If a gap might be addressable via undocumented
 experience, run an experience-discovery interview. Otherwise, note it plainly.
 
-**Read `cv-formatting-rules.md` before writing a single line.** It encodes
-hard constraints (single-line bullets, no em dashes, keyword placement)
-established over many prior sessions with this user — violating them is a
+**Read `cv-formatting.md` before writing a single line.** It encodes
+hard constraints (single-line bullets, no em dashes, keyword placement, font, layout)
+and voice patterns established over many prior sessions with this user — violating them is a
 bug, not a style choice.
+
+**Read `cv-background.md` in Phase 0 to select the correct template** (PRODUCT_CV or DATA_ARCHITECT_CV) based on role type.
+- Use PRODUCT_CV for: Product Director, VP of Product, CPO, Senior Product Manager, Head of Product roles.
+- Use DATA_ARCHITECT_CV for: Data Architect, Data Engineer, Analytics Engineer, Data Science roles.
+
+**Recommendations section is removed from all CVs** (all role types). This file is no longer included in tailored output.
 
 ## Trigger phrases
 
@@ -242,6 +248,27 @@ Ask before logging:
 > Ready to log to the tracker? I'll add the row with scores, file location,
 > and summary.
 
+## Decision Gates & Rewrite Loops
+
+### Phase 2: Gap Assessment → Decision Gate
+**If gaps are found:**
+- **Genuine gap, no undocumented experience:** Flag it. Proceed to Phase 3 anyway (ship with gap noted) OR loop back to Phase 2.5 for discovery.
+- **Gap might be addressable:** Loop back to Phase 2.5 (experience discovery interview).
+- **Gap is fundamental (e.g., no C-level experience when JD requires it):** Ship anyway, note in summary report. Don't force it.
+
+### Phase 5.3: Validation → Decision Gate
+**If PDF validation fails:**
+- **Em-dashes found:** Loop back to Phase 4.1 (profile rewrite). Re-render PDF. Re-validate.
+- **Bullet wraps to second line:** Loop back to Phase 4.4 (bullet reordering/shortening). Re-render. Re-validate.
+- **pdftotext unreadable:** Loop back to Phase 4.1 (likely heading structure issue). Re-render. Re-validate.
+- **All checks pass:** Proceed to Phase 5.5.
+
+### Phase 5.5: QA Personas → Decision Gate
+**Both HM and TA lenses must pass:**
+- **HM lens fails (e.g., lacks specific numbers, doesn't surface hands-on IC work):** Loop back to Phase 4.1 (profile rewrite) or Phase 4.3 (bullet matching). Re-run QA. Proceed if pass.
+- **TA lens fails (e.g., JD keywords not in profile, title doesn't match search):** Loop back to Phase 4.2 (skills section regenerate) or Phase 4.1 (profile rewrite). Re-run QA. Proceed if pass.
+- **Both pass:** Proceed to Phase 6.
+
 ## Edge Cases
 
 1. **Thin library:** If <5 relevant bullets, say so. Offer to proceed or
@@ -252,6 +279,7 @@ Ask before logging:
    (2) per-role generation.
 5. **User requests fabrication:** "I can reframe that, but it wouldn't be
    true. Here's what's actually there. Use as-is or leave blank?"
+6. **Multiple applications to same company:** Check tracker. If already applied to this company/role combo, note it. Update row or create new based on user intent.
 
 ## Validation Checklist
 
