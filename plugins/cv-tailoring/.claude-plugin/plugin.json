@@ -1,0 +1,8 @@
+{
+  "name": "cv-tailoring",
+  "description": "Tailors a CV/resume to a specific job description for CPO/VP Product, Data Architect, Solution/Enterprise Architect, and related senior product/data roles. Scores ATS keyword coverage before and after, generates the tailored DOCX/PDF, and logs the application to a tracker workbook.",
+  "version": "1.1.0",
+  "author": {
+    "name": "Hiran Patel"
+  }
+}

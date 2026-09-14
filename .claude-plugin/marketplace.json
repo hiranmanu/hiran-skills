@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "hiran-claude-skills",
+  "version": "1.0.0",
+  "description": "Hiran Patel's personal Claude skills library",
+  "owner": {
+    "name": "Hiran Patel"
+  },
+  "plugins": [
+    {
+      "name": "cv-tailoring",
+      "description": "Tailors a CV to a job description, scores ATS keyword coverage, and logs the application to a tracker workbook.",
+      "source": "./plugins/cv-tailoring",
+      "category": "productivity"
+    }
+  ]
+}
