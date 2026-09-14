@@ -1,54 +1,60 @@
-# hiran-claude-skills
+# hiran-skills
 
-Personal Claude Skills library for CV tailoring, interview prep, and job search workflows. Inspired by [ai-with-remy/team-skills](https://github.com/ai-with-remy/team-skills).
+Personal Claude Skills library for CV tailoring, interview prep, and job search workflows.
 
 ## Structure
 
-- **skills/** — Claude SKILL.md definitions + inline references
-- **content/** — Shared reference docs (career facts, formatting rules, ATS scoring methodology)
-- **general/** — Skill index and general documentation
-- **.claude-plugin/** — Claude Code plugin manifest + marketplace metadata
-- **scripts/** — (Upcoming) automation scripts for batch processing, GitHub sync, etc.
+Each skill gets its own folder with a `<skill>-` prefix on all internal files:
+
+```
+hiran-skills/
+├── cv-skill/
+│   ├── cv-tailoring.md                      # Main skill
+│   ├── cv-career-history-supplement.md      # Confirmed role facts
+│   ├── cv-formatting-rules.md               # Generation rules
+│   ├── cv-scoring.md                        # ATS methodology
+│   ├── cv-generation-and-qa.md              # QA checklist
+│   ├── cv-market-research.md                # Research patterns
+│   └── cv-tracker.md                        # Tracker schema
+├── interview-skill/                         # (Upcoming)
+├── linkedin-skill/                          # (Upcoming)
+├── .claude-plugin/
+│   └── marketplace.json                     # Claude Code manifest
+├── SKILLS.md                                # Skill index
+└── README.md
+```
+
+This structure scales cleanly — each skill folder is self-contained, all files prefixed with `<skill>-`, no nested subfolders, no cross-folder dependencies.
 
 ## Skills
 
-### cv-tailoring
+See `SKILLS.md` for the current catalog.
+
+### cv-tailoring (v1.1.0)
+
 Tailors a CV to a job description for CPO/VP Product, Data Architect, Solution/Enterprise Architect, and related senior product/data roles.
 
 **What it does:**
 1. Extracts keywords from the job description
 2. Scores ATS keyword coverage before (baseline) and after (target 85%+)
-3. Checks `content/career-history-supplement.md` for already-confirmed facts
+3. Checks `cv-skill/cv-career-history-supplement.md` for already-confirmed facts
 4. Asks for gaps that are plausibly true but unconfirmed
 5. Generates a tailored DOCX + PDF (no em dashes, single-line bullets)
 6. Logs the application to `Hiran_Applications_Tracker.xlsx`
 
-**Key files:**
-- `skills/cv-tailoring.md` — the skill definition
-- `skills/cv-tailoring-refs/` — supporting references (formatting, scoring, generation QA)
-- `content/career-history-supplement.md` — per-role facts (board/investor, BI tools, Design ownership)
-
-See `content/scoring.md` for how ATS coverage is computed.
-
-## Installation in Claude Code
-
+**Installation in Claude Code:**
 ```bash
-/plugin marketplace add ai-with-remy/hiran-claude-skills
-/plugin install cv-tailoring@hiran-claude-skills
+/plugin marketplace add hiranmanu/hiran-skills
+/plugin install cv-tailoring@hiran-skills
 ```
-
-## Note on claude.ai
-
-This repo follows Claude Code's plugin/marketplace format. Use in claude.ai Projects may require a separate publish step — check docs.claude.com/plugins for details.
 
 ## Updating
 
-When Hiran confirms new facts about past roles (board/investor exposure, BI tools, Design involvement), add them to `content/career-history-supplement.md` so the skill can use them without re-asking.
+Push changes from Claude to GitHub:
+```bash
+git add -A
+git commit -m "Update: <description>"
+git push origin master
+```
 
-## Roadmap
-
-- [x] cv-tailoring skill + ATS scoring (v1.1.0)
-- [ ] Interview prep skill (STAR format, role-specific research, Q&A)
-- [ ] LinkedIn profile optimization skill
-- [ ] Batch CV tailoring (multiple JDs in one pass)
-- [ ] GitHub Actions workflow for syncing tracker + CVs
+When Hiran confirms new facts about past roles, update `cv-skill/cv-career-history-supplement.md` so the skill uses them without re-asking.
