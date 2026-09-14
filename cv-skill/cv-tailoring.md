@@ -3,145 +3,238 @@ name: cv-tailoring
 description: >
   Tailors a CV/resume to a specific job description for CPO/VP Product, Data
   Architect, Solution/Enterprise Architect, and related senior product/data
-  roles. Use this whenever the user pastes or attaches a job description (JD),
-  a job posting URL, or LinkedIn text and asks to tailor, update, or generate
-  a CV/resume against it — or asks things like "tailor my CV to this",
-  "does my CV match this JD", "what's my ATS score for this role", "build me
-  a CV for [Company]", or "log this application". Also use for building or
-  updating the underlying CV content library, computing a before/after ATS
-  keyword-coverage score, generating the tailored DOCX/PDF, and logging the
-  application to the applications tracker workbook. Trigger even if the user
-  doesn't say "resume" or "CV" explicitly — a pasted job description plus any
-  intent to apply is enough.
+  roles. Scores ATS keyword coverage (target 85%+), generates DOCX + PDF with
+  timestamps, and syncs the application to Google Drive tracker. Supports batch
+  processing of multiple JDs, experience discovery when gaps appear, and
+  generates a summary report per CV.
 ---
 
 # CV Tailoring
 
 Turns a job description into a tailored, ATS-clean CV — sourced from the
 user's real CV library, never invented — plus a before/after keyword-coverage
-score and a logged row in the applications tracker.
+score, a generation summary report, and a logged row in the applications
+tracker (synced to Google Drive).
 
 **Core principle — truth-preserving optimisation.** Reframe, reorder, and
 re-emphasise real experience. Never fabricate a skill, metric, or
 responsibility the user hasn't stated. If a JD requirement has no real
-match, say so and mark it as a gap — don't paper over it.
+match, surface it as a gap. If a gap might be addressable via undocumented
+experience, run an experience-discovery interview. Otherwise, note it plainly.
 
-**Read `references/formatting-rules.md` before writing a single line.** It
-encodes hard constraints (single-line bullets, section titles, keyword
-placement) established over many prior sessions with this user — violating
-them is a bug, not a style choice.
+**Read `cv-formatting-rules.md` before writing a single line.** It encodes
+hard constraints (single-line bullets, no em dashes, keyword placement)
+established over many prior sessions with this user — violating them is a
+bug, not a style choice.
 
 ## Trigger phrases
 
-- "Tailor my CV/resume to this JD/role/posting"
+- "Tailor my CV to this JD/role/posting"
 - "What's my ATS score for this?" / "Will this pass ATS?"
-- A pasted job description, job URL, or "help me apply for [Company]"
-- "Build me a CV for [Company/role]"
+- A pasted job description or LinkedIn job posting
+- "Help me apply for [Company]" / "Build me a CV for [Company/role]"
 - "Log this application" / "add this to the tracker"
+- "Batch these JDs" / "tailor for multiple roles at once"
 - "Update my CV library with this"
 
-## Phase 0 — Intake
+## Workflow Overview
+
+1. **Phase 0: Intake & Context Assembly** — Load CV library, reference files,
+   and JD(s). For batch: aggregate research and gaps across all JDs.
+2. **Phase 1: Job Research** — Extract role profile, key requirements, company
+   context. Checkpoint with user before proceeding.
+3. **Phase 2: Gap Assessment** — Check `cv-job-context.md` and
+   `cv-career-history-supplement.md` first. Flag unconfirmed gaps.
+4. **Phase 2.5: Experience Discovery (if gaps exist)** — Interview to surface
+   undocumented work, past roles used a skill, adjacent experience.
+5. **Phase 3: Scoring & Matching** — ATS coverage before/after. Assign bullets
+   to slots with confidence scoring.
+6. **Phase 4: Generation** — Produce tailored DOCX + PDF with timestamp. Validate
+   for line wraps, em dashes, ATS parseability.
+7. **Phase 5: Summary Report** — Per-CV markdown: gaps addressed, reframings,
+   key differentiators, interview-prep hints.
+8. **Phase 6: Tracker Sync** — Log to Google Drive `Interviews CV` folder,
+   store PDF/DOCX in `claude-output/<timestamp>_<Company>_<Role>/`.
+
+## Phase 0 — Intake & Context Assembly
 
 **Resume content.** In priority order:
-1. An existing library at `resumes/*.md` in the working directory, if present.
-2. An attached CV file (PDF/DOCX) — read it (`pandoc -t markdown` for docx,
-   or read the PDF directly) and treat it as the library seed.
-3. Pasted CV text or LinkedIn profile text/URL — same treatment.
-4. No CV at all — ask for one. Don't build content from nothing.
+1. Existing library at `resumes/*.md` in the working directory.
+2. Attached CV file (PDF/DOCX).
+3. Pasted CV text or LinkedIn profile.
+4. No CV? Ask for one.
 
-Also check `references/career-history-supplement.md` (per-role board/
-investor, BI-tool, and Design facts this user has confirmed outside the
-base CV — mirrored in project memory too, see that file's header for
-which copy is authoritative if they ever disagree). This is often the
-fastest way to pre-close a gap before ever asking about it — check it
-before running the Phase 3 gap-confirmation pass, not after.
+**Reference files (always check these first):**
+- `cv-job-context.md` — undocumented background (board/investor, BI tools,
+  Design involvement per role) with JD-matching hints.
+- `cv-career-history-supplement.md` — confirmed facts per role.
+- `cv-formatting-rules.md` — hard constraints on generation.
+- `cv-scoring.md` — ATS coverage methodology.
 
-If the library is being seeded for the first time, split it into role-based
-variant files (this user has at least three live variants — CPO/VP Product,
-Data Architect, Solution/Enterprise Architect — see
-`references/formatting-rules.md` for the keywords each must keep live) and
-save them to `resumes/` so future runs don't need to re-parse the source file.
+**Job description input:**
+- Pasted text (full posting) — preferred
+- PDF/DOCX attached
+- LinkedIn URL or pasted LinkedIn job text
+- Job title + company (research from public postings)
 
-**Job description.** Text, a pasted URL (`web_fetch` it), or a LinkedIn job
-URL. If several JDs arrive at once, process them as a batch — run Phase 1
-research once per company where companies repeat, then Phases 2-6 per role.
+**Batch mode (if multiple JDs):**
+If 2+ JDs, ask:
+> "Want to batch these? I'll aggregate the gap analysis across all roles at
+> once, run one discovery interview covering all gaps, then tailor each CV
+> separately."
 
-## Phase 1 — Research (understand the market)
+If yes: collect all JDs, proceed as batch.
 
-See `references/market-research.md` for the full prompt set. Summary:
-company mission/culture/recent news, role benchmarking (who else holds this
-title, what backgrounds they share), and a salary reality check where data
-exists. Present a short success-profile summary and get a one-line
-confirmation before moving on — don't silently assume the research is right.
+## Phase 1 — Job Research
 
-## Phase 2 — Template selection
+Parse each JD for:
+- **Role profile:** Title, seniority, primary function, key outcomes.
+- **Key requirements:** Hard skills, title/function terms, business domain.
+- **Company context:** Industry, scale, business model, recent news/funding.
+- **Red flags:** Impossible combinations, malformed posting, skills don't align.
 
-Pick the closest existing variant (CPO/VP Product, Data Architect,
-Solution/Enterprise Architect) as the base rather than starting blank.
-State which one and why in one line. If none fit well, say so before forcing
-a match.
+**Checkpoint (critical — don't skip):**
 
-## Phase 3 — Matching, scoring, and gap handling
+Present your research as a 2-3 line summary with 3-4 key findings:
 
-See `references/scoring.md`. Produces:
-- A confidence-scored bullet-by-bullet match (direct / transferable /
-  adjacent / gap) — same as before, nothing new here.
-- **ATS coverage score, before.** Score the *unedited* base CV variant
-  against this JD's extracted keywords before making any changes. Keep this
-  number — it's the baseline.
-- **Target 85%+ coverage.** Check the career-history-supplement memory file
-  first (see Phase 0), then run the gap-confirmation pass on whatever's
-  still unconfirmed — *before* Phase 4 generation, not as a note attached
-  to the after-score. If a flagged gap would plausibly be true given the
-  person's seniority and role history, ask directly rather than assuming
-  it's a real gap; only list something as genuinely missing once they've
-  confirmed it. Gaps under 60% confidence, or ones the user confirms as
-  genuinely absent, get flagged — not silently dropped or forced.
+> Based on research: {success profile}.
+> Key findings: {finding 1} / {finding 2} / {finding 3}.
+> Does this match your read, or anything to adjust?
+
+Wait for confirmation before proceeding.
+
+## Phase 2 — Gap Assessment
+
+**Always check reference files first:**
+1. Read `cv-job-context.md`. If JD mentions "investor relations" or "board
+   reporting," check the board/investor section before flagging a gap.
+2. Read `cv-career-history-supplement.md` for confirmed facts.
+3. Score each requirement: direct (90-100%) / transferable (75-89%) /
+   adjacent (60-74%) / gap (<60%).
+
+**Output:** Gap list with scores. Show top 1-2 candidate bullets per slot
+with reasoning.
+
+## Phase 2.5 — Experience Discovery (only if gaps exist)
+
+If a gap appears in a domain you're senior in, or if `cv-job-context.md`
+hints at undocumented experience, run a brief discovery interview:
+
+> I flagged a gap on "stakeholder reporting" but I noticed you have
+> investor-facing work at Hybrid Theory. Did you do regular board or investor
+> updates there?
+
+For each gap, ask:
+1. "Did you do this at [company] in [role]?" (Check cv-job-context hints)
+2. "How did you approach it? (Tools, outcomes?)"
+3. "Proof points (metrics, feedback, talks)?"
+
+Collect 1-2 sentences per gap. If confirmed, rewrite a truthful bullet and
+update `cv-career-history-supplement.md`.
+
+## Phase 3 — Scoring & Matching
+
+**ATS Coverage Score (before/after).**
+
+This is a **directional heuristic**, not a vendor algorithm. Workday,
+Greenhouse, Taleo each score differently.
+
+**Method:**
+1. From Phase 1 research, pull three keyword sets:
+   - Hard skills (tools, platforms, methodologies) — weight **2x**
+   - Title/function terms — weight **1.5x**
+   - Business context (industry, scale, domain) — weight **1x**
+2. Check presence in CV text: exact match or clear synonym.
+3. Weighted found ÷ weighted total = coverage percentage.
+
+**Report:**
+> Before (base CV): {score}%
+> After (tailored): {score}%
+> Remaining gaps: {gaps if any}
+
+Target 85%+.
 
 ## Phase 4 — Generation
 
-See `references/generation-and-qa.md`. Produces the tailored `.docx` via the
-`docx` skill, enforcing the single-line bullet budget from
-`references/formatting-rules.md` as it writes — not just checking after the
-fact.
+**Input:** Template variant, selected bullets per slot, custom text.
 
-**Filename:** `{FirstName}_{LastName}_{Company}_CV.docx` /
-`.pdf` — pull the name from the CV source, company name from the JD, both
-underscore-joined, no spaces. Read `references/generation-and-qa.md` for the
-full convention including disambiguating multiple roles at one company.
+**Process:**
+1. Render DOCX.
+2. Convert to PDF via LibreOffice.
+3. **Validate:**
+   - No em dashes (grep check)
+   - No bullet wraps (visual check)
+   - ATS parseability (pdftotext check)
+   - Filename: `{YYYY-MM-DD}_{Company}_{Role}`
 
-## Phase 5 — QA and after-score
+**Output location:**
+Google Drive `Interviews CV/claude-output/{YYYY.MM.DD}_{Company}_{Role}/`
+with both DOCX and PDF.
 
-1. Render to PDF and visually inspect each page (per the `docx` skill's
-   verify step) — confirm no bullet wrapped to a second line and no section
-   grid crept back in.
-2. Run `pdftotext` against the export and confirm it returns clean, ordered
-   text (see `references/generation-and-qa.md`) — this is the closest
-   available proxy for "will a real ATS parser choke on this," not a
-   guarantee.
-3. **ATS coverage score, after.** Score the tailored CV the same way as the
-   Phase 3 baseline. Report both numbers to the user as a before → after
-   with the delta, plus what's still missing. State plainly that this is a
-   transparent keyword-coverage heuristic this skill computes — not the
-   actual scoring algorithm any specific vendor's ATS (Workday, Greenhouse,
-   Taleo, etc.) runs internally, which is proprietary and undocumented. Useful
-   as a directional signal, not a guaranteed pass mark.
+Example: `2026.09.14_Monzo_ChiefOfStaff/` containing both files.
 
-## Phase 6 — Tracker + library update
+## Phase 5 — Generation Summary Report
 
-See `references/tracker.md`. Append one row to
-`Hiran_Applications_Tracker.xlsx` (create it from
-`references/tracker.md`'s schema if it doesn't exist yet) with the JD, both
-ATS scores, the CV file used, and today's date. Then ask, same as before:
-save this tailored version into the `resumes/` library for future reuse, or
-keep it one-off.
+After generation, output a markdown summary:
 
-## What this skill does not do (yet)
+```markdown
+# CV Summary: [Company] – [Role]
 
-- **Cover letters.** Different job — say so if asked, don't attempt one
-  inline.
-- **Interview prep / STAR stories.** Planned as a companion skill, not built
-  yet — say so if asked.
-- **Finding or auto-applying to roles on LinkedIn or other job boards.**
-  Out of scope by design — see the notes in this project's memory on why.
-  This skill only acts once the user has a specific JD in hand.
+## Gaps Addressed
+- [Gap 1]: Addressed via [bullet/approach]
+- [Gap 2]: Left as-is (noted elsewhere)
+- [Gap 3]: No match (genuine gap)
+
+## Key Reframings
+- [Title/ordering changes and reasons]
+
+## Key Differentiators
+- [Strongest proof points from CV]
+
+## Interview Prep Hints
+- Likely questions and prep angles
+```
+
+Share with user before logging.
+
+## Phase 6 — Tracker Sync
+
+Google Sheets `Interviews CV` tracker row:
+- **Date Applied:** {today}
+- **Company:** {company}
+- **Role:** {role}
+- **CV Variant:** {template used}
+- **JD Source:** {URL or "pasted"}
+- **ATS Score Before:** {%}
+- **ATS Score After:** {%}
+- **CV File Used:** Link to GDrive folder
+- **Status:** "Applied"
+- **Next Action:** {user fills}
+- **Notes:** {gaps, differentiators, prep hints}
+
+Ask before logging:
+> Ready to log to the tracker? I'll add the row with scores, file location,
+> and summary.
+
+## Edge Cases
+
+1. **Thin library:** If <5 relevant bullets, say so. Offer to proceed or
+   gather more context first.
+2. **Research failure:** If JD is behind login or malformed, ask for text.
+3. **No good match:** If <3 bullets transfer, flag as domain-mismatch risk.
+4. **Batch complexity:** If 5+ JDs, split into (1) discovery + update, then
+   (2) per-role generation.
+5. **User requests fabrication:** "I can reframe that, but it wouldn't be
+   true. Here's what's actually there. Use as-is or leave blank?"
+
+## Validation Checklist
+
+Before handing off:
+- [ ] No em dashes (grep + visual)
+- [ ] No bullet wraps (visual PDF check)
+- [ ] pdftotext readable (spot-check 3-4 bullets)
+- [ ] Filename: {YYYY-MM-DD}_{Company}_{Role}
+- [ ] GDrive location correct
+- [ ] Tracker row ready
+- [ ] Summary report generated
+- [ ] User confirmed before logging
