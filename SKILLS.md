@@ -1,6 +1,6 @@
 # Available Skills
 
-## cv-tailoring (v1.6.1)
+## cv-tailoring (v1.7.0)
 
 Tailors a CV to a job description using a 9-phase workflow: intake → research → gap assessment → discovery → ATS scoring → generation → validation/QA → summary → tracker sync.
 
@@ -15,6 +15,7 @@ Tailors a CV to a job description using a 9-phase workflow: intake → research 
 - `plugins/cv-tailoring/skills/cv-tailoring/references/cv-qa-personas.md` — Hiring Manager + Talent Acquisition review checklists
 - `plugins/cv-tailoring/skills/cv-tailoring/references/cv-market-research.md` — JD research and company signal patterns
 - `plugins/cv-tailoring/skills/cv-tailoring/references/cv-tracker.md` — application tracker schema (Google Sheets, in GDrive)
+- `plugins/cv-tailoring/skills/cv-tailoring/scripts/validate_cv.py` — automated Phase 5.3 checks (page count, em/en dashes, bullet wraps, role-page-splits)
 
 **Recent Results:**
 - **Monzo Chief of Staff to CPO:** 60% → 91% ATS coverage
@@ -47,6 +48,16 @@ Tailors a CV to a job description using a 9-phase workflow: intake → research 
 ---
 
 ## Version History
+
+**v1.7.0 (Sep 17, 2026):**
+- Added `scripts/validate_cv.py`: automated Phase 5.3 validation (page count,
+  em/en dashes, bullet-wrap detection, role-page-split detection) — previously
+  the last two had no tooling at all, only manual eyeballing
+- Audited against a separate chat session's CV work; reconciled what was an
+  unambiguous improvement, flagged the rest (font, page size, colour, bullet
+  shape) as an open question in `cv-formatting.md` rather than silently merging
+- Deleted a duplicate standalone repo (`hiranmanu/cv-tailoring-skill`) that the
+  other session created in error instead of updating this one
 
 **v1.6.1 (Sep 17, 2026):**
 - Full per-file QA sweep after the v1.6.0 restructure: found and fixed 5 stale `cv-tailoring.md` self-references left over from the SKILL.md rename

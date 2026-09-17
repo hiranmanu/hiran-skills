@@ -17,6 +17,8 @@ hiran-skills/                                  # marketplace root
 │       └── skills/
 │           └── cv-tailoring/                  # the actual skill Claude loads
 │               ├── SKILL.md                   # entrypoint — 9-phase orchestrator
+│               ├── scripts/
+│               │   └── validate_cv.py          # automated Phase 5.3 checks
 │               └── references/                # loaded on demand, not upfront
 │                   ├── cv-background.md        # role facts, template selection — write target for Phase 2.5
 │                   ├── cv-formatting.md        # hard constraints + voice patterns
@@ -95,6 +97,22 @@ git push origin master
 When Hiran confirms new facts about past roles, update `plugins/cv-tailoring/skills/cv-tailoring/references/cv-background.md` so the skill uses them without re-asking.
 
 ## Recent Updates
+
+**v1.7.0 (Sep 17, 2026) — Automated Phase 5.3 validation + cross-session audit:**
+- Added `scripts/validate_cv.py`, replacing the prose-only "run pdftotext and
+  eyeball it" instructions with an actual script: page count, em/en dashes,
+  bullet-wrap detection, and role-page-split detection, all in one pass, exit
+  code gates the workflow. The last two checks previously had no tooling.
+- A separate Claude chat session had been doing CV formatting work without
+  knowing this skill existed, using different conventions (A4 vs. US Letter,
+  Calibri vs. Calibri Light, colour vs. black-and-white, square vs. round
+  bullets, plus others). Rather than silently merge either direction, added an
+  explicit open-question callout in `cv-formatting.md` listing every
+  discrepancy — this repo's tested conventions remain authoritative until
+  Hiran confirms otherwise.
+- Deleted the other session's duplicate standalone repo
+  (`hiranmanu/cv-tailoring-skill`), created in error instead of updating this
+  one.
 
 **v1.5.0 (Sep 17, 2026) — Speed modes operationalized:**
 - The three workflow modes (Quick/Balanced/Full Manual) were described in this README but never implemented anywhere executable. `cv-tailoring.md` Phase 0 now has an explicit table mapping each mode to exactly which phases/checkpoints it skips, and `cv-market-research.md` / `cv-qa-personas.md` cross-reference it so they don't contradict it if read standalone.

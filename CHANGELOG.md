@@ -2,6 +2,40 @@
 
 All notable changes to the cv-tailoring skill and supporting reference files are documented here.
 
+## [1.7.0] - 2026-09-17 (Automated Phase 5.3 Validation + Cross-Session Audit)
+
+A separate Claude chat session had been iterating on CV formatting without knowing
+this skill existed, and built its own standalone (now-deleted) repo instead of
+updating this one. Pulled that session's learning back in where it was
+unambiguously an improvement, and flagged the rest rather than silently merging it.
+
+### Added
+- `plugins/cv-tailoring/skills/cv-tailoring/scripts/validate_cv.py` — the
+  automated check that Phase 5.3 previously only described in prose ("run
+  pdftotext, grep it, eyeball the PDF"). Takes a rendered `.docx`/`.pdf` and
+  checks, in one pass: page count vs. a configurable cap (default 2), em/en
+  dashes, bullet-wrap detection (a bullet spilling onto a stray second line),
+  and role-page-split detection (a role's bullets landing on a different page
+  than its header) — the last two were previously **manual-only and had no
+  tooling at all**, confirmed gaps from the other session's own audit.
+  Exits non-zero on any failure so it can gate a workflow, not just report.
+  Tested against both a clean render (all 4 checks pass) and a deliberately
+  overflowing bullet (correctly caught and reported).
+- `cv-decision-gates.md` §5.3 and `cv-formatting.md`'s validation checklist
+  both now point at the script instead of describing the checks only in prose.
+
+### Reconciled / flagged (not silently merged)
+- The other session's CV used materially different conventions (US Letter →
+  A4, Calibri Light → plain Calibri, black-and-white → navy/grey colour,
+  plain-text LinkedIn → hyperlinked, "Profile" → "Profile Summary", round →
+  square primary bullets, ~90 → ~105-108 char budget). Rather than overwrite
+  this repo's tested, production conventions with an untested one-off
+  session's choices, added an explicit "Open question" callout in
+  `cv-formatting.md` naming every discrepancy, so a future session doesn't
+  silently pick a side either. See that file for the full list.
+- The other session's standalone `hiranmanu/cv-tailoring-skill` repo, created
+  in error instead of updating this one, has been deleted.
+
 ## [1.6.1] - 2026-09-17 (Post-Restructure QA Sweep)
 
 After the v1.6.0 restructure (SKILL.md + references/), did a full per-file

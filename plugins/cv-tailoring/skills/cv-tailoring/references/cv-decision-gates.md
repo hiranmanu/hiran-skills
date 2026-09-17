@@ -99,15 +99,16 @@ Renders DOCX + PDF from the text that just passed Phase 5.1. See `SKILL.md` "Ren
 **Input:** Rendered PDF of the tailored CV.
 
 **Run, in order, every time:**
-1. Render and look at it — use the `docx` skill's verify step:
-   ```
-   python scripts/office/soffice.py --headless --convert-to pdf output.docx
-   pdftoppm -jpeg -r 100 output.pdf page
-   ```
-   Read the resulting page image(s).
-2. `grep "—" on pdftotext output` → 0 matches (no em-dashes)
-3. Visual PDF check → no bullets wrap to second line, skills line stays a
-   single flowing line, nothing overflows onto an unwanted second page
+1. Render the DOCX using the `docx` skill's own build/verify pattern (soffice → PDF).
+2. Run the automated check: `python3 scripts/validate_cv.py <path-to.docx> --max-pages 2`
+   — this runs checks 2-4 below (em/en dashes, bullet-wrap detection, role-page-split
+   detection) plus the page-count cap in one pass and exits non-zero on any failure.
+   It replaces doing these by hand; still read the rendered page images for anything
+   it flags, since its wrap/split detection is a heuristic over `pdftotext -layout`
+   output, not a true layout engine (see the script's docstring for exact limits).
+3. `pdftoppm -jpeg -r 100 output.pdf page` and read the resulting page image(s) —
+   `validate_cv.py` doesn't replace looking at it; skills/layout issues outside its
+   four checks (colour, alignment, font substitution) still need eyes on it.
 4. `pdftotext -layout output.pdf -` → read it back; it should come back as
    clean, ordered, readable text in the same sequence as the visual
    document. Garbled, reordered, or dropped sections mean the layout (a
