@@ -2,6 +2,42 @@
 
 All notable changes to the cv-tailoring skill and supporting reference files are documented here.
 
+## [1.8.0] - 2026-09-17 (House Style Confirmed + Authenticity Metadata)
+
+Hiran confirmed the other session's conventions (flagged as an open question
+in v1.7.0) ARE the house style going forward. No more open question.
+
+### Changed
+- `cv-formatting.md` Font & Layout section rewritten: plain Calibri 10.5pt
+  uniform across every section (not Calibri Light), A4 not US Letter,
+  navy/grey colour scheme (not black-and-white), square ▪ primary bullets
+  (not round), hyperlinked email/LinkedIn (not plain text), "Profile
+  Summary" heading (not "Profile"), ~105-108 char bullet budget (was ~90,
+  different page/margin/font), dual nationality right-aligned to the date
+  tab stop at the bottom only. Also added: no en dashes (previously only
+  em dashes were banned), zero spacing between bullets within a role, and
+  explicit page-split protection wording.
+- `cv-config.md` and `cv-background.md`'s "shared formatting" summaries
+  updated to match.
+- `README.md`'s historical "black-and-white" example output annotated as
+  predating this change, rather than rewritten as if it always used colour.
+
+### Added
+- **Authenticity metadata requirement:** every generated DOCX must set
+  `creator`/`lastModifiedBy` to "Hiran Patel" (not a generic tool default
+  like "Un-named" or "python-docx") — verified to carry through to the
+  PDF's Author field on soffice conversion.
+- `scripts/validate_cv.py` now has a 5th automated check for this: reads
+  `docProps/core.xml` from the docx and the PDF's `pdfinfo` Author field,
+  fails if either is empty, a known generic default, or not exactly "Hiran
+  Patel". Tested against a docx with no author set (correctly fails) and
+  the real CV (correctly passes).
+- `scripts/build_cv_reference.js` — a full docx-js implementation of every
+  rule in the now-updated `cv-formatting.md` (fonts, colours, spacing,
+  hyperlinks, page-split protection, document properties), so future
+  sessions have a working reference to copy and adapt per JD instead of
+  re-deriving the styling from prose each time.
+
 ## [1.7.0] - 2026-09-17 (Automated Phase 5.3 Validation + Cross-Session Audit)
 
 A separate Claude chat session had been iterating on CV formatting without knowing

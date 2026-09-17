@@ -13,7 +13,7 @@ Confirmed facts and undocumented context about Hiran's background, organized by 
 - **PRODUCT_CV** (Hiran_Patel_CV_2Page.pdf): Use for Product Director, VP of Product, CPO, Senior Product Manager, Head of Product roles. Includes LinkedIn URL. Voice is metrics-first with product/commercial focus.
 - **DATA_ARCHITECT_CV** (Hiran_Patel_CV_2Page_Data_Architect.pdf): Use for Data Architect, Data Engineer, Analytics Engineer, Data Science roles. No LinkedIn URL. Voice is metrics-first with data/architecture focus.
 
-Both templates share the same formatting rules (Calibri Light, rounded bullets, no em-dashes) and the same voice pattern (Action + Number + Method + Scale).
+Both templates share the same formatting rules (plain Calibri 10.5pt, A4, navy/grey colour, square bullets, no em-dashes or en-dashes — see `cv-formatting.md`) and the same voice pattern (Action + Number + Method + Scale).
 
 ---
 

@@ -18,7 +18,8 @@ hiran-skills/                                  # marketplace root
 │           └── cv-tailoring/                  # the actual skill Claude loads
 │               ├── SKILL.md                   # entrypoint — 9-phase orchestrator
 │               ├── scripts/
-│               │   └── validate_cv.py          # automated Phase 5.3 checks
+│               │   ├── validate_cv.py          # automated Phase 5.3 checks
+│               │   └── build_cv_reference.js   # reference docx-js house-style implementation
 │               └── references/                # loaded on demand, not upfront
 │                   ├── cv-background.md        # role facts, template selection — write target for Phase 2.5
 │                   ├── cv-formatting.md        # hard constraints + voice patterns
@@ -58,7 +59,9 @@ Tailors a CV to a job description for CPO/VP Product, Data Architect, Solution/E
 - **After:** 93% ATS coverage (26/28 keywords)
 - **Profile rewrite:** "Senior Product Director" + search/discovery + hands-on IC + prototyping tools (Claude Code, Cursor, Lovable, Bolt)
 - **Skills regenerated:** 5 lines of JD-only keywords, search/discovery front-loaded
-- **Output:** Professional black-and-white DOCX/PDF with all sub-bullets preserved
+- **Output:** Professional DOCX/PDF with all sub-bullets preserved (this
+  example predates the v1.8.0 navy/grey colour house style — see
+  `cv-formatting.md` for the current spec)
 
 **Installation in Claude Code:**
 ```bash
@@ -98,18 +101,31 @@ When Hiran confirms new facts about past roles, update `plugins/cv-tailoring/ski
 
 ## Recent Updates
 
+**v1.8.0 (Sep 17, 2026) — House style confirmed, authenticity metadata:**
+- Hiran confirmed the separate chat session's conventions (flagged as an open
+  question in v1.7.0) ARE the new house style. `cv-formatting.md`,
+  `cv-config.md`, and `cv-background.md` rewritten accordingly: plain Calibri
+  10.5pt uniform (not Calibri Light), A4 (not US Letter), navy/grey colour
+  (not black-and-white), square ▪ primary bullets (not round), hyperlinked
+  email/LinkedIn (not plain text), "Profile Summary" heading, ~105-108 char
+  bullet budget, tab-aligned dual-nationality line, no more open question.
+- Added a DOCX/PDF authenticity requirement: `creator`/`lastModifiedBy` must
+  be set to "Hiran Patel" (not a generic tool default) on every generated
+  file — verified to carry through to the PDF's Author field on conversion.
+  `scripts/validate_cv.py` now checks this automatically.
+- Added `scripts/build_cv_reference.js`, a full docx-js reference
+  implementation of every rule in `cv-formatting.md` — copy and adapt per JD
+  rather than re-deriving the styling from prose each time.
+
 **v1.7.0 (Sep 17, 2026) — Automated Phase 5.3 validation + cross-session audit:**
 - Added `scripts/validate_cv.py`, replacing the prose-only "run pdftotext and
   eyeball it" instructions with an actual script: page count, em/en dashes,
   bullet-wrap detection, and role-page-split detection, all in one pass, exit
   code gates the workflow. The last two checks previously had no tooling.
 - A separate Claude chat session had been doing CV formatting work without
-  knowing this skill existed, using different conventions (A4 vs. US Letter,
-  Calibri vs. Calibri Light, colour vs. black-and-white, square vs. round
-  bullets, plus others). Rather than silently merge either direction, added an
-  explicit open-question callout in `cv-formatting.md` listing every
-  discrepancy — this repo's tested conventions remain authoritative until
-  Hiran confirms otherwise.
+  knowing this skill existed, using different conventions. Rather than
+  silently merge either direction, flagged every discrepancy for Hiran to
+  confirm (resolved in v1.8.0 above).
 - Deleted the other session's duplicate standalone repo
   (`hiranmanu/cv-tailoring-skill`), created in error instead of updating this
   one.

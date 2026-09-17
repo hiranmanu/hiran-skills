@@ -1,6 +1,6 @@
 {
   "name": "cv-tailoring",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Tailors a CV to a job description, scores ATS keyword coverage via semantic clustering, generates DOCX + PDF, and logs the application to a Google Sheets tracker in GDrive.",
   "author": {
     "name": "Hiran Patel",

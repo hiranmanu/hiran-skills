@@ -9,20 +9,24 @@ Hard constraints and voice patterns for all CV tailoring. This covers both forma
 - **No em dashes anywhere in generated CV text** — profile, bullets, role context lines, everything. Use a comma, colon, or semicolon instead, or split into two sentences. This matches the user's own writing register.
   - Example: "Won $28M — the largest AdTech deal ever closed" → "Won $28M, the largest AdTech deal ever closed"
 - **No personality-trait bullets.** Never add "passionate about X" or "excited by Y." Facts only.
-- **Single-line bullets only.** No wraps to a second line. Budget the
-  character count *while writing*, not after export — catching a wrap after
-  render is too late to feel reliable. At Calibri 10.5pt on a US Letter page
-  with ~1" margins and a ~6.5" text width, a bulleted line (glyph + indent)
-  holds roughly 90-100 characters including spaces and punctuation; Aptos
-  11pt is slightly wider, so budget closer to 85-95 there. Treat 90 as the
-  safe target regardless of which font is confirmed. When a bullet
+- **No en dashes either.** Same rule as em dashes, same reason. Date ranges
+  use a plain hyphen: `Jan 2026 - present`, not `Jan 2026 – present`.
+- **Single-line bullets only.** No wraps to a second line, ever — this is a
+  hard rule, not a preference. Budget the character count *while writing*,
+  not after export — catching a wrap after render is too late to feel
+  reliable. At Calibri 10.5pt on an A4 page with the margins in this
+  template (top/bottom 560 twips, left/right 680 twips), a bulleted line
+  (glyph + indent) holds roughly 105-108 characters including spaces and
+  punctuation. This is template-specific: it will shift if margins, font
+  size, or font family ever change — re-derive it (render + measure) rather
+  than assuming it still holds after a layout change. When a bullet
   genuinely doesn't fit, cut a weaker clause rather than shrinking font
   size or margins — those aren't available levers. This is a proactive
-  budget, not a guarantee: still run the QA sequence in
-  `cv-decision-gates.md` §5.3, since actual rendering also depends on
-  kerning and any bold runs (company names, metrics), which render wider
-  than plain text.
-- **Sub-bullets use rounded hole bullets (○), not em-dashes.** Replace em-dashes with ○ for secondary points (e.g., 2010-2015 Dunnhumby section).
+  budget, not a guarantee: still run `scripts/validate_cv.py` (§Validation
+  below), since actual rendering also depends on kerning and any bold runs
+  (company names, metrics), which render wider than plain text.
+- **Career-history bullet marker is a small square (▪), not round.** Applies
+  to primary bullets throughout the Career & Key Achievements section.
 - **Blended titles (when appropriate).** When a past role's actual title undersold its real scope, prefix it with the functional title:
   - Format: `{Functional Title}, {Actual Title}`
   - Example: `Head of Product, Principal AdTech Consultant` (Amazon)
@@ -37,16 +41,68 @@ Hard constraints and voice patterns for all CV tailoring. This covers both forma
 
 ### Font & Layout Rules
 
-- **Font:** Calibri Light 10.5pt (or Aptos Light as alternative). Not Calibri Regular.
-- **Line spacing:** Tight (good for ATS parsing)
+Confirmed as the house style (2026-09-17), superseding all earlier Calibri
+Light / US Letter / black-and-white guidance in this file's history:
+
+- **Font:** plain Calibri, 10.5pt, uniform across every section — Profile
+  Summary, Key Skills, role titles/dates, company lines, and bullets all
+  match. Not Calibri Light: tried it, a direct side-by-side PDF comparison
+  came back preferring plain Calibri. Never let sizes drift apart across
+  sections (e.g. Profile Summary at 10.5pt while bullets sit at 9.5pt reads
+  as inconsistent — this happened once and was flagged as a mistake).
+- **Page size:** A4, not US Letter. Margins: top/bottom 560 twips, left/right
+  680 twips (tight, for 2-page density).
+- **Colour scheme:** navy headings (`#1F3864`), near-black body text
+  (`#222222`), mid-grey secondary text (`#555555`) — not black-and-white.
+  Section headings get a thin navy bottom border/rule.
+- **Line spacing:** 1.15 (line: 276, lineRule: auto) on paragraphs that may
+  wrap (Profile Summary, Key Skills rows, bullets). Single-line elements
+  (role title/date line, company/descriptor line) must NOT carry this
+  multiplier — it inflates their height even though they never wrap, which
+  visibly enlarges the gap between e.g. a role title and its company line
+  below it. Leave those at default line spacing.
+- **Bullet spacing:** zero extra space between bullets within the same role
+  (spacing.after: 0) — the gap comes from line height alone. Save
+  spacing.after for section/role breaks only.
 - **Header layout:**
-  - Name: left-aligned
-  - Date: right-aligned
-  - Citizenship/Nationality: right-aligned (aligned with date)
-  - LinkedIn URL: **Product roles only** (Product CV includes it, Data Architect CV does not)
-- **LinkedIn URL format:** `linkedin.com/in/{handle}` (plain text, not clickable link)
+  - Name: left-aligned, bold, large, navy
+  - Contact line: `London, UK | Phone | Email (hyperlinked, mailto:) | LinkedIn (hyperlinked)`
+    — no parenthetical asides (e.g. don't add "(open to remote/global)")
+  - Role dates: right-aligned via a tab stop, **not bold**, same size as
+    everything else
+  - Dual nationality: appears once only, at the bottom under
+    Qualifications/Personal Details, right-aligned to the same tab stop as
+    role dates (`Languages: ... [tab] Joint Nationality: British & American`)
+    — never repeated in the Profile. A brief "markets covered" phrase can be
+    folded into the end of the Profile Summary's second paragraph instead,
+    in matching (non-italic, non-grey) formatting, not as a standalone aside.
+  - LinkedIn URL: **Product roles only** (Product CV includes it, Data
+    Architect CV does not) — hyperlinked (`mailto:` for email too), not
+    plain text
+- **Section heading:** "Profile Summary", not "Profile" (ATS-friendly)
 - **Recommendations section:** Remove entirely for all roles
-- **Sections order:** Profile, Key Skills & Competencies, Career & Key Achievements
+- **Sections order:** Profile Summary, Key Skills & Competencies, Career & Key Achievements, Qualifications/Certifications/Personal Details
+- **Document authenticity metadata:** every generated `.docx` must set
+  `creator` and `lastModifiedBy` to `"Hiran Patel"` (plus a real `title`,
+  e.g. `"Hiran Patel - CV"`), not left as a generic tool/library default —
+  this carries through to the PDF's Author field on conversion (verified via
+  `pdfinfo`). `scripts/validate_cv.py` checks this automatically (see
+  Validation below).
+- **Naming:** "dunnhumby" is always lowercase, in every position including
+  at the start of a line/sentence.
+- **Vague filler:** avoid phrases like "details available on request" for
+  early-career entries — write out the actual substance instead, however
+  brief.
+- **Page-split protection:** each role (title + company line + all its
+  bullets) must stay together and complete on a single page — never split
+  across a page break. In docx-js terms: `keepNext`/`keepLines` on every
+  paragraph in the role's block except the last.
+- **Document length:** hard cap, never exceed 2 pages, whatever else a
+  content pass adds.
+
+A full reference implementation of every rule above (docx-js, Node) lives at
+`scripts/build_cv_reference.js` in this skill — copy and adapt it per JD
+rather than re-deriving the styling from prose each time.
 
 ### ATS Parsing Rules
 
@@ -95,37 +151,22 @@ Hard constraints and voice patterns for all CV tailoring. This covers both forma
 ### Validation Before Output
 
 Run `python3 scripts/validate_cv.py <path> --max-pages 2` (see `cv-decision-gates.md`
-§5.3) — it automates the four checks below marked ⚙ in one pass. The rest still need
+§5.3) — it automates the five checks below marked ⚙ in one pass. The rest still need
 a human look at the rendered page images.
 
-- [ ] ⚙ No em dashes or en dashes (was: grep "—" on PDF text — script now also catches "–")
-- [ ] ⚙ No bullet wraps to second line (was: visual PDF check only)
+- [ ] ⚙ No em dashes or en dashes (grep on PDF text extraction)
+- [ ] ⚙ No bullet wraps to second line
 - [ ] ⚙ No role split across a page boundary
 - [ ] ⚙ Page count within cap (default 2)
+- [ ] ⚙ DOCX/PDF Author metadata is "Hiran Patel", not a generic tool default
 - [ ] pdftotext -layout is readable (spot-check 3-4 bullets) — not automated; garbled/reordered text needs a human read
 - [ ] Filename format correct: `{YYYY-MM-DD}_{Company}_{Role}`
 - [ ] Blended titles used only when truthfully justified
 - [ ] Keywords from JD surfaced in profile, skills, and top bullets
 - [ ] No keywords forced into bullets where they don't truthfully belong
-- [ ] Rounded hole bullets (○) used for sub-bullets, not em-dashes
-- [ ] LinkedIn URL present only for Product roles
+- [ ] Square bullets (▪) used for primary career bullets
+- [ ] LinkedIn URL present only for Product roles, and hyperlinked
 - [ ] Recommendations section removed
-- [ ] DOCX/PDF core properties (Author) set to the user's own name, not left as a generic tool default
-
-> **Open question — not yet reconciled:** a separate Claude chat session (not this
-> Claude Code skill) built a one-off "SVP Product / AI" branded CV using different
-> conventions than this file specifies: US Letter → A4, Calibri Light → plain Calibri,
-> black-and-white → navy/grey colour scheme, plain-text LinkedIn → hyperlinked
-> email+LinkedIn, "Profile" → "Profile Summary" heading, ~90 char bullet budget →
-> ~105-108 (different page/margins/font), round bullets → small square (▪) for
-> primary bullets. That session's rules are written up in that session's own
-> `CV_STYLE_GUIDE.md` (see `hiran-skills` — that repo has since been deleted per
-> instruction; the content is now only in that chat's project memory). Nobody has
-> confirmed whether that's meant to become the new house style here, a distinct
-> "branded" variant kept alongside this one, or a one-off that shouldn't propagate.
-> Until Hiran confirms, treat *this* file (Calibri Light, US Letter, black-and-white,
-> ~90 char budget) as the authoritative convention for anything generated by this
-> skill — don't silently adopt the other session's choices.
 
 ---
 

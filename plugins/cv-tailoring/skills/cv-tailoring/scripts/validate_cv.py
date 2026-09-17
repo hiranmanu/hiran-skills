@@ -30,7 +30,11 @@ import argparse
 import re
 import subprocess
 import sys
+import zipfile
 from pathlib import Path
+
+EXPECTED_AUTHOR = "Hiran Patel"
+GENERIC_AUTHOR_DEFAULTS = {"", "python-docx", "docx-js", "unknown", "libreoffice", "microsoft office user"}
 
 BULLET_GLYPHS = ["\u2022", "\u25AA", "\u25A0", "\u25CB", "\u2023", "-", "\u25E6"]
 DASH_CHARS = {"\u2014": "em dash (—)", "\u2013": "en dash (–)"}
@@ -82,6 +86,28 @@ def extract_pages(pdf_path: Path):
     while pages and not pages[-1].strip():
         pages.pop()
     return pages
+
+
+def check_docx_author(docx_path: Path):
+    """Returns (creator, last_modified_by) from docProps/core.xml, or (None, None) if not a docx."""
+    if docx_path.suffix.lower() != ".docx":
+        return None, None
+    try:
+        with zipfile.ZipFile(docx_path) as z:
+            core_xml = z.read("docProps/core.xml").decode("utf-8")
+    except (KeyError, zipfile.BadZipFile):
+        return None, None
+    creator_m = re.search(r"<dc:creator>(.*?)</dc:creator>", core_xml)
+    lmb_m = re.search(r"<cp:lastModifiedBy>(.*?)</cp:lastModifiedBy>", core_xml)
+    creator = creator_m.group(1).strip() if creator_m else None
+    last_modified_by = lmb_m.group(1).strip() if lmb_m else None
+    return creator, last_modified_by
+
+
+def check_pdf_author(pdf_path: Path):
+    r = run(["pdfinfo", str(pdf_path)])
+    m = re.search(r"^Author:\s+(.*)$", r.stdout, re.MULTILINE)
+    return m.group(1).strip() if m else None
 
 
 def check_dashes(all_text: str):
@@ -222,6 +248,23 @@ def main():
         report.append("FAIL  role-page-split check:\n  " + "\n  ".join(split_issues))
     else:
         report.append("PASS  role-page-split check: no role appears split across a page boundary")
+
+    # Check 5: authenticity metadata (Author)
+    docx_creator, docx_lmb = check_docx_author(args.path)
+    pdf_author = check_pdf_author(pdf_path)
+    author_problems = []
+    if docx_creator is not None:
+        if docx_creator.strip().lower() in GENERIC_AUTHOR_DEFAULTS or docx_creator != EXPECTED_AUTHOR:
+            author_problems.append(f'docx dc:creator is "{docx_creator}", expected "{EXPECTED_AUTHOR}"')
+        if docx_lmb and docx_lmb != EXPECTED_AUTHOR:
+            author_problems.append(f'docx cp:lastModifiedBy is "{docx_lmb}", expected "{EXPECTED_AUTHOR}"')
+    if pdf_author is not None and (not pdf_author or pdf_author.strip().lower() in GENERIC_AUTHOR_DEFAULTS or pdf_author != EXPECTED_AUTHOR):
+        author_problems.append(f'PDF Author is "{pdf_author}", expected "{EXPECTED_AUTHOR}"')
+    if author_problems:
+        ok = False
+        report.append("FAIL  authenticity metadata check:\n  " + "\n  ".join(author_problems))
+    else:
+        report.append(f'PASS  authenticity metadata check: Author is "{EXPECTED_AUTHOR}"')
 
     print(f"\nvalidate_cv.py — {args.path.name}\n" + "=" * 60)
     for line in report:

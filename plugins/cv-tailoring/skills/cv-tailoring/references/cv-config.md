@@ -69,10 +69,12 @@ What is the target role type?
 ```
 
 **Both templates share:**
-- Font: Calibri Light 10.5pt
+- Font: plain Calibri, 10.5pt uniform across every section
+- Colour scheme: navy/grey (not black-and-white) — see `cv-formatting.md`
 - Voice pattern: Action + Number + Method + Scale
-- Layout rules: Date right-aligned, citizenship right-aligned, no em-dashes
-- Formatting: Single-line bullets, rounded sub-bullets (○)
+- Layout rules: A4, date right-aligned (not bold), citizenship/nationality right-aligned to the same tab stop at the bottom, no em-dashes or en-dashes
+- Formatting: single-line bullets only, square (▪) primary bullets
+- Authenticity: DOCX/PDF Author metadata set to "Hiran Patel"
 
 **PRODUCT_CV unique:**
 - LinkedIn URL: Present, plain text format

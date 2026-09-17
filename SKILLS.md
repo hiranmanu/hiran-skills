@@ -1,6 +1,6 @@
 # Available Skills
 
-## cv-tailoring (v1.7.0)
+## cv-tailoring (v1.8.0)
 
 Tailors a CV to a job description using a 9-phase workflow: intake → research → gap assessment → discovery → ATS scoring → generation → validation/QA → summary → tracker sync.
 
@@ -15,7 +15,8 @@ Tailors a CV to a job description using a 9-phase workflow: intake → research 
 - `plugins/cv-tailoring/skills/cv-tailoring/references/cv-qa-personas.md` — Hiring Manager + Talent Acquisition review checklists
 - `plugins/cv-tailoring/skills/cv-tailoring/references/cv-market-research.md` — JD research and company signal patterns
 - `plugins/cv-tailoring/skills/cv-tailoring/references/cv-tracker.md` — application tracker schema (Google Sheets, in GDrive)
-- `plugins/cv-tailoring/skills/cv-tailoring/scripts/validate_cv.py` — automated Phase 5.3 checks (page count, em/en dashes, bullet wraps, role-page-splits)
+- `plugins/cv-tailoring/skills/cv-tailoring/scripts/validate_cv.py` — automated Phase 5.3 checks (page count, em/en dashes, bullet wraps, role-page-splits, Author metadata)
+- `plugins/cv-tailoring/skills/cv-tailoring/scripts/build_cv_reference.js` — reference docx-js implementation of the full house style
 
 **Recent Results:**
 - **Monzo Chief of Staff to CPO:** 60% → 91% ATS coverage
@@ -48,6 +49,16 @@ Tailors a CV to a job description using a 9-phase workflow: intake → research 
 ---
 
 ## Version History
+
+**v1.8.0 (Sep 17, 2026):**
+- House style confirmed: plain Calibri 10.5pt uniform, A4, navy/grey colour,
+  square bullets, hyperlinked contact details, "Profile Summary" heading —
+  supersedes all earlier Calibri Light / US Letter / black-and-white / round
+  bullet guidance. No more open question from v1.7.0.
+- Added DOCX/PDF authenticity metadata requirement (Author = "Hiran Patel")
+  with an automated check in `validate_cv.py` (5th check, tested both ways)
+- Added `scripts/build_cv_reference.js`, a working reference implementation
+  of the full house style
 
 **v1.7.0 (Sep 17, 2026):**
 - Added `scripts/validate_cv.py`: automated Phase 5.3 validation (page count,
