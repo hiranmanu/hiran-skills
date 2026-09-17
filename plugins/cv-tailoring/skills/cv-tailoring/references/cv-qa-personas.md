@@ -1,10 +1,10 @@
 # QA: Hiring Manager & Talent Acquisition Personas
 
-After generating the CV (Phase 4) and before logging to the tracker (Phase 7), review the tailored CV from two independent personas — this is Phase 5.5, see `cv-decision-gates.md` for the pass/fail logic:
+Reviewed on the **draft text from Phase 4, before rendering** — this is Phase 5.1, see `cv-decision-gates.md` for the pass/fail loop-back logic:
 
-**Skipped in Quick mode** — Phase 5.3's automated validation is the only
-gate. Run in full for Balanced (single pass, no loop back) and Full Manual
-(up to 2 rewrite loops).
+**Skipped in Quick mode** — Phase 5.3's automated format validation (which
+runs after rendering) is the only gate. Run in full for Balanced (single
+pass, no loop back) and Full Manual (up to 2 rewrite loops).
 
 1. **Hiring Manager Lens** — Does this CV make them want to interview this person?
 2. **Talent Acquisition Lens** — Does this CV actually pass the ATS + get flagged for the right reasons?
@@ -70,7 +70,7 @@ The TA/recruiter cares about:
 - [ ] Do JD keywords appear in the profile + top 2-3 bullets?
 - [ ] Does the title clearly match what they're searching for?
 - [ ] Are the most relevant bullets within each role surfaced first?
-- [ ] Does the skills section read as tailored, not generic?
+- [ ] Does the skills line lead with JD keywords, with any 1-2 non-JD additions genuinely true and placed last (per `cv-formatting.md`)?
 - [ ] Would an ATS text extractor find the keywords easily?
 
-If both pass, move to Phase 6 (summary report), then Phase 7 (log to tracker). If either fails, flag which lens failed and rewrite that section per `cv-decision-gates.md`.
+If both pass, proceed to Render, then Phase 5.3 (format validation). If either fails, flag which lens failed and loop back per `cv-decision-gates.md` — this happens on the text, before any rendering, so a fix costs nothing but a re-read.

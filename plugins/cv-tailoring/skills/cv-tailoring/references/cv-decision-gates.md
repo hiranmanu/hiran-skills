@@ -1,6 +1,6 @@
 # Decision Gates & Rewrite Loops
 
-Explicit logic for what happens when checks fail, how to resolve conflicts, and when to ship vs. iterate.
+Explicit logic for what happens when checks fail, how to resolve conflicts, and when to ship vs. iterate. This file owns the *decision logic* — pass/fail, loop targets, conflict resolution. It doesn't restate the QA checklists themselves; those live in `cv-qa-personas.md` so there's one copy, not two.
 
 ---
 
@@ -38,9 +38,65 @@ Explicit logic for what happens when checks fail, how to resolve conflicts, and 
 
 ---
 
-## Phase 5.3: Validation → Decision Gate
+## Phase 5.1: QA Personas → Decision Gate (runs BEFORE rendering, on draft text)
 
-**Input:** Generated PDF of tailored CV
+**Input:** Draft profile, skills, and bullets from Phase 4 — no rendered file exists yet. Full checklists (with the reasoning and red/green-flag detail behind each check) live in `cv-qa-personas.md` — read that first, then come back here for what to do on failure.
+
+Two independent lenses, both must pass: **Hiring Manager (HM)** and **Talent Acquisition (TA)**.
+
+### HM Lens fails
+
+**Action:**
+1. Identify which check failed (see `cv-qa-personas.md`'s HM checklist)
+2. Loop back to Phase 4.1 (profile rewrite) if problem understanding is weak
+3. Loop back to Phase 4.3 (bullet matching) if lacking metrics or hands-on IC visibility
+4. Loop back to Phase 4.4 (bullet reordering) if recency/scale mismatch
+5. Re-run Phase 5.1 on the revised draft text (still pre-render — no render cost yet)
+6. If pass, proceed to Render
+
+### TA Lens fails
+
+**Action:**
+1. Identify which check failed (see `cv-qa-personas.md`'s TA checklist)
+2. Loop back to Phase 4.1 (profile rewrite) if keywords missing or title mismatches
+3. Loop back to Phase 4.2 (skills section regenerate) if tools are speculative
+4. Loop back to Phase 4.4 (bullet reordering) if relevant bullets buried
+5. Re-run Phase 5.1 on the revised draft text
+6. If pass, proceed to Render
+
+### Conflict Resolution: HM Pass, TA Fail (or vice versa)
+
+**If HM passes but TA fails:**
+- TA failures are about discoverability (ATS, keyword matching, title matching)
+- Fix with targeted Phase 4.1 (profile rewrite) to add keywords and mirror title
+- Re-run Phase 5.1; if TA passes, HM usually still passes (we didn't remove impact)
+
+**If TA passes but HM fails:**
+- HM failures are about execution/impact clarity (numbers, hands-on IC, scale)
+- Fix with targeted Phase 4.3 (bullet matching) to add metrics or Phase 4.4 (reordering) to surface execution
+- Re-run Phase 5.1; if HM passes, TA usually still passes (we didn't remove keywords)
+
+**If both fail:**
+- Loop back to Phase 4.1 (full profile rewrite incorporating keywords AND impact)
+- Then Phase 4.2 (skills regenerate)
+- Then Phase 4.4 (reorder to surface both keywords and metrics)
+- Re-run Phase 5.1
+
+### Both Lenses Pass
+
+**Action:** Proceed to Render, then Phase 5.3.
+
+---
+
+## Render
+
+Renders DOCX + PDF from the text that just passed Phase 5.1. See `cv-tailoring.md` "Render" section for the mechanics (filenames, GDrive path, metadata).
+
+---
+
+## Phase 5.3: Format Validation → Decision Gate (runs AFTER rendering)
+
+**Input:** Rendered PDF of the tailored CV.
 
 **Run, in order, every time:**
 1. Render and look at it — use the `docx` skill's verify step:
@@ -58,6 +114,9 @@ Explicit logic for what happens when checks fail, how to resolve conflicts, and 
    table, text box, multi-column section) will confuse a real ATS parser
    too — fix the layout, don't just accept the garbled extraction.
 
+These are render-dependent by nature — they can't be checked on draft text,
+which is why they run after Render rather than folded into Phase 5.1.
+
 ### Check 1 Fails: Em-dashes Found
 
 **Root cause:** Likely in profile, bullets, or role context line
@@ -67,9 +126,9 @@ Explicit logic for what happens when checks fail, how to resolve conflicts, and 
 2. Loop back to Phase 4.1 (profile rewrite) if em-dashes in profile
 3. Or loop back to Phase 4.3 (bullet matching) if em-dashes in bullets
 4. Replace em-dashes with commas, semicolons, or split into two sentences
-5. Re-render DOCX → PDF
-6. Re-validate
-7. If pass, proceed to Phase 5.5
+5. Re-render DOCX → PDF (no need to re-run Phase 5.1 for a punctuation-only fix)
+6. Re-validate (Phase 5.3)
+7. If pass, proceed to Phase 6
 
 ### Check 2 Fails: Bullet Wraps to Second Line
 
@@ -80,8 +139,8 @@ Explicit logic for what happens when checks fail, how to resolve conflicts, and 
 2. Loop back to Phase 4.4 (bullet reordering/shortening)
 3. Trim each over-budget bullet: cut adjectives, collapse phrases, or break into two separate points (only if justified)
 4. Re-render DOCX → PDF
-5. Re-validate
-6. If pass, proceed to Phase 5.5
+5. Re-validate (Phase 5.3) — and re-run Phase 5.1 only if the trim removed a keyword or metric, since that's a content change, not just a formatting one
+6. If pass, proceed to Phase 6
 
 ### Check 3 Fails: pdftotext Unreadable
 
@@ -91,87 +150,12 @@ Explicit logic for what happens when checks fail, how to resolve conflicts, and 
 1. Re-generate DOCX from scratch (suspected rendering issue)
 2. Simplify formatting: remove tables, remove bold/italics if present, use plain Calibri Light only
 3. Re-render PDF
-4. Re-validate
+4. Re-validate (Phase 5.3)
 5. If still fails, ask user: "PDF extraction failed. Suspect formatting issue. Should I regenerate with simpler structure?"
 
 ### All Checks Pass
 
-**Action:**
-1. Proceed to Phase 5.5 (QA Personas review)
-
----
-
-## Phase 5.5: QA Personas → Decision Gate
-
-Two independent review lenses: **Hiring Manager (HM)** and **Talent Acquisition (TA)**. Both must pass.
-
-### Hiring Manager Lens: Checks
-
-1. **Specific problem understanding:** Does the CV show that you understood the role's core challenge? (e.g., "search/discovery is central to this role, and I've done this work at scale")
-2. **3+ numbers in top bullets:** Do top 1-2 bullets per role include metrics? (e.g., "500M+ queries," "40% growth")
-3. **Hands-on IC visible:** If JD emphasizes "hands-on," does the CV show execution, not just oversight?
-4. **Scale match:** Does the CV's scale (team size, revenue impact, user count) match the role's scale?
-5. **Recency:** Are the most relevant achievements recent enough? (Within last 5 years is typical for IC roles)
-
-**Fails if:**
-- Top bullets lack numbers or impact statements
-- "Hands-on IC" emphasis in JD but CV shows only management
-- Scale mismatch (e.g., led 100-person team for IC role)
-- Most relevant work is >8 years old
-
-**Action if fails:**
-1. Identify which check failed
-2. Loop back to Phase 4.1 (profile rewrite) if problem understanding is weak
-3. Loop back to Phase 4.3 (bullet matching) if lacking metrics or hands-on IC visibility
-4. Loop back to Phase 4.4 (bullet reordering) if recency/scale mismatch
-5. Re-run QA Personas
-6. If pass, proceed to Phase 6
-
-### Talent Acquisition Lens: Checks
-
-1. **JD keywords in profile:** Do the first 2 sentences of the profile include 3-4 JD keywords? (e.g., "search," "discovery," "B2B SaaS")
-2. **Title matches search:** Does the profile title match (or reasonably align with) what a recruiter searches? (e.g., JD: "Senior Product Director" → Profile: "Senior Product Director" or "VP of Product")
-3. **Relevant bullets surfaced first:** Are JD-relevant bullets in the top 1-2 per role, not buried?
-4. **Skills section tailored:** Does the skills line include JD keywords only, no speculative tech?
-5. **LinkedIn URL present (Product roles only):** If this is a Product role, is LinkedIn URL in profile?
-
-**Fails if:**
-- Profile starts with generic "Product executive" instead of "Senior Product Director"
-- Keywords from JD (search, CDP, AI) missing from profile entirely
-- Most JD-relevant bullets are in the 3rd or 4th position of a role
-- Skills section includes tech not mentioned in JD
-- LinkedIn URL missing for Product role
-
-**Action if fails:**
-1. Identify which check failed
-2. Loop back to Phase 4.1 (profile rewrite) if keywords missing or title mismatches
-3. Loop back to Phase 4.2 (skills section regenerate) if tools are speculative
-4. Loop back to Phase 4.4 (bullet reordering) if relevant bullets buried
-5. Re-run QA Personas
-6. If pass, proceed to Phase 6
-
-### Conflict Resolution: HM Pass, TA Fail (or vice versa)
-
-**If HM passes but TA fails:**
-- TA failures are about discoverability (ATS, keyword matching, title matching)
-- Fix with targeted Phase 4.1 (profile rewrite) to add keywords and mirror title
-- Re-run QA; if TA passes, HM usually still passes (we didn't remove impact)
-
-**If TA passes but HM fails:**
-- HM failures are about execution/impact clarity (numbers, hands-on IC, scale)
-- Fix with targeted Phase 4.3 (bullet matching) to add metrics or Phase 4.4 (reordering) to surface execution
-- Re-run QA; if HM passes, TA usually still passes (we didn't remove keywords)
-
-**If both fail:**
-- Loop back to Phase 4.1 (full profile rewrite incorporating keywords AND impact)
-- Then Phase 4.2 (skills regenerate, JD-only)
-- Then Phase 4.4 (reorder to surface both keywords and metrics)
-- Re-run QA
-
-### All Checks Pass (Both HM & TA)
-
-**Action:**
-1. Proceed to Phase 6 (summary report)
+**Action:** Proceed to Phase 6 (summary report).
 
 ---
 
@@ -189,17 +173,17 @@ Two independent review lenses: **Hiring Manager (HM)** and **Talent Acquisition 
 ## When to Ship vs. Iterate
 
 ### Ship (accept the CV as-is, move to Phase 7):
-- All validation checks pass (Phase 5.3)
-- Both QA Personas pass (Phase 5.5)
+- Both QA Personas pass (Phase 5.1)
+- All format validation checks pass (Phase 5.3)
 - Gaps are documented in the summary report but not forcing fabrication
 
 ### Iterate (loop back to a phase):
-- Validation check fails → loop back to Phase 4.x (rewrite)
-- HM Lens fails → loop back to Phase 4.1 or 4.3 (metrics/execution)
-- TA Lens fails → loop back to Phase 4.1 or 4.2 (keywords/title)
-- User requests changes after QA → loop back to relevant phase (4.1, 4.2, 4.4)
+- HM Lens fails (Phase 5.1) → loop back to Phase 4.1 or 4.3 (metrics/execution)
+- TA Lens fails (Phase 5.1) → loop back to Phase 4.1 or 4.2 (keywords/title)
+- Format validation fails (Phase 5.3) → loop back to Phase 4.x (rewrite), re-render
+- User requests changes after either gate → loop back to relevant phase (4.1, 4.2, 4.4)
 
-**Max iterations:** Typically 2 full loops through 5.3-5.5. If still failing after 2 iterations, ship with notes and offer a follow-up session.
+**Max iterations:** Typically 2 full loops through 5.1 + Render + 5.3. If still failing after 2 iterations, ship with notes and offer a follow-up session.
 
 ---
 

@@ -6,7 +6,7 @@ Centralized configuration for file paths, source CVs, GDrive locations, and temp
 
 ## File Locations
 
-All paths are relative to `hiran-skills/cv-skill/` unless otherwise noted.
+All skill-file paths are relative to `plugins/cv-tailoring/skills/cv-tailoring/` unless otherwise noted (so `cv-formatting.md` in this table means `references/cv-formatting.md` from `SKILL.md`'s perspective). CV library and GDrive paths are absolute/GDrive-native as shown.
 
 | File | Path | Purpose |
 |------|------|---------|

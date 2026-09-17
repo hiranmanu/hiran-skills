@@ -2,6 +2,74 @@
 
 All notable changes to the cv-tailoring skill and supporting reference files are documented here.
 
+## [1.6.0] - 2026-09-17 (Real Plugin/Skill Structure)
+
+Every prior version of this repo would **not have loaded as an installable
+Claude Code skill**, verified against Claude Code's actual plugin reference
+docs. The requirements: a skill must be a directory containing a file
+literally named `SKILL.md`; a plugin needs `.claude-plugin/plugin.json`;
+a marketplace's `source` field points at a plugin directory, not a bare
+`.md` file. This repo had none of that — `cv-tailoring.md` sat in a flatly
+named `cv-skill/` folder with no `plugin.json` anywhere, and
+`.claude-plugin/marketplace.json`'s `source` pointed directly at the `.md`
+file. It worked only because Claude was being told by hand, in chat, to go
+read that file — not because `/plugin install` would have found it.
+
+**Restructured to:**
+```
+hiran-skills/
+├── .claude-plugin/marketplace.json
+└── plugins/cv-tailoring/
+    ├── .claude-plugin/plugin.json       (new — was missing entirely)
+    └── skills/cv-tailoring/
+        ├── SKILL.md                     (renamed from cv-tailoring.md)
+        └── references/                  (all 9 supporting files moved here)
+```
+
+- `cv-tailoring.md` → `SKILL.md`, moved into a directory named to match the
+  skill (`cv-tailoring/`), per the required `skill-name/SKILL.md` shape.
+- All 9 reference files moved into `references/`, loaded on demand rather
+  than sitting flat alongside the entrypoint — this is the documented
+  progressive-disclosure pattern, not a workaround.
+- Added `plugins/cv-tailoring/.claude-plugin/plugin.json`.
+- Fixed `.claude-plugin/marketplace.json`'s `source` to point at the plugin
+  directory (`./plugins/cv-tailoring`) instead of a bare file path.
+- Every internal reference in `SKILL.md` updated from bare filenames
+  (`cv-background.md`) to `references/cv-background.md`, since the
+  reference files now sit one level below the entrypoint.
+- `/plugin marketplace add hiranmanu/hiran-skills` and
+  `/plugin install cv-tailoring@hiran-skills` (README's own documented
+  install commands) should now actually resolve to something real.
+
+### QA/validation reordering
+
+Talent Acquisition and Hiring Manager lens checks (Phase 5.5, now 5.1) are
+pure text review — keywords, ordering, numbers, title — and don't need a
+rendered file. Only the format checks (em dashes, line wraps, `pdftotext`
+extraction) genuinely require a render. Previously both ran after
+rendering, meaning a content-only fix cost a full re-render to re-check.
+Reordered: **Phase 5.1 (QA personas) now runs on draft text before
+rendering; render happens once that passes; Phase 5.3 (format validation)
+runs on the render.** A punctuation or line-length fix no longer requires
+re-running the persona review; a keyword or wording fix does.
+
+### Deduplication
+
+`cv-decision-gates.md` and `cv-qa-personas.md` both contained the full HM/TA
+checklists (same 5+5 checks, described twice). `cv-qa-personas.md` is now
+the single source for the checklists themselves (with the reasoning and
+red/green-flag detail); `cv-decision-gates.md` keeps only the pass/fail
+loop-back logic and cross-references the checklist rather than restating it.
+
+### Skills-section policy
+
+Added a bounded "signature breadth" allowance to `cv-formatting.md`: up to
+1-2 truthful, non-JD skills may appear at the *end* of the skills line if
+genuinely differentiating for the role level — never ahead of a JD keyword,
+never counted toward the ATS score, never anything not already confirmed in
+`cv-background.md`. Addresses the risk that a fully JD-mirrored skills line
+under-signals genuine breadth.
+
 ## [1.5.0] - 2026-09-17 (Speed Modes Operationalized)
 
 README and SKILLS.md have described three workflow modes (Quick/Balanced/

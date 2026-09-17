@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "hiran-skills",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Hiran Patel's personal Claude skills library for CV tailoring, interview prep, and job search workflows",
   "owner": {
     "name": "Hiran Patel",
@@ -10,10 +10,10 @@
   "plugins": [
     {
       "name": "cv-tailoring",
-      "description": "Tailors a CV to a job description, scores ATS keyword coverage (target 85%+) via semantic clustering, generates DOCX + PDF, and logs the application to a Google Sheets tracker in GDrive. Includes board/investor, BI tool, and Design function assessment per role.",
-      "source": "./cv-skill/cv-tailoring.md",
+      "source": "./plugins/cv-tailoring",
+      "description": "Tailors a CV to a job description, scores ATS keyword coverage via semantic clustering, generates DOCX + PDF, and logs the application to a Google Sheets tracker in GDrive. Includes board/investor, BI tool, and Design function assessment per role.",
       "category": "productivity",
-      "version": "1.5.0"
+      "version": "1.6.0"
     }
   ]
 }

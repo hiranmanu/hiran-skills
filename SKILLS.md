@@ -1,20 +1,20 @@
 # Available Skills
 
-## cv-tailoring (v1.5.0)
+## cv-tailoring (v1.6.0)
 
 Tailors a CV to a job description using a 9-phase workflow: intake → research → gap assessment → discovery → ATS scoring → generation → validation/QA → summary → tracker sync.
 
 **Core Files:**
-- `cv-skill/cv-tailoring.md` — main orchestrator, Phases 0-7
-- `cv-skill/cv-background.md` — role facts, template selection, title blending rules; also the write target for Phase 2.5 discovery findings
-- `cv-skill/cv-formatting.md` — hard constraints (font, em-dashes, layout, character budgets, voice pattern)
-- `cv-skill/cv-config.md` — centralized configuration (file paths, GDrive IDs, workflow defaults)
-- `cv-skill/cv-decision-gates.md` — explicit phase decision logic and loop targets (authority on when to ask, when to skip, QA gates)
-- `cv-skill/cv-semantic-clusters.md` — keyword clustering lookup data (term mappings only — see cv-scoring.md for the method)
-- `cv-skill/cv-scoring.md` — ATS scoring method (single source of truth)
-- `cv-skill/cv-qa-personas.md` — Hiring Manager + Talent Acquisition review checklists
-- `cv-skill/cv-market-research.md` — JD research and company signal patterns
-- `cv-skill/cv-tracker.md` — application tracker schema (Google Sheets, in GDrive)
+- `plugins/cv-tailoring/skills/cv-tailoring/SKILL.md` — main orchestrator, Phases 0-7
+- `plugins/cv-tailoring/skills/cv-tailoring/references/cv-background.md` — role facts, template selection, title blending rules; also the write target for Phase 2.5 discovery findings
+- `plugins/cv-tailoring/skills/cv-tailoring/references/cv-formatting.md` — hard constraints (font, em-dashes, layout, character budgets, voice pattern)
+- `plugins/cv-tailoring/skills/cv-tailoring/references/cv-config.md` — centralized configuration (file paths, GDrive IDs, workflow defaults)
+- `plugins/cv-tailoring/skills/cv-tailoring/references/cv-decision-gates.md` — explicit phase decision logic and loop targets (authority on when to ask, when to skip, QA gates)
+- `plugins/cv-tailoring/skills/cv-tailoring/references/cv-semantic-clusters.md` — keyword clustering lookup data (term mappings only — see cv-scoring.md for the method)
+- `plugins/cv-tailoring/skills/cv-tailoring/references/cv-scoring.md` — ATS scoring method (single source of truth)
+- `plugins/cv-tailoring/skills/cv-tailoring/references/cv-qa-personas.md` — Hiring Manager + Talent Acquisition review checklists
+- `plugins/cv-tailoring/skills/cv-tailoring/references/cv-market-research.md` — JD research and company signal patterns
+- `plugins/cv-tailoring/skills/cv-tailoring/references/cv-tracker.md` — application tracker schema (Google Sheets, in GDrive)
 
 **Recent Results:**
 - **Monzo Chief of Staff to CPO:** 60% → 91% ATS coverage
@@ -47,6 +47,12 @@ Tailors a CV to a job description using a 9-phase workflow: intake → research 
 ---
 
 ## Version History
+
+**v1.6.0 (Sep 17, 2026):**
+- Restructured into the real Claude Code plugin/skill format: `plugins/cv-tailoring/skills/cv-tailoring/SKILL.md` + `references/` — previous versions would not have loaded via `/plugin install`
+- Reordered QA: persona review (5.1) now runs pre-render on draft text; format validation (5.3) runs post-render — avoids re-rendering for content-only fixes
+- Deduplicated HM/TA checklists (`cv-qa-personas.md` is now the single source)
+- Added bounded "signature breadth" allowance to the skills-section policy
 
 **v1.5.0 (Sep 17, 2026):**
 - Operationalized the Quick/Balanced/Full Manual speed modes in `cv-tailoring.md` Phase 0 (previously only described in README/SKILLS, never enforced)

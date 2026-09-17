@@ -7,23 +7,28 @@ Personal Claude Skills library for CV tailoring, interview prep, and job search 
 Each skill gets its own folder with files organized for clarity and maintainability:
 
 ```
-hiran-skills/
-├── cv-skill/
-│   ├── cv-tailoring.md                      # Main 9-phase orchestrator
-│   ├── cv-background.md                     # Role facts, template selection, title blending — also the write target for Phase 2.5 discovery
-│   ├── cv-formatting.md                     # Hard constraints + voice patterns
-│   ├── cv-config.md                         # Centralized configuration
-│   ├── cv-decision-gates.md                 # Phase decision logic (authority on loop targets)
-│   ├── cv-semantic-clusters.md              # Cluster lookup data only
-│   ├── cv-scoring.md                        # ATS methodology (single source of truth for the method)
-│   ├── cv-qa-personas.md                    # Hiring Manager + Talent Acquisition checklists
-│   ├── cv-market-research.md                # Research patterns
-│   └── cv-tracker.md                        # Tracker schema (GDrive/Sheets)
-├── interview-skill/                         # (Upcoming)
-├── linkedin-skill/                          # (Upcoming)
-├── .claude-plugin/marketplace.json          # Claude Code marketplace manifest (canonical)
-├── CHANGELOG.md                             # Version history
-├── SKILLS.md                                # Skill index
+hiran-skills/                                  # marketplace root
+├── .claude-plugin/
+│   └── marketplace.json                       # marketplace manifest — points at plugins/
+├── plugins/
+│   └── cv-tailoring/                          # the plugin
+│       ├── .claude-plugin/
+│       │   └── plugin.json                    # plugin metadata
+│       └── skills/
+│           └── cv-tailoring/                  # the actual skill Claude loads
+│               ├── SKILL.md                   # entrypoint — 9-phase orchestrator
+│               └── references/                # loaded on demand, not upfront
+│                   ├── cv-background.md        # role facts, template selection — write target for Phase 2.5
+│                   ├── cv-formatting.md        # hard constraints + voice patterns
+│                   ├── cv-config.md            # centralized configuration
+│                   ├── cv-decision-gates.md    # phase decision logic (loop targets)
+│                   ├── cv-semantic-clusters.md # cluster lookup data only
+│                   ├── cv-scoring.md           # ATS methodology (single source of truth)
+│                   ├── cv-qa-personas.md       # HM + TA checklists (single source of truth)
+│                   ├── cv-market-research.md   # research patterns
+│                   └── cv-tracker.md           # tracker schema (GDrive/Sheets)
+├── CHANGELOG.md
+├── SKILLS.md
 └── README.md
 ```
 
@@ -31,7 +36,7 @@ hiran-skills/
 
 See `SKILLS.md` for the current catalog.
 
-### cv-tailoring (v1.5.0)
+### cv-tailoring (v1.6.0)
 
 Tailors a CV to a job description for CPO/VP Product, Data Architect, Solution/Enterprise Architect, and related senior product/data roles.
 
@@ -87,7 +92,7 @@ git commit -m "Update: <description>"
 git push origin master
 ```
 
-When Hiran confirms new facts about past roles, update `cv-skill/cv-background.md` so the skill uses them without re-asking.
+When Hiran confirms new facts about past roles, update `plugins/cv-tailoring/skills/cv-tailoring/references/cv-background.md` so the skill uses them without re-asking.
 
 ## Recent Updates
 

@@ -22,12 +22,12 @@ responsibility the user hasn't stated. If a JD requirement has no real
 match, surface it as a gap. If a gap might be addressable via undocumented
 experience, run an experience-discovery interview. Otherwise, note it plainly.
 
-**Read `cv-formatting.md` before writing a single line.** It encodes
+**Read `references/cv-formatting.md` before writing a single line.** It encodes
 hard constraints (single-line bullets, no em dashes, keyword placement, font,
 layout) and voice patterns established over many prior sessions with this
 user — violating them is a bug, not a style choice.
 
-**Read `cv-background.md` in Phase 0 to select the correct template**
+**Read `references/cv-background.md` in Phase 0 to select the correct template**
 (PRODUCT_CV or DATA_ARCHITECT_CV) based on role type, and to check confirmed
 facts before flagging a gap.
 - Use PRODUCT_CV for: Product Director, VP of Product, CPO, Senior Product
@@ -52,19 +52,29 @@ section is never included in tailored output.
 
 | Phase | Name | Reference file |
 |---|---|---|
-| 0 | Intake & Context Assembly | `cv-background.md`, `cv-config.md` |
-| 1 | Job Research | `cv-market-research.md` |
-| 2 | Gap Assessment | `cv-background.md` |
-| 2.5 | Experience Discovery (if gaps exist) | `cv-background.md` (written back to) |
-| 3 | Scoring & Matching | `cv-scoring.md`, `cv-semantic-clusters.md` |
-| 4 | Generation | `cv-formatting.md` |
-| 5 | Validation & QA | `cv-decision-gates.md`, `cv-qa-personas.md` |
+| 0 | Intake & Context Assembly | `references/cv-background.md`, `references/cv-config.md` |
+| 1 | Job Research | `references/cv-market-research.md` |
+| 2 | Gap Assessment | `references/cv-background.md` |
+| 2.5 | Experience Discovery (if gaps exist) | `references/cv-background.md` (written back to) |
+| 3 | Scoring & Matching | `references/cv-scoring.md`, `references/cv-semantic-clusters.md` |
+| 4 | Generation (draft text) | `references/cv-formatting.md` |
+| 5.1 | QA Personas (on draft text, before render) | `references/cv-qa-personas.md`, `references/cv-decision-gates.md` |
+| — | Render DOCX + PDF | `references/cv-formatting.md` |
+| 5.3 | Format Validation (on the render) | `references/cv-decision-gates.md` |
 | 6 | Summary Report | — |
-| 7 | Tracker Sync | `cv-tracker.md` |
+| 7 | Tracker Sync | `references/cv-tracker.md` |
 
-For what happens when a phase fails a check, see `cv-decision-gates.md` —
+For what happens when a phase fails a check, see `references/cv-decision-gates.md` —
 that file is the authority on loop targets and pass/fail criteria; this file
 just orchestrates the sequence.
+
+**Why QA comes before rendering, not after:** the Hiring Manager and Talent
+Acquisition lenses (5.1) review keywords, numbers, ordering, and title —
+all text-level, all fixable without touching layout. Rendering is expensive
+to redo. So content gets reviewed and looped on *as text* first; only once
+it passes does it get rendered, and only render-dependent things (em dashes,
+line wraps, PDF text extraction) get checked after that. This avoids
+re-rendering a PDF just to fix a missing keyword.
 
 ## Phase 0 — Intake & Context Assembly
 
@@ -75,13 +85,13 @@ just orchestrates the sequence.
 4. No CV? Ask for one.
 
 **Reference files (always check these first):**
-- `cv-background.md` — confirmed facts per role (board/investor, BI tools,
+- `references/cv-background.md` — confirmed facts per role (board/investor, BI tools,
   Design involvement, CRM/CDP/MarTech, notable absences), template
   selection, and title-blending rules. This is also where Phase 2.5 writes
   new confirmed facts, so re-read it if this is a repeat session.
-- `cv-formatting.md` — hard constraints and voice on generation.
-- `cv-scoring.md` — ATS coverage methodology.
-- `cv-config.md` — file paths, GDrive folder IDs, workflow defaults.
+- `references/cv-formatting.md` — hard constraints and voice on generation.
+- `references/cv-scoring.md` — ATS coverage methodology.
+- `references/cv-config.md` — file paths, GDrive folder IDs, workflow defaults.
 
 **Job description input:**
 - Pasted text (full posting) — preferred
@@ -91,7 +101,7 @@ just orchestrates the sequence.
 
 **Speed mode.** Pick one before starting Phase 1 — this determines what
 gets skipped, not what gets rushed; the truth-preserving core principle and
-the Phase 5.3 validation checks never get skipped in any mode.
+the Phase 5.3 render-validation checks never get skipped in any mode.
 
 | | Quick | Balanced | Full Manual |
 |---|---|---|---|
@@ -99,8 +109,8 @@ the Phase 5.3 validation checks never get skipped in any mode.
 | **Phase 1 research** | Skip web research; parse the JD text only | Full research, one checkpoint | Full research, one checkpoint |
 | **Phase 1 checkpoint** | Skip — proceed straight to Phase 2 | Wait for confirmation | Wait for confirmation |
 | **Phase 2.5 discovery** | Skip entirely — genuine gaps ship noted, no interview | Only for gaps that move the ATS score materially (cap at 2-3 questions) | Full interview for every addressable gap |
+| **Phase 5.1 QA personas** | Skip — Phase 5.3 alone is the gate | Run once, no loop back if it's a near-pass on one lens only | Full, up to 2 rewrite loops |
 | **Phase 5.3 validation** | Full — never skipped | Full | Full |
-| **Phase 5.5 QA personas** | Skip — Phase 5.3 alone is the gate | Run once, no loop back if it's a near-pass on one lens only | Full, up to 2 rewrite loops |
 | **Phase 6 summary** | Short form: ATS score + gap list only | Full | Full |
 | **Typical time** | 1-2 min | 15-20 min | 90-135 min |
 
@@ -120,7 +130,7 @@ explicitly.
 
 ## Phase 1 — Job Research
 
-See `cv-market-research.md` for the full research and checkpoint procedure.
+See `references/cv-market-research.md` for the full research and checkpoint procedure.
 In brief: parse the JD into must-have / nice-to-have / implicit-signal
 buckets, research the company and role benchmark, then present a 2-3 line
 summary and wait for confirmation before proceeding — don't tailor against
@@ -128,13 +138,13 @@ an unconfirmed research read.
 
 ## Phase 2 — Gap Assessment
 
-**Always check `cv-background.md` first**, specifically the "Confirmed
+**Always check `references/cv-background.md` first**, specifically the "Confirmed
 Facts by Role" section — it often pre-closes a gap before you need to ask
 (e.g. board/investor exposure, BI tools, Design partnership, CRM/CDP/MarTech
 all have JD-matching hints there).
 
 Score each requirement: direct (90-100%) / transferable (75-89%) /
-adjacent (60-74%) / gap (<60%). See `cv-decision-gates.md` for the three
+adjacent (60-74%) / gap (<60%). See `references/cv-decision-gates.md` for the three
 paths a gap can take (genuine/not-recoverable, addressable, or doesn't
 actually exist).
 
@@ -143,7 +153,7 @@ with reasoning.
 
 ## Phase 2.5 — Experience Discovery (only if gaps exist)
 
-If a gap appears in a domain the user is senior in, or if `cv-background.md`
+If a gap appears in a domain the user is senior in, or if `references/cv-background.md`
 hints at undocumented experience, run a brief discovery interview:
 
 > I flagged a gap on "stakeholder reporting" but I noticed you have
@@ -151,13 +161,13 @@ hints at undocumented experience, run a brief discovery interview:
 > updates there?
 
 For each gap, ask:
-1. "Did you do this at [company] in [role]?" (check `cv-background.md` hints)
+1. "Did you do this at [company] in [role]?" (check `references/cv-background.md` hints)
 2. "How did you approach it? (Tools, outcomes?)"
 3. "Proof points (metrics, feedback, talks)?"
 
 Collect 1-2 sentences per gap. If confirmed:
 1. Rewrite a truthful bullet for this CV.
-2. **Append the confirmed fact to `cv-background.md` §2 (Confirmed Facts by
+2. **Append the confirmed fact to `references/cv-background.md` §2 (Confirmed Facts by
    Role)**, under the relevant role, with a JD-matching hint — the same
    format as the existing entries — so future sessions don't re-ask. This
    is the only way this interview's findings outlive the current session.
@@ -165,9 +175,9 @@ Collect 1-2 sentences per gap. If confirmed:
 ## Phase 3 — Scoring & Matching
 
 **ATS Coverage Score (before/after)**, using the semantic-clustering method
-in `cv-scoring.md` (cluster data lives in `cv-semantic-clusters.md`). This
+in `references/cv-scoring.md` (cluster data lives in `references/cv-semantic-clusters.md`). This
 is a **directional heuristic**, not a vendor algorithm — Workday, Greenhouse,
-and Taleo each score differently; see `cv-scoring.md` for that caveat in
+and Taleo each score differently; see `references/cv-scoring.md` for that caveat in
 full and don't restate it elsewhere.
 
 **Report:**
@@ -177,24 +187,36 @@ full and don't restate it elsewhere.
 
 Target 85%+.
 
-## Phase 4 — Generation
+## Phase 4 — Generation (draft text, not yet rendered)
 
-Produces the tailored DOCX + PDF. Read `cv-formatting.md` (hard constraints,
-voice pattern, character budgets) before starting. Four sub-steps, referenced
-by number from `cv-decision-gates.md`'s loop targets:
+Produces the tailored *text*, not the file yet — rendering happens after
+Phase 5.1 passes (see below). Read `references/cv-formatting.md` (hard constraints,
+voice pattern, character budgets) before starting. Four sub-steps,
+referenced by number from `references/cv-decision-gates.md`'s loop targets:
 
 - **4.1 Profile rewrite** — mirror the JD's title language, front-load 3-4
   JD keywords in the first two sentences, apply title blending only where
-  `cv-background.md` §3 justifies it (max 1-2 blended roles per CV).
-- **4.2 Skills section regenerate** — JD-only keywords, no speculative tech.
-  Organise by relevance to the JD's must-haves first.
+  `references/cv-background.md` §3 justifies it (max 1-2 blended roles per CV).
+- **4.2 Skills section regenerate** — JD-priority ordering (see
+  `references/cv-formatting.md` for the current policy on how many non-JD skills, if
+  any, can stay). No speculative tech — every skill listed must be true.
 - **4.3 Bullet matching** — assign the highest-confidence bullet per slot
   from Phase 3's scoring; use the Action + Number + Method + Scale voice
-  pattern from `cv-formatting.md`.
+  pattern from `references/cv-formatting.md`.
 - **4.4 Bullet reordering** — surface JD-relevant work first within each
   role, even if it means moving older achievements up.
 
-**Render:**
+## Phase 5.1 — QA Personas (on the draft text, before rendering)
+
+Two review lenses — Hiring Manager and Talent Acquisition — run on the
+**draft text from Phase 4**, not a rendered file. Full checklists and
+red/green-flag detail live in `references/cv-qa-personas.md`; pass/fail loop-back
+targets live in `references/cv-decision-gates.md`. Both lenses must pass before moving
+on. Skipped in Quick mode (see Phase 0's mode table).
+
+## Render
+
+Once Phase 5.1 passes:
 1. Render DOCX (use the `docx` skill for the mechanics; this file only
    covers what's CV-specific).
 2. Convert to PDF.
@@ -204,24 +226,22 @@ by number from `cv-decision-gates.md`'s loop targets:
    `2026.09.14_Monzo_ChiefOfStaff/` containing both files.
 5. Set DOCX/PDF core properties (Author) to the user's own name.
 
-## Phase 5 — Validation & QA
+## Phase 5.3 — Format Validation (on the render)
 
-Two gates, both defined in full in `cv-decision-gates.md` — this section is
-just the pointer:
+Checks that only make sense once a real file exists: no em dashes, no
+bullet wraps, `pdftotext -layout` reads clean. Full command sequence and
+loop-back targets in `references/cv-decision-gates.md` §5.3. On failure, fix the
+specific 4.x sub-step it points to, then **re-render only** (5.1 already
+passed on this text — no need to re-run the content review unless the fix
+changes wording meaningfully, e.g. trimming a bullet to fit the character
+budget).
 
-- **5.3 Validation checks** — no em dashes, no bullet wraps, `pdftotext
-  -layout` reads clean. On failure, loop back to the 4.x sub-step
-  `cv-decision-gates.md` specifies, re-render, re-validate.
-- **5.5 QA personas** — Hiring Manager lens and Talent Acquisition lens
-  (full checklists in `cv-qa-personas.md`). Both must pass. On failure,
-  loop back to the 4.x sub-step `cv-decision-gates.md` specifies.
-
-**Max iterations:** 2 full loops through 5.3-5.5. If still failing after 2,
-ship with notes and offer a follow-up session.
+**Max iterations:** 2 full loops through 5.1 and 5.3 combined. If still
+failing after 2, ship with notes and offer a follow-up session.
 
 ## Phase 6 — Summary Report
 
-After 5.3 and 5.5 both pass, output a markdown summary:
+After 5.1 and 5.3 both pass, output a markdown summary:
 
 ```markdown
 # CV Summary: [Company] – [Role]
@@ -238,7 +258,7 @@ After 5.3 and 5.5 both pass, output a markdown summary:
 
 ## Key Reframings & Bullet Reordering
 - Profile: Mirrored "[JD Title]" + surfaced [top 3 keywords]
-- Skills: Narrowed to JD-only keywords (removed speculative tech)
+- Skills: Narrowed to JD-priority order (removed speculative tech)
 - Top bullets: Reordered to surface [domain] work first
 - Titles: Blended [Functional Title] with [Actual Title] for role alignment
 
@@ -257,7 +277,7 @@ report.
 
 ## Phase 7 — Tracker Sync
 
-See `cv-tracker.md` for the full schema and update logic (a Google Sheets
+See `references/cv-tracker.md` for the full schema and update logic (a Google Sheets
 tab inside the `Interviews CV` GDrive folder, one row appended per run —
 never edits an existing row's Status).
 
@@ -276,9 +296,9 @@ Ask before logging:
 5. **User requests fabrication:** "I can reframe that, but it wouldn't be
    true. Here's what's actually there. Use as-is or leave blank?"
 6. **Multiple applications to same company:** Check the tracker (Phase 0).
-   See `cv-decision-gates.md` for same-role vs. different-role handling.
+   See `references/cv-decision-gates.md` for same-role vs. different-role handling.
 7. **Solution Architect / Enterprise Architect JD:** No template exists yet
-   (`cv-config.md`'s template rules flag this explicitly). Don't force
+   (`references/cv-config.md`'s template rules flag this explicitly). Don't force
    PRODUCT_CV or DATA_ARCHITECT_CV silently — ask whether to use one as a
    starting structure and build the variant now, or hold off.
 

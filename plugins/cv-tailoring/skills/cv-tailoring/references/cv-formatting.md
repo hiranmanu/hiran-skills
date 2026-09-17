@@ -65,8 +65,31 @@ Hard constraints and voice patterns for all CV tailoring. This covers both forma
 
 ### Skills Section Rules
 
-- **JD-only keywords, nothing speculative.** If the JD doesn't mention "Power BI" or "Looker," don't list BI tools by name. If the JD doesn't mention specific tech, don't invent a tech stack.
-- **Organize by relevance to the JD.** Top line: keywords from the JD's "must-have" section. Secondary lines: adjacent capabilities. Don't include irrelevant domains (e.g., "CPG, FMCG" if the JD is B2B SaaS with no retail mention).
+- **JD-priority ordering.** Top line: keywords from the JD's "must-have"
+  section — this is what both the ATS parser and a skimming recruiter hit
+  first, so it carries the keyword-density weight. Secondary lines:
+  adjacent capabilities relevant to the role.
+- **No speculative tech.** If the JD doesn't mention "Power BI" or "Looker,"
+  don't list BI tools by name unless it's a truthful, differentiating
+  addition per the rule below. Never invent a tech stack.
+- **Don't include irrelevant domains** (e.g., "CPG, FMCG" if the JD is B2B
+  SaaS with no retail mention) — this dilutes relevance, distinct from the
+  differentiator case below, which is deliberate and bounded.
+- **Signature breadth (optional, max 1-2 items, always last).** A CV that's
+  100% JD-mirrored can read as narrower than the person actually is —
+  losing the signal that they bring more than the minimum bar. Where a real,
+  truthful skill exists that JD keywords don't cover but that's genuinely
+  differentiating for this level of role (e.g., a Data Architect JD with no
+  mention of executive stakeholder communication, and the person has real
+  board-level reporting experience), it's fine to add up to 1-2 such items
+  at the *end* of the skills line, after every JD keyword. Rules for this:
+  - Never precedes a JD keyword in the line — density up front always wins.
+  - Never counts toward, or displaces, the ATS coverage score in Phase 3 —
+    it's for the human reader, not the parser.
+  - Must be something `cv-background.md` or the CV library already
+    confirms as true — this is never a place to test a claim.
+  - If it would push the line over the character budget below, cut it
+    before cutting a JD keyword.
 - **Format:** Dot-separated single line, no wraps. ~80-90 char budget per line.
 
 ### Validation Before Output
