@@ -46,6 +46,11 @@ This file maps role types and key terms to their semantic clusters so we can sco
 **Core keywords:** AdTech, measurement, attribution, programmatic, ad-serving, RTB, impression tracking, conversion tracking, brand safety, campaign optimization
 **Semantic cluster:** AdTech, advertising technology, programmatic advertising, real-time bidding, ad-serving, impression tracking, conversion tracking, attribution modeling, multi-touch attribution, brand safety, campaign optimization, audience targeting, retargeting, cross-device tracking, viewability, measurement framework, marketing mix modeling, incrementality testing
 
+**This file is lookup data only.** For the actual scoring method (how to
+use these clusters to compute a coverage percentage), see `cv-scoring.md` —
+don't duplicate that logic here; update it there and this file stays purely
+about which terms belong to which cluster.
+
 ## Term-to-Cluster Mapping (for scoring)
 
 When scoring a CV against a JD, if the JD mentions a key term, search the CV for:
@@ -77,16 +82,6 @@ Look for: first-party data, identity resolution, customer identity, privacy-safe
 ### If JD mentions "Retail Media" or "Measurement":
 Look for: retail media, measurement, attribution, brand safety, advertiser outcomes, clean rooms, customer data, data activation, measurement framework, media network, retail analytics
 
-## Scoring rule for semantic clusters
-
-1. Extract core keywords from JD
-2. For each core keyword, pull its semantic cluster (use this file)
-3. Count CV text matches against **core keyword + full cluster**
-4. Example:
-   - Core keyword: "MarTech" (1 point)
-   - Cluster matches: "marketing automation" + "Salesforce" + "lead scoring" (3 points)
-   - Total: 4 points found for the "MarTech" cluster
-5. Aggregate across all clusters
-6. Score = (total cluster points found) / (total possible cluster points)
-
-This catches "Salesforce integrations for marketing automation" in the CV even though it doesn't use the exact word "MarTech."
+See `cv-scoring.md` for how these clusters get turned into a coverage
+score — the mechanics (point-counting, weighting, worked example) live
+there so there's one method, not two.

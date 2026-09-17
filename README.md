@@ -9,21 +9,20 @@ Each skill gets its own folder with files organized for clarity and maintainabil
 ```
 hiran-skills/
 ├── cv-skill/
-│   ├── cv-tailoring.md                      # Main 9-phase workflow
-│   ├── cv-background.md                     # Role facts + template selection
+│   ├── cv-tailoring.md                      # Main 9-phase orchestrator
+│   ├── cv-background.md                     # Role facts, template selection, title blending — also the write target for Phase 2.5 discovery
 │   ├── cv-formatting.md                     # Hard constraints + voice patterns
 │   ├── cv-config.md                         # Centralized configuration
-│   ├── cv-decision-gates.md                 # Phase decision logic
-│   ├── cv-semantic-clusters.md              # Keyword clustering + scoring
-│   ├── cv-scoring.md                        # ATS methodology
-│   ├── cv-generation-and-qa.md              # QA checklist
+│   ├── cv-decision-gates.md                 # Phase decision logic (authority on loop targets)
+│   ├── cv-semantic-clusters.md              # Cluster lookup data only
+│   ├── cv-scoring.md                        # ATS methodology (single source of truth for the method)
+│   ├── cv-qa-personas.md                    # Hiring Manager + Talent Acquisition checklists
 │   ├── cv-market-research.md                # Research patterns
-│   └── cv-tracker.md                        # Tracker schema
+│   └── cv-tracker.md                        # Tracker schema (GDrive/Sheets)
 ├── interview-skill/                         # (Upcoming)
 ├── linkedin-skill/                          # (Upcoming)
-├── marketplace.json                         # Claude marketplace manifest
+├── .claude-plugin/marketplace.json          # Claude Code marketplace manifest (canonical)
 ├── CHANGELOG.md                             # Version history
-├── GOOD_TO_GREAT_PLAN.md                    # Improvement roadmap
 ├── SKILLS.md                                # Skill index
 └── README.md
 ```
@@ -32,20 +31,20 @@ hiran-skills/
 
 See `SKILLS.md` for the current catalog.
 
-### cv-tailoring (v1.3.0)
+### cv-tailoring (v1.5.0)
 
 Tailors a CV to a job description for CPO/VP Product, Data Architect, Solution/Enterprise Architect, and related senior product/data roles.
 
-**What it does:**
-1. Researches the role and company signals (Phase 1)
-2. Assesses gaps against JD requirements (Phase 2)
-3. Scores ATS keyword coverage before (baseline) and after (target 85%+) (Phase 3)
-4. Rewrites profile, skills, and bullets to match JD (Phase 4)
-5. Generates a tailored DOCX + PDF with proper formatting (Phase 5)
-6. Validates output against hard constraints and voice patterns (Phase 5)
-7. Generates QA checklist and application summary (Phase 6)
-8. Logs the application to `Hiran_Applications_Tracker.xlsx` (Phase 6)
-9. Uploads tailored files to GDrive (Phase 7)
+**What it does (Phases 0-7, see `cv-tailoring.md` for the full sequence):**
+1. Intake — load CV library and reference files (Phase 0)
+2. Researches the role and company signals (Phase 1)
+3. Assesses gaps against JD requirements, checking `cv-background.md` first (Phase 2)
+4. Runs a discovery interview for addressable gaps, writes confirmed facts back to `cv-background.md` (Phase 2.5)
+5. Scores ATS keyword coverage before/after via semantic clustering, target 85%+ (Phase 3)
+6. Rewrites profile, skills, and bullets to match the JD (Phase 4)
+7. Validates hard constraints (Phase 5.3) and reviews via Hiring Manager + Talent Acquisition lenses (Phase 5.5)
+8. Generates a summary report (Phase 6)
+9. Logs the application to the Google Sheets tracker in GDrive (Phase 7)
 
 **Recent Example:** TalentInternational Product Director role
 - **Before:** 64% ATS coverage (18/28 keywords)
@@ -62,14 +61,22 @@ Tailors a CV to a job description for CPO/VP Product, Data Architect, Solution/E
 
 ## Workflow
 
+Three speed modes, defined and enforced in `cv-tailoring.md` Phase 0 (not
+just described here — the orchestrator actually skips the right phases
+per mode):
+
 ### Quick (1-2 min)
-Fire & forget: Paste JD → get PDF → done. No gates, no review.
+Paste JD → get PDF → done. Skips web research and the discovery interview;
+never skips validation. Default when you just paste a JD with no other
+instruction.
 
 ### Balanced (15-20 min)
-Paste JD → 2-3 quick questions → generate → review once → upload. Recommended.
+Paste JD → 2-3 quick questions (only for gaps that move the ATS score) →
+generate → review once → upload.
 
 ### Full Manual (90-135 min)
-All 9 phases with discovery interview, gap assessment, QA, decision loops. Best for high-stakes roles or skill refinement.
+All 9 phases with full discovery interview, gap assessment, QA, decision
+loops. Best for high-stakes roles or skill refinement.
 
 ## Updating
 
@@ -84,10 +91,22 @@ When Hiran confirms new facts about past roles, update `cv-skill/cv-background.m
 
 ## Recent Updates
 
+**v1.5.0 (Sep 17, 2026) — Speed modes operationalized:**
+- The three workflow modes (Quick/Balanced/Full Manual) were described in this README but never implemented anywhere executable. `cv-tailoring.md` Phase 0 now has an explicit table mapping each mode to exactly which phases/checkpoints it skips, and `cv-market-research.md` / `cv-qa-personas.md` cross-reference it so they don't contradict it if read standalone.
+- Quick mode is now the default for a bare JD paste with no other instruction — skips company research and the discovery interview, never skips Phase 5.3 validation.
+- Added an explicit edge case for Solution/Enterprise Architect JDs (no template exists yet) so it surfaces mid-workflow instead of staying buried in `cv-config.md`.
+
+**v1.4.0 (Sep 17, 2026) — Integrity fix:**
+- Fixed broken references: `cv-tailoring.md` and `cv-decision-gates.md` pointed at `cv-job-context.md` / `cv-career-history-supplement.md` / `cv-formatting-rules.md`, none of which existed post-v1.3.0 merge. Everything now points at the real files (`cv-background.md`, `cv-formatting.md`).
+- Resolved two contradictory scoring methods (weighted keyword-only in `cv-tailoring.md` vs. semantic clustering in `cv-scoring.md`/`cv-semantic-clusters.md`) into one: `cv-scoring.md` is now the single source of truth for the method, `cv-semantic-clusters.md` holds lookup data only.
+- Renumbered phases consistently (0, 1, 2, 2.5, 3, 4 with sub-steps 4.1-4.4, 5 with 5.3/5.5, 6, 7) across `cv-tailoring.md`, `cv-decision-gates.md`, and `cv-qa-personas.md` — previously had two conflicting `Phase 6` headers and phase references (5.3, 5.5) with no matching headers anywhere.
+- Rewrote `cv-tracker.md`, which still described a local `Hiran_Applications_Tracker.xlsx` with no cross-tool sync, contradicting the GDrive/Google Sheets tracker described everywhere else.
+- Deleted `cv-generation-and-qa.md` (orphaned from a prior generation, contained a contradictory filename convention); its still-useful content (character-budget math, QA command sequence, metadata step) merged into `cv-formatting.md` and `cv-decision-gates.md`.
+- Deleted `GOOD_TO_GREAT_PLAN.md` — its structural findings are addressed by this fix; it never actually caught the broken references above.
+
 **v1.3.0 (Sep 15, 2026):**
 - File consolidation: merged formatting + voice guides, merged context + career history
 - Centralized configuration in `cv-config.md` with GDrive folder IDs and workflow defaults
 - Explicit decision gate logic in `cv-decision-gates.md` (Phase 2 gap paths, Phase 5 validation checks)
 - Enhanced semantic clusters: added Data Architect, Retail Media/First-Party Data, AdTech/Measurement clusters
-- Good to Great improvement plan with 14-18 hours of enhancement work (prioritized)
 - Tested full manual workflow on TalentInternational Product Director role: 64% → 93% ATS score

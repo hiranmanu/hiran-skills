@@ -1,20 +1,20 @@
 # Available Skills
 
-## cv-tailoring (v1.3.0)
+## cv-tailoring (v1.5.0)
 
-Tailors a CV to a job description using a 9-phase workflow: research → gap assessment → ATS scoring → tailoring → generation → validation → QA → logging → uploading.
+Tailors a CV to a job description using a 9-phase workflow: intake → research → gap assessment → discovery → ATS scoring → generation → validation/QA → summary → tracker sync.
 
 **Core Files:**
-- `cv-skill/cv-tailoring.md` — main 9-phase workflow definition
-- `cv-skill/cv-background.md` — role facts, template selection, title blending rules
-- `cv-skill/cv-formatting.md` — hard constraints (font, em-dashes, layout, voice pattern)
+- `cv-skill/cv-tailoring.md` — main orchestrator, Phases 0-7
+- `cv-skill/cv-background.md` — role facts, template selection, title blending rules; also the write target for Phase 2.5 discovery findings
+- `cv-skill/cv-formatting.md` — hard constraints (font, em-dashes, layout, character budgets, voice pattern)
 - `cv-skill/cv-config.md` — centralized configuration (file paths, GDrive IDs, workflow defaults)
-- `cv-skill/cv-decision-gates.md` — explicit phase decision logic (when to ask, when to skip, QA gates)
-- `cv-skill/cv-semantic-clusters.md` — keyword clustering, scoring methodology, term mappings
-- `cv-skill/cv-scoring.md` — ATS scoring baseline and methodology
-- `cv-skill/cv-generation-and-qa.md` — output validation checklist
+- `cv-skill/cv-decision-gates.md` — explicit phase decision logic and loop targets (authority on when to ask, when to skip, QA gates)
+- `cv-skill/cv-semantic-clusters.md` — keyword clustering lookup data (term mappings only — see cv-scoring.md for the method)
+- `cv-skill/cv-scoring.md` — ATS scoring method (single source of truth)
+- `cv-skill/cv-qa-personas.md` — Hiring Manager + Talent Acquisition review checklists
 - `cv-skill/cv-market-research.md` — JD research and company signal patterns
-- `cv-skill/cv-tracker.md` — application tracker workbook schema
+- `cv-skill/cv-tracker.md` — application tracker schema (Google Sheets, in GDrive)
 
 **Recent Results:**
 - **Monzo Chief of Staff to CPO:** 60% → 91% ATS coverage
@@ -47,6 +47,18 @@ Tailors a CV to a job description using a 9-phase workflow: research → gap ass
 ---
 
 ## Version History
+
+**v1.5.0 (Sep 17, 2026):**
+- Operationalized the Quick/Balanced/Full Manual speed modes in `cv-tailoring.md` Phase 0 (previously only described in README/SKILLS, never enforced)
+- Quick mode now the default for a bare JD paste — skips research and discovery, never skips validation
+- Added Solution/Enterprise Architect as an explicit edge case (template gap was buried in `cv-config.md` only)
+
+**v1.4.0 (Sep 17, 2026):**
+- Fixed broken file references left behind by the v1.3.0 merge (`cv-job-context.md`, `cv-career-history-supplement.md`, `cv-formatting-rules.md` no longer exist; all references now point at `cv-background.md` / `cv-formatting.md`)
+- Consolidated ATS scoring into one method (was two contradictory descriptions across `cv-tailoring.md` and `cv-scoring.md`)
+- Renumbered phases consistently everywhere (was two conflicting `Phase 6` headers, and `Phase 5.3`/`5.5` referenced with no matching sections)
+- Rewrote `cv-tracker.md` (was describing a local xlsx file, contradicting the GDrive/Sheets tracker described everywhere else)
+- Deleted `cv-generation-and-qa.md` (orphaned, wrong filename convention) and `GOOD_TO_GREAT_PLAN.md` (superseded); useful content merged into `cv-formatting.md` and `cv-decision-gates.md`
 
 **v1.3.0 (Sep 15, 2026):**
 - File consolidation: merged 12 files → 11 files (formatting + voice guides merged; context + career history merged)

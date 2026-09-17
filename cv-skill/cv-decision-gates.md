@@ -25,11 +25,11 @@ Explicit logic for what happens when checks fail, how to resolve conflicts, and 
 **Action:**
 1. Loop back to Phase 2.5 (experience discovery interview)
 2. Ask: "Did you do [specific work]? Can you tell me about it?"
-3. Add confirmed details to cv-career-history-supplement
+3. Add confirmed details to `cv-background.md` §2 (Confirmed Facts by Role)
 4. Continue to Phase 3 with updated base CV
 
 ### Path C: Gap Doesn't Actually Exist
-**Example:** JD says "board-level reporting experience" and cv-job-context.md already lists Hybrid Theory, OneAdvanced, dunnhumby.
+**Example:** JD says "board-level reporting experience" and `cv-background.md` §2 already lists Hybrid Theory, OneAdvanced, dunnhumby.
 
 **Action:**
 1. Close the gap immediately
@@ -42,10 +42,21 @@ Explicit logic for what happens when checks fail, how to resolve conflicts, and 
 
 **Input:** Generated PDF of tailored CV
 
-**Checks:**
-1. grep "—" on pdftotext output → 0 matches (no em-dashes)
-2. Visual PDF check → no bullets wrap to second line
-3. pdftotext -layout output → readable, sensible text extraction
+**Run, in order, every time:**
+1. Render and look at it — use the `docx` skill's verify step:
+   ```
+   python scripts/office/soffice.py --headless --convert-to pdf output.docx
+   pdftoppm -jpeg -r 100 output.pdf page
+   ```
+   Read the resulting page image(s).
+2. `grep "—" on pdftotext output` → 0 matches (no em-dashes)
+3. Visual PDF check → no bullets wrap to second line, skills line stays a
+   single flowing line, nothing overflows onto an unwanted second page
+4. `pdftotext -layout output.pdf -` → read it back; it should come back as
+   clean, ordered, readable text in the same sequence as the visual
+   document. Garbled, reordered, or dropped sections mean the layout (a
+   table, text box, multi-column section) will confuse a real ATS parser
+   too — fix the layout, don't just accept the garbled extraction.
 
 ### Check 1 Fails: Em-dashes Found
 

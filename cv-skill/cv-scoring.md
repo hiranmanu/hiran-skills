@@ -1,6 +1,8 @@
 # ATS Scoring Methodology
 
-This is a **transparent, repeatable heuristic**, not a vendor algorithm. Workday, Greenhouse, Taleo, etc. don't publish their methods, so this is a directional coverage signal.
+This is a **transparent, repeatable heuristic**, not a vendor algorithm. Workday, Greenhouse, Taleo, etc. don't publish their methods, so this is a directional coverage signal — this is the only place that caveat needs stating; don't repeat it elsewhere.
+
+**This is the single source of truth for the scoring method.** `cv-semantic-clusters.md` holds the cluster lookup data this method reads from — role-type clusters and term-to-cluster mappings — but the scoring logic itself lives only here.
 
 ## Method: Keyword Presence + Semantic Clustering Scoring
 

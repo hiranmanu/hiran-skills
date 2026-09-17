@@ -1,6 +1,8 @@
 # Background & Context Reference
 
-Confirmed facts and undocumented context about Hiran's background, organized by capability. Use this file in Phase 0 (before Phase 3's gap-confirmation pass) — it often pre-closes gaps before you ever need to ask.
+Confirmed facts and undocumented context about Hiran's background, organized by capability. Use this file in Phase 0 and Phase 2 — it often pre-closes gaps before you ever need to ask.
+
+**This file is also the write target for Phase 2.5 (Experience Discovery).** When a discovery interview confirms new experience, append it to §2 under the relevant role, in the same "fact + hint for JD matching" format as the existing entries. This is the only place confirmed-but-undocumented facts persist between sessions — there is no separate supplement file.
 
 ---
 

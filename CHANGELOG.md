@@ -2,6 +2,85 @@
 
 All notable changes to the cv-tailoring skill and supporting reference files are documented here.
 
+## [1.5.0] - 2026-09-17 (Speed Modes Operationalized)
+
+README and SKILLS.md have described three workflow modes (Quick/Balanced/
+Full Manual) since v1.2.0, but nothing in the actual skill files enforced
+them — there was no mechanism to skip anything. This is why running the
+skill always took the same time regardless of what was asked for.
+
+- `cv-tailoring.md` Phase 0 now has an explicit table: for each mode, which
+  phases run, which are skipped, and what's compressed. Phase 5.3
+  validation never gets skipped in any mode — only research, discovery,
+  and QA-persona review scale down.
+- Quick mode is the default when a JD is pasted with no other instruction.
+  Explicitly asking for the full workflow, or a JD that's clearly high-
+  stakes, should still trigger Full Manual.
+- `cv-market-research.md` and `cv-qa-personas.md` cross-reference the mode
+  table so they don't give contradictory instructions if read on their own
+  mid-workflow.
+- Added an explicit edge case (`cv-tailoring.md` §Edge Cases) for Solution
+  Architect / Enterprise Architect JDs — no template exists yet, and this
+  was previously only flagged in a `cv-config.md` table, easy to miss
+  mid-run.
+
+## [1.4.0] - 2026-09-17 (Integrity Fix — Broken References & Contradictions)
+
+The v1.3.0 "comprehensive audit" merged several files but never updated the
+files that pointed at them, and left two other real contradictions in
+place. This release fixes what actually broke a live run, not just style.
+
+### Broken references fixed
+- `cv-tailoring.md` Phase 0/2 and `cv-decision-gates.md` referenced
+  `cv-job-context.md` and `cv-career-history-supplement.md` — both were
+  merged into `cv-background.md` in v1.3.0, but the references were never
+  updated. Both files also referenced `cv-formatting-rules.md`, which was
+  merged into `cv-formatting.md` in the same release. All references now
+  point at the real files.
+- **Consequence of the bug:** Phase 2.5's experience-discovery interview had
+  no file to write confirmed facts back to. This is now `cv-background.md`
+  §2, explicitly documented as the append-only destination.
+
+### Contradictions resolved
+- **Scoring method.** `cv-tailoring.md` described weighted keyword-only
+  scoring (hard skills 2x, title 1.5x, domain 1x); `cv-scoring.md` and
+  `cv-semantic-clusters.md` described unweighted semantic-cluster scoring.
+  `cv-scoring.md` is now the single source of truth for the method;
+  `cv-semantic-clusters.md` holds cluster lookup data only.
+- **Tracker location.** `cv-tracker.md` still described a local
+  `Hiran_Applications_Tracker.xlsx` with "no cross-tool sync" — contradicting
+  `cv-config.md` and `cv-tailoring.md`, both of which describe a Google
+  Sheets tracker inside the GDrive `Interviews CV` folder. Rewrote
+  `cv-tracker.md` to match; noted the discrepancy explicitly in case the
+  GDrive assumption turns out to be the stale one instead.
+- **Filename convention.** `cv-generation-and-qa.md` used
+  `{FirstName}_{LastName}_{Company}_CV.docx`; every other file used
+  `{YYYY-MM-DD}_{Company}_{Role}`. Resolved by deleting the orphaned file
+  (see below) — the correct convention lives in `cv-formatting.md` and
+  `cv-config.md` only, once.
+
+### Phase numbering fixed
+`cv-tailoring.md` had two separate `## Phase 6` headers (Summary Report,
+then Tracker Sync) and an overlapping Phase 4/Phase 5 both titled
+"Generation." `cv-decision-gates.md` referenced "Phase 5.3" and "Phase 5.5"
+with no matching headers anywhere. Renumbered consistently: 0, 1, 2, 2.5,
+3, 4 (with sub-steps 4.1-4.4, now defined and matching the loop targets
+`cv-decision-gates.md` already used), 5 (5.3 validation, 5.5 QA personas),
+6, 7 — applied across `cv-tailoring.md`, `cv-decision-gates.md`, and
+`cv-qa-personas.md`.
+
+### Files removed
+- `cv-generation-and-qa.md` — orphaned from a pre-v1.3.0 generation (wrong
+  filename convention, duplicate line-wrap-budget content). Its still-useful
+  content (character-budget math, exact QA command sequence, metadata step)
+  merged into `cv-formatting.md` and `cv-decision-gates.md` §5.3.
+- `GOOD_TO_GREAT_PLAN.md` — a prior self-audit that proposed style/example
+  additions but never caught the structural breakage above; superseded by
+  this fix.
+- Top-level `marketplace.json` — a redundant, non-standard duplicate of
+  `.claude-plugin/marketplace.json` (the one Claude Code actually reads),
+  with its own separately-stale file list and version number.
+
 ## [1.3.0] - 2026-09-15 (Comprehensive Audit & File Consolidation)
 
 ### Merged Files (Consolidation for Clarity)

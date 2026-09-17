@@ -1,6 +1,10 @@
 # QA: Hiring Manager & Talent Acquisition Personas
 
-After generating the CV (Phase 5) and before logging to tracker (Phase 6), review the tailored CV from two independent personas:
+After generating the CV (Phase 4) and before logging to the tracker (Phase 7), review the tailored CV from two independent personas — this is Phase 5.5, see `cv-decision-gates.md` for the pass/fail logic:
+
+**Skipped in Quick mode** — Phase 5.3's automated validation is the only
+gate. Run in full for Balanced (single pass, no loop back) and Full Manual
+(up to 2 rewrite loops).
 
 1. **Hiring Manager Lens** — Does this CV make them want to interview this person?
 2. **Talent Acquisition Lens** — Does this CV actually pass the ATS + get flagged for the right reasons?
@@ -34,7 +38,7 @@ The hiring manager reads CVs that have already cleared ATS, so they're scanning 
 
 The TA/recruiter cares about:
 
-- **ATS clearance:** Did the CV pass keyword matching? (This is actually what you scored in Phase 3/5, but TAs also check: are the keywords *discoverable*, or buried in old work? Keywords front and center in the profile and skills = discovered. Keywords only in a 2019 role = discovered late or missed.)
+- **ATS clearance:** Did the CV pass keyword matching? (This is actually what you scored in Phase 3, but TAs also check: are the keywords *discoverable*, or buried in old work? Keywords front and center in the profile and skills = discovered. Keywords only in a 2019 role = discovered late or missed.)
 - **Keyword density:** Is the CV *packed* with the JD's keywords, or does it feel generic? TAs notice when a CV reads like "Oh, this wasn't tailored to us" vs. "This person did their research."
 - **Flag-ability:** Will this CV get flagged to the right hiring manager/team? Or will it land with the wrong team or get dismissed for missing a must-have? TAs check: do the must-haves show up *clearly* in the first half of the CV, or are they buried?
 - **Title alignment:** Does the headline/title match what they're searching for? If they're searching "Director" and the CV says "VP" or "Principal Consultant", will it get caught by the search, or will the TA have to manually add the CV? (Real limitation: many companies' internal search only matches exact title terms, not semantic clusters.)
@@ -69,4 +73,4 @@ The TA/recruiter cares about:
 - [ ] Does the skills section read as tailored, not generic?
 - [ ] Would an ATS text extractor find the keywords easily?
 
-If both pass, move to Phase 6 (log to tracker). If either fails, flag which lens failed and rewrite that section.
+If both pass, move to Phase 6 (summary report), then Phase 7 (log to tracker). If either fails, flag which lens failed and rewrite that section per `cv-decision-gates.md`.

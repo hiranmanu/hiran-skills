@@ -1,9 +1,15 @@
-# Applications tracker (Phase 6)
+# Applications tracker (Phase 7)
 
-A single workbook, `Hiran_Applications_Tracker.xlsx`, that this skill
-appends to every time it completes a tailoring run. Lives wherever the
-user's `resumes/` library lives — same working directory — so it travels
-with the library rather than being recreated per session.
+A Google Sheets tab named "Applications", inside the `Interviews CV` GDrive
+folder (see `cv-config.md` for the folder ID and Sheet ID), that this skill
+appends to every time it completes a tailoring run.
+
+**Note on history:** an earlier version of this skill tracked applications
+in a local `Hiran_Applications_Tracker.xlsx` file with no cross-tool sync.
+That changed with the move to GDrive-based output storage (Phase 4) — the
+tracker moved with it so both live in the same place. If you've reverted to
+a local workbook since, this file is the one that's now out of date, not
+`cv-config.md` / `cv-tailoring.md`.
 
 ## Schema (sheet: "Applications")
 
@@ -12,33 +18,25 @@ with the library rather than being recreated per session.
 | Date Applied | Date the user confirms they've actually submitted — not the date the CV was generated, if different. Ask if unclear. |
 | Company | Matches the filename convention's company name. |
 | Role Title | As stated in the JD. |
-| CV Variant | Which of the three base templates was used (see `formatting-rules.md`). |
+| CV Variant | PRODUCT_CV or DATA_ARCHITECT_CV (see `cv-background.md` §1). |
 | JD Source | URL if pasted as a link, else "Pasted text". |
 | ATS Score – Before | From Phase 3. |
-| ATS Score – After | From Phase 5. |
-| CV File Used | The exact filename generated. |
+| ATS Score – After | From Phase 3 (after tailoring). |
+| CV File Used | Link to the GDrive folder from Phase 4. |
 | Status | Applied / Screening / Interview / Offer / Rejected / Withdrawn — this user updates it manually after the fact; the skill only ever writes "Applied" on the row it creates. |
 | Next Action | Free text, optional. |
-| Notes | Free text, optional. |
+| Notes | Free text — gaps, differentiators, prep hints from the Phase 6 summary. |
 
 ## Update logic
 
-1. If `Hiran_Applications_Tracker.xlsx` doesn't exist yet, create it with
-   the xlsx skill: header row bold, one legend note in a cell above the
-   table explaining the Status column's allowed values, and one clearly-
-   marked example row ("EXAMPLE — delete me") showing realistic formatting.
-   Add a small summary block (Total applications, count by Status) using
-   `COUNTA`/`COUNTIF` — real formulas, not hardcoded numbers — and run
-   `recalc.py` before handing it over.
-2. If it exists, open it, append one new row at the bottom of the
-   Applications table (don't touch existing rows or the summary formulas),
-   and re-run `recalc.py` so the summary block picks up the new row.
-3. Never overwrite a user-edited Status cell — this skill only ever adds
+1. Append one new row at the bottom of the Applications table — don't touch
+   existing rows.
+2. Never overwrite a user-edited Status cell — this skill only ever adds
    new rows, never edits existing ones.
+3. Before logging, always ask for confirmation (see `cv-tailoring.md`
+   Phase 7) — don't log silently.
 
-## What this deliberately doesn't do
+## Multiple applications to same company/role
 
-No cross-tool sync (Google Sheets, Notion, etc.) — this user has said
-elsewhere he prefers no multi-tool integrations for this kind of thing, so
-the workbook stays a local file he can move himself if he wants it
-somewhere else.
+See `cv-decision-gates.md` "Multiple Applications to Same Company" for the
+reapplication vs. new-row logic.

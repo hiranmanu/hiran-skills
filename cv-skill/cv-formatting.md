@@ -7,8 +7,21 @@ Hard constraints and voice patterns for all CV tailoring. This covers both forma
 ### Content Rules
 
 - **No em dashes anywhere in generated CV text** — profile, bullets, role context lines, everything. Use a comma, colon, or semicolon instead, or split into two sentences. This matches the user's own writing register.
+  - Example: "Won $28M — the largest AdTech deal ever closed" → "Won $28M, the largest AdTech deal ever closed"
 - **No personality-trait bullets.** Never add "passionate about X" or "excited by Y." Facts only.
-- **Single-line bullets only.** No wraps to a second line. Character budget: ~90 chars including spaces for bulleted lines. Check lengths before rendering.
+- **Single-line bullets only.** No wraps to a second line. Budget the
+  character count *while writing*, not after export — catching a wrap after
+  render is too late to feel reliable. At Calibri 10.5pt on a US Letter page
+  with ~1" margins and a ~6.5" text width, a bulleted line (glyph + indent)
+  holds roughly 90-100 characters including spaces and punctuation; Aptos
+  11pt is slightly wider, so budget closer to 85-95 there. Treat 90 as the
+  safe target regardless of which font is confirmed. When a bullet
+  genuinely doesn't fit, cut a weaker clause rather than shrinking font
+  size or margins — those aren't available levers. This is a proactive
+  budget, not a guarantee: still run the QA sequence in
+  `cv-decision-gates.md` §5.3, since actual rendering also depends on
+  kerning and any bold runs (company names, metrics), which render wider
+  than plain text.
 - **Sub-bullets use rounded hole bullets (○), not em-dashes.** Replace em-dashes with ○ for secondary points (e.g., 2010-2015 Dunnhumby section).
 - **Blended titles (when appropriate).** When a past role's actual title undersold its real scope, prefix it with the functional title:
   - Format: `{Functional Title}, {Actual Title}`
@@ -68,6 +81,7 @@ Hard constraints and voice patterns for all CV tailoring. This covers both forma
 - [ ] Rounded hole bullets (○) used for sub-bullets, not em-dashes
 - [ ] LinkedIn URL present only for Product roles
 - [ ] Recommendations section removed
+- [ ] DOCX/PDF core properties (Author) set to the user's own name, not left as a generic tool default
 
 ---
 

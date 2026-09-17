@@ -16,8 +16,7 @@ All paths are relative to `hiran-skills/cv-skill/` unless otherwise noted.
 | Background Context | `cv-background.md` | Confirmed facts, template selection, title blending rules |
 | Semantic Clusters | `cv-semantic-clusters.md` | ATS scoring methodology and role-type clusters |
 | Market Research Prompts | `cv-market-research.md` | Company research, role benchmarking, JD parsing guidance |
-| Scoring Methodology | `cv-scoring.md` | Keyword presence + semantic clustering logic |
-| Generation Rules | `cv-generation-and-qa.md` | Line-wrap budgets, filename conventions, QA sequence |
+| Scoring Methodology | `cv-scoring.md` | Keyword presence + semantic clustering logic (single source of truth for the method) |
 | QA Personas | `cv-qa-personas.md` | Hiring Manager + Talent Acquisition review checklists |
 | Tailoring Orchestrator | `cv-tailoring.md` | Main workflow: Phases 0-7, decision gates, edge cases |
 | Tracker Schema | `cv-tracker.md` | Applications tracker structure and update rules |
@@ -103,7 +102,7 @@ What is the target role type?
 
 ## File Modification Notes
 
-- This file was last updated: 2026-09-15
+- This file was last updated: 2026-09-17
 - When adding new templates (e.g., Solution Architect), update this config first before creating new files
 - When changing GDrive paths, update both this config and the orchestrator (cv-tailoring.md Phase 0)
 - When adding new semantic clusters, update cv-semantic-clusters.md and the term-to-cluster mappings
