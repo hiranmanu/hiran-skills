@@ -241,6 +241,13 @@ failing after 2, ship with notes and offer a follow-up session.
 
 ## Phase 6 — Summary Report
 
+**Never skipped, in any mode** — Quick mode shortens it to ATS score + gap
+list only (see the mode table in Phase 0), it doesn't remove it. A chat
+session working without this file loaded is the likeliest way this gets
+silently dropped — it did, in practice, once. If you're generating a CV
+without `SKILL.md` in front of you, that's exactly the situation to watch
+for.
+
 After 5.1 and 5.3 both pass, output a markdown summary:
 
 ```markdown

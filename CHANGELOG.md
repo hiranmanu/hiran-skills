@@ -2,6 +2,35 @@
 
 All notable changes to the cv-tailoring skill and supporting reference files are documented here.
 
+## [1.10.0] - 2026-09-18 (Docx-Only Output, Widow/Orphan Rule, Phase 6 Enforcement)
+
+Three more chat-session gaps caught in the same conversation as v1.9.0,
+same root cause each time: working from prose memory instead of this repo.
+
+### Changed
+- **DOCX is now the sole deliverable; a chat session must not present a
+  self-generated PDF as the final output or as proof of correct
+  pagination.** LibreOffice substitutes Carlito for Calibri — close but
+  not identical — so its render can mis-predict line wraps and page
+  breaks versus real Word, which is exactly how the v1.9.0 pagination bug
+  happened. `cv-formatting.md` now has an explicit "Output Format"
+  section: ship the `.docx`, LibreOffice rendering stays an internal
+  structural gut-check only (`validate_cv.py` already worked this way
+  internally; the gap was only in what got *presented*).
+- **Profile Summary now has the same widow/orphan rule as Key Skills
+  rows:** a paragraph must not wrap to a final line of only 1-2 words.
+  Previously only bullets (never wrap) and skills rows (wrap fully or not
+  at all) had this covered — flowing prose paragraphs didn't.
+- **`SKILL.md`'s Phase 6 (Summary Report) now has an explicit "never
+  skipped" callout.** It was already documented as mandatory in every
+  speed mode, but a chat session working without this file in front of it
+  skipped it entirely for an entire CV-tailoring conversation. The
+  report costs a few hundred words of markdown and no extra research —
+  no material reason to skip it.
+
+### Housekeeping
+- Bumped `marketplace.json` and `plugin.json` versions to 1.10.0, kept in sync per the v1.9.0 fix.
+
 ## [1.9.0] - 2026-09-18 (Chat-Session Bug Fixes + Release Backfill)
 
 A chat session (no Claude Code, no repo mounted) generated a CV from this

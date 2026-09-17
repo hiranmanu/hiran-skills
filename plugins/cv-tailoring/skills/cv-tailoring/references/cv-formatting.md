@@ -115,18 +115,44 @@ A full reference implementation of every rule above (docx-js, Node) lives at
 `scripts/build_cv_reference.js` in this skill — copy and adapt it per JD
 rather than re-deriving the styling from prose each time.
 
-### ATS Parsing Rules
+### Output Format
 
-- **pdftotext -layout must be readable.** After generating PDF, run pdftotext and spot-check 3-4 bullets. They should parse as continuous text, not gibberish.
-- **No em dashes in PDF text output.** Grep the PDF text extract for "—". Must be zero.
-- **Exact filename format:** `{YYYY-MM-DD}_{Company}_{Role}.docx` and `.pdf`
+- **DOCX is the deliverable; don't self-generate a PDF as the final
+  artifact.** `soffice`/LibreOffice substitutes Carlito for Calibri, which
+  is close but not metric-identical — it can under- or over-predict line
+  wraps and page breaks versus real Word. Presenting a LibreOffice-rendered
+  PDF as if its pagination is authoritative is how the 3-page/role-split
+  bug happened: the DOCX looked correct against one renderer and wrong
+  against the other. Ship the `.docx`; Hiran exports the PDF himself from
+  real Word/Calibri when he needs one, which is the only render that
+  actually reflects what a reader will see.
+- **LibreOffice rendering is still fine as an internal structural
+  gut-check** (page count sanity, does the numbering config parse, is text
+  extractable) — just don't present that PDF to Hiran as a deliverable or
+  cite its exact page/line breaks as proof of anything. Treat its output
+  as "probably fine," not "verified."
+- **Filename format still applies to the DOCX:**
+  `{YYYY-MM-DD}_{Company}_{Role}.docx` (drop the `.pdf` half of the pair
+  described below unless a PDF is separately requested).
   - Example: `2026-09-14_TalentInternational_ProductDirector.docx`
   - Use ISO date format (YYYY-MM-DD) in filenames, folder-date format (YYYY.MM.DD) for GDrive subfolder names.
+
+### ATS Parsing Rules
+
+- **pdftotext -layout must be readable.** This still needs *a* rendered PDF to check against (LibreOffice's is fine for this — text extraction and em-dash grepping don't depend on exact font metrics the way pagination does), just don't hand that PDF to Hiran as the deliverable. Spot-check 3-4 bullets parse as continuous text, not gibberish.
+- **No em dashes in PDF text output.** Grep the PDF text extract for "—". Must be zero.
 
 ### Profile/Headline Rules
 
 - **Mirror JD role title language in the headline.** If the JD calls for "Senior Product Director," start with "Senior Product Director" not "Product executive."
 - **Front-load JD-relevant keywords in the first two sentences.** After the title, the next 30-40 words should hit 3-4 of the top keywords from the JD (search, discovery, recommendations, AI/LLMs, CRM, CDP, MarTech, etc.).
+- **No widow/orphan lines.** Same principle as the Key Skills rows below,
+  applied to Profile Summary's flowing prose: a paragraph must not wrap so
+  its final line holds only 1-2 words. Check this by rendering and reading
+  the actual wrap point, not by eyeballing sentence length — trim or
+  extend the sentence so the last line carries a reasonable fraction of
+  the line width. This applies to every paragraph in Profile Summary, not
+  just the last one in the section.
 - **Reflect hands-on IC positioning if the role requires it.** "Comfortable operating as a hands-on individual contributor" should appear if the JD emphasizes this.
 - **Include integration/collaboration language.** "Working directly with Engineering," "GTM collaboration," "Sales partnership" — these are keywords worth surfacing early.
 
@@ -189,6 +215,11 @@ a human look at the rendered page images.
 - [ ] Recommendations/References section removed (either label)
 - [ ] Each Key Skills row wraps to ~1.4-1.8 lines, not a 3rd line and not
       a 2nd line with only 1-3 orphan words
+- [ ] Profile Summary paragraphs don't wrap to a 1-2 word final line
+- [ ] Deliverable is the `.docx` — no self-generated PDF presented as the
+      final output or cited as pagination proof
+- [ ] Phase 6 summary report delivered alongside the file, every time —
+      see `SKILL.md` §Phase 6, no decision gate, never skipped
 
 ---
 

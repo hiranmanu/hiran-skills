@@ -39,7 +39,7 @@ hiran-skills/                                  # marketplace root
 
 See `SKILLS.md` for the current catalog.
 
-### cv-tailoring (v1.9.0)
+### cv-tailoring (v1.10.0)
 
 Tailors a CV to a job description for CPO/VP Product, Data Architect, Solution/Enterprise Architect, and related senior product/data roles.
 

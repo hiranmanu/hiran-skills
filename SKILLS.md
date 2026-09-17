@@ -1,6 +1,6 @@
 # Available Skills
 
-## cv-tailoring (v1.9.0)
+## cv-tailoring (v1.10.0)
 
 Tailors a CV to a job description using a 9-phase workflow: intake → research → gap assessment → discovery → ATS scoring → generation → validation/QA → summary → tracker sync.
 
@@ -49,6 +49,18 @@ Tailors a CV to a job description using a 9-phase workflow: intake → research 
 ---
 
 ## Version History
+
+**v1.10.0 (Sep 18, 2026):**
+- DOCX is now the sole deliverable — a chat session must not present a
+  self-generated LibreOffice PDF as final output or pagination proof
+  (Carlito vs. real Calibri metrics mismatch is exactly what caused the
+  v1.9.0 pagination bug); LibreOffice rendering stays an internal
+  structural check only
+- Added the same widow/orphan rule Key Skills rows got in v1.9.0 to
+  Profile Summary paragraphs: no wrapping to a 1-2 word final line
+- `SKILL.md` Phase 6 (Summary Report) now has an explicit "never skipped"
+  callout — a chat session working without this file loaded skipped it
+  entirely for a full CV-tailoring conversation
 
 **v1.9.0 (Sep 18, 2026):**
 - Fixed the LinkedIn URL in `cv-config.md`'s template table — it read
