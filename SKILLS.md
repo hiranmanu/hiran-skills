@@ -1,6 +1,6 @@
 # Available Skills
 
-## cv-tailoring (v1.8.0)
+## cv-tailoring (v1.9.0)
 
 Tailors a CV to a job description using a 9-phase workflow: intake → research → gap assessment → discovery → ATS scoring → generation → validation/QA → summary → tracker sync.
 
@@ -49,6 +49,34 @@ Tailors a CV to a job description using a 9-phase workflow: intake → research 
 ---
 
 ## Version History
+
+**v1.9.0 (Sep 18, 2026):**
+- Fixed the LinkedIn URL in `cv-config.md`'s template table — it read
+  `linkedin.com/in/hirankpatel` (wrong, no hyphen); corrected to
+  `linkedin.com/in/hiran-patel/` at the source, since a downstream chat
+  session had been pulling this stale value
+- Rewrote the Key Skills & Competencies rule in `cv-formatting.md` to match
+  the confirmed 3-row/middle-dot house style properly: each row should
+  wrap to ~1.4-1.8 lines, never a 3rd line and never a 2nd line with only
+  1-3 orphan words (previously this file still described the old
+  single-line-per-row/no-wrap model, contradicting the confirmed style)
+- Documented two real docx-js bugs hit by a chat session working without
+  this repo mounted: `TabStopPosition.MAX` is a fixed 9026-twip constant
+  that undershoots the true right margin on this A4/680-twip-margin
+  layout (dates weren't flush right); `PositionalTab` (`w:ptab`) renders
+  broken in LibreOffice. `build_cv_reference.js`'s `roleHeader()` already
+  had the correct explicit tab-stop math — added a README section telling
+  chat sessions to clone the repo and copy that file rather than
+  re-deriving the layout from prose
+- Broadened the "remove Recommendations section" rule to also cover a
+  "References" section/heading under either label — a chat session had
+  added one back under the different name
+- Backfilled GitHub Releases for v1.0.0 through v1.6.1 (previously only
+  v1.7.0 and v1.8.0 existed as Releases, even though `CHANGELOG.md` had
+  always documented the full history — this is likely what read as
+  "missing" release notes)
+- Bumped `.claude-plugin/marketplace.json`'s top-level version, which had
+  been stale at 1.4.0 since that file was first added
 
 **v1.8.0 (Sep 17, 2026):**
 - House style confirmed: plain Calibri 10.5pt uniform, A4, navy/grey colour,
@@ -105,7 +133,11 @@ Tailors a CV to a job description using a 9-phase workflow: intake → research 
 - All confirmed facts captured in cv-background.md (templates, Design ownership, BI tools, MarTech/CRM)
 
 **v1.1.0 (Sep 13, 2026):**
-- Initial release: 9-phase CV tailoring workflow
-- ATS scoring methodology with semantic cluster matching
-- Professional DOCX/PDF generation with formatting constraints
-- Application tracker integration
+- First full end-to-end workflow test (Monzo Chief of Staff → CPO tailoring): 60% → 91% ATS score
+- Added `cv-career-history-supplement.md`, `cv-formatting-rules.md`, `cv-generation-and-qa.md`, `cv-market-research.md`, `cv-scoring.md`, `cv-tracker.md`
+
+**v1.0.0 (Sep 13, 2026) — Initial release:**
+- 9-phase CV tailoring workflow (`cv-tailoring.md`, Phases 0-6)
+- Three CV template variants: CPO/VP Product, Data Architect, Solution Architect
+- Weighted-keyword ATS scoring, applications tracker workbook
+- GitHub repository initialized

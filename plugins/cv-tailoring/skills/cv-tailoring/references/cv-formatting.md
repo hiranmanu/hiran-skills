@@ -69,7 +69,15 @@ Light / US Letter / black-and-white guidance in this file's history:
   - Contact line: `London, UK | Phone | Email (hyperlinked, mailto:) | LinkedIn (hyperlinked)`
     — no parenthetical asides (e.g. don't add "(open to remote/global)")
   - Role dates: right-aligned via a tab stop, **not bold**, same size as
-    everything else
+    everything else. Compute the tab position explicitly from this
+    template's actual page width minus its margins — do NOT use docx-js's
+    `TabStopPosition.MAX`, which is a fixed 9026-twip constant tuned for a
+    different margin setup and undershoots the true right edge here (this
+    caused a real "dates aren't flush right" bug). Also avoid `PositionalTab`
+    (`w:ptab`) for this — it renders broken in LibreOffice (text runs into
+    the date with no space), which is how this got caught. `roleHeader()`
+    in `build_cv_reference.js` has the correct working tab-stop math; copy
+    it rather than re-deriving from scratch.
   - Dual nationality: appears once only, at the bottom under
     Qualifications/Personal Details, right-aligned to the same tab stop as
     role dates (`Languages: ... [tab] Joint Nationality: British & American`)
@@ -80,7 +88,10 @@ Light / US Letter / black-and-white guidance in this file's history:
     Architect CV does not) — hyperlinked (`mailto:` for email too), not
     plain text
 - **Section heading:** "Profile Summary", not "Profile" (ATS-friendly)
-- **Recommendations section:** Remove entirely for all roles
+- **Recommendations/References section:** Remove entirely for all roles —
+  applies to either label ("Recommendations" or "References"), and to a
+  placeholder line like "available on request" too. Don't add either
+  heading, even empty.
 - **Sections order:** Profile Summary, Key Skills & Competencies, Career & Key Achievements, Qualifications/Certifications/Personal Details
 - **Document authenticity metadata:** every generated `.docx` must set
   `creator` and `lastModifiedBy` to `"Hiran Patel"` (plus a real `title`,
@@ -146,7 +157,13 @@ rather than re-deriving the styling from prose each time.
     confirms as true — this is never a place to test a claim.
   - If it would push the line over the character budget below, cut it
     before cutting a JD keyword.
-- **Format:** Dot-separated single line, no wraps. ~80-90 char budget per line.
+- **Format:** exactly 3 rows, middle-dot (`\u00b7`) divider between items,
+  each row deliberately wrapping to roughly 1.4-1.8 lines — never a 3rd
+  line, and never a 2nd line with only 1-3 orphan words (that means the
+  row is under-filled: add more keywords to that row rather than leaving
+  a short spill). Balance by rendering and checking the actual wrap point
+  after adding/removing an item, not by eyeballing source-string length —
+  bold runs, punctuation density, and kerning all shift where it breaks.
 
 ### Validation Before Output
 
@@ -165,8 +182,13 @@ a human look at the rendered page images.
 - [ ] Keywords from JD surfaced in profile, skills, and top bullets
 - [ ] No keywords forced into bullets where they don't truthfully belong
 - [ ] Square bullets (▪) used for primary career bullets
-- [ ] LinkedIn URL present only for Product roles, and hyperlinked
-- [ ] Recommendations section removed
+- [ ] LinkedIn URL present only for Product roles, hyperlinked, and reads
+      `https://www.linkedin.com/in/hiran-patel/` exactly (confirmed URL —
+      `cv-config.md`'s table is the source of truth; if the two ever
+      disagree, `cv-config.md` is stale, not this line)
+- [ ] Recommendations/References section removed (either label)
+- [ ] Each Key Skills row wraps to ~1.4-1.8 lines, not a 3rd line and not
+      a 2nd line with only 1-3 orphan words
 
 ---
 

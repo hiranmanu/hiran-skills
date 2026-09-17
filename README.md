@@ -39,7 +39,7 @@ hiran-skills/                                  # marketplace root
 
 See `SKILLS.md` for the current catalog.
 
-### cv-tailoring (v1.6.1)
+### cv-tailoring (v1.9.0)
 
 Tailors a CV to a job description for CPO/VP Product, Data Architect, Solution/Enterprise Architect, and related senior product/data roles.
 
@@ -88,6 +88,19 @@ generate → review once → upload.
 All 9 phases with full discovery interview, gap assessment, QA, decision
 loops. Best for high-stakes roles or skill refinement.
 
+## Using this from a plain claude.ai chat (no Claude Code)
+
+A chat session without this repo mounted can't read these files directly,
+so it's tempting to regenerate the house style from memory/prose rules
+alone. That's how the TabStopPosition.MAX bug (dates not flush right) and
+the PositionalTab/LibreOffice bug got introduced in September 2026 — a
+chat session re-derived the docx-js layout from scratch instead of
+starting from the tested reference. If a chat session has shell/git
+access, it should `git clone` this repo first and copy
+`scripts/build_cv_reference.js` as the literal starting point (see that
+file's own header comment), rather than reimplementing `cv-formatting.md`'s
+rules from prose each time.
+
 ## Updating
 
 Push changes from Claude to GitHub:
@@ -130,6 +143,14 @@ When Hiran confirms new facts about past roles, update `plugins/cv-tailoring/ski
   (`hiranmanu/cv-tailoring-skill`), created in error instead of updating this
   one.
 
+**v1.6.1 (Sep 17, 2026) — Post-restructure QA sweep:**
+- Full per-file read-through after the v1.6.0 restructure rather than trusting the mechanical move; found and fixed 5 stale `cv-tailoring.md` self-references left over from the `SKILL.md` rename
+
+**v1.6.0 (Sep 17, 2026) — Real plugin/skill structure:**
+- Restructured into the shape Claude Code's plugin system actually requires (`plugins/cv-tailoring/skills/cv-tailoring/SKILL.md` + `.claude-plugin/plugin.json` + `references/`) — every prior version would not have loaded via `/plugin install`
+- Reordered QA: persona review now runs pre-render on draft text, format validation runs post-render, so a content-only fix no longer needs a re-render
+- Deduplicated the HM/TA checklists into one source of truth; added the bounded "signature breadth" allowance to the skills-section policy
+
 **v1.5.0 (Sep 17, 2026) — Speed modes operationalized:**
 - The three workflow modes (Quick/Balanced/Full Manual) were described in this README but never implemented anywhere executable. `cv-tailoring.md` Phase 0 now has an explicit table mapping each mode to exactly which phases/checkpoints it skips, and `cv-market-research.md` / `cv-qa-personas.md` cross-reference it so they don't contradict it if read standalone.
 - Quick mode is now the default for a bare JD paste with no other instruction — skips company research and the discovery interview, never skips Phase 5.3 validation.
@@ -149,3 +170,20 @@ When Hiran confirms new facts about past roles, update `plugins/cv-tailoring/ski
 - Explicit decision gate logic in `cv-decision-gates.md` (Phase 2 gap paths, Phase 5 validation checks)
 - Enhanced semantic clusters: added Data Architect, Retail Media/First-Party Data, AdTech/Measurement clusters
 - Tested full manual workflow on TalentInternational Product Director role: 64% → 93% ATS score
+
+**v1.2.0 (Sep 14, 2026):**
+- Semantic clustering for ATS scoring, QA personas framework (Hiring Manager + Talent Acquisition lenses, Phase 5.5), voice guide, and a refined title-blending rule (only 1-2 roles max per CV)
+- Added `cv-job-context.md`, `cv-semantic-clusters.md`, `cv-qa-personas.md`
+
+**v1.1.0 (Sep 13/14, 2026):**
+- First full end-to-end workflow test (Monzo Chief of Staff → CPO tailoring)
+- Added `cv-career-history-supplement.md`, `cv-formatting-rules.md`, `cv-generation-and-qa.md`, `cv-market-research.md`, `cv-scoring.md`, `cv-tracker.md`
+- ATS score on that test: 60% → 91%
+
+**v1.0.0 (Sep 13, 2026) — Initial release:**
+- `cv-tailoring.md` main skill doc (Phases 0-6), `cv-job-context.md` placeholder, three CV template variants (CPO/VP Product, Data Architect, Solution Architect), weighted-keyword ATS scoring, applications tracker workbook, GitHub repo initialized
+
+See `CHANGELOG.md` for the full detailed history (every version back to
+v1.0.0, with the specific files/bugs each one touched) and the repo's
+[Releases page](https://github.com/hiranmanu/hiran-skills/releases) for
+the same, one release per version.

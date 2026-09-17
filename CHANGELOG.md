@@ -2,6 +2,73 @@
 
 All notable changes to the cv-tailoring skill and supporting reference files are documented here.
 
+## [1.9.0] - 2026-09-18 (Chat-Session Bug Fixes + Release Backfill)
+
+A chat session (no Claude Code, no repo mounted) generated a CV from this
+repo's prose rules alone rather than the tested reference script, and hit
+two real docx-js bugs plus one stale data value in the process. Fixed at
+source rather than only in that session's output.
+
+### Fixed
+- **`cv-config.md`'s LinkedIn URL was wrong.** The PRODUCT_CV template row
+  read `linkedin.com/in/hirankpatel` (no hyphen) — corrected to
+  `linkedin.com/in/hiran-patel/`. `build_cv_reference.js` already had the
+  right URL; only the config table was stale. This is the actual root
+  cause of a chat session shipping a wrong LinkedIn link — it wasn't a
+  one-off typo, it was reading bad config.
+- **`cv-formatting.md`'s Skills Section Rules still described the old
+  model.** It said "single line, no wraps, ~80-90 char budget" — but the
+  confirmed house style (since v1.8.0) is 3 rows that deliberately wrap to
+  ~1.4-1.8 lines each. The file was never updated when the style changed,
+  so a session following it correctly still produced skills rows that
+  wrapped to a couple of orphan words on line 2 (technically "wrapping",
+  but not what "1.3-2 lines" was supposed to mean). Rewrote the rule to be
+  explicit: a 2nd line with only 1-3 words means the row needs more
+  keywords, not that it "wrapped correctly."
+- **Recommendations-section rule didn't cover "References."** A chat
+  session added a "References" section (different label, same thing the
+  rule was meant to ban). Broadened the rule to name both labels.
+
+### Documented (not code, but real bugs worth recording)
+- `TabStopPosition.MAX` in the `docx` npm package is a **fixed 9026-twip
+  constant**, not computed from the document's actual page/margin setup —
+  on this repo's A4 + 680-twip-margin layout it undershoots the true right
+  edge, so dates right-aligned with it fall short of flush-right. This is
+  why a re-derived-from-scratch chat session got "dates not far enough
+  right" even though the rule was followed. `build_cv_reference.js`'s
+  `roleHeader()` was never affected — it already computes the tab stop
+  explicitly from real margins — but nothing said *why* that mattered, so
+  a session without the file in front of it could easily reintroduce the
+  library-constant bug. Now documented directly in `cv-formatting.md`.
+- `PositionalTab` (OOXML `w:ptab`) **renders broken in LibreOffice** — text
+  ran directly into the following run with no space. Don't use it for
+  right-alignment in this pipeline regardless of what Word itself would do
+  with it, since `soffice`/`pdftoppm` is how validation renders happen.
+- Added a README section: a chat session with shell access should `git
+  clone` this repo and copy `build_cv_reference.js` as its literal
+  starting point, rather than reimplementing `cv-formatting.md`'s prose
+  rules from scratch each time — that reimplementation gap is what let
+  both bugs above happen despite the underlying rules already being
+  correct in this repo.
+
+### Housekeeping
+- `.claude-plugin/marketplace.json`'s top-level `version` had been stale
+  at `1.4.0` since the file was first added in v1.3.0 (only the nested
+  plugin entry's version was being bumped each release). Both now bumped
+  together, and kept in sync going forward.
+- `README.md`'s version badge (`### cv-tailoring (vX)`) had drifted to
+  `v1.6.1` while `CHANGELOG.md` and `plugin.json` were already at v1.8.0.
+- **GitHub Releases backfilled for v1.0.0 through v1.6.1.** Only v1.7.0
+  and v1.8.0 existed as actual Releases (vs. tags) before this — the full
+  history was always in this file, but wasn't visible on the repo's
+  Releases page, which reads as "missing" release notes even though
+  nothing was actually lost.
+- `README.md`'s "Recent Updates" section was missing v1.0.0-v1.2.0 and
+  v1.6.0/v1.6.1 entirely (jumped straight from v1.3.0 to nothing older,
+  and from v1.7.0 to v1.5.0 with a gap). `SKILLS.md`'s "Version History"
+  already had fuller coverage back to v1.1.0; backfilled the same content
+  into `README.md` and added the one entry (`v1.0.0`) neither file had.
+
 ## [1.8.0] - 2026-09-17 (House Style Confirmed + Authenticity Metadata)
 
 Hiran confirmed the other session's conventions (flagged as an open question

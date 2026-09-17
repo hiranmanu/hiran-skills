@@ -27,7 +27,7 @@ All skill-file paths are relative to `plugins/cv-tailoring/skills/cv-tailoring/`
 
 | Template | Filename | GDrive Folder | Purpose | LinkedIn URL? |
 |----------|----------|---------------|---------|----------------|
-| PRODUCT_CV | Hiran_Patel_CV_2Page.pdf | Interviews CV | Use for Product Director, VP of Product, CPO, Senior PM roles | Yes: `linkedin.com/in/hirankpatel` |
+| PRODUCT_CV | Hiran_Patel_CV_2Page.pdf | Interviews CV | Use for Product Director, VP of Product, CPO, Senior PM roles | Yes: `linkedin.com/in/hiran-patel/` |
 | DATA_ARCHITECT_CV | Hiran_Patel_CV_2Page_Data_Architect.pdf | Interviews CV | Use for Data Architect, Data Engineer, Analytics Engineer roles | No |
 
 **GDrive Folder ID:** `1_bf1bZ0OCzbFFOftwZNjQQ1q6QeFEg9v`
