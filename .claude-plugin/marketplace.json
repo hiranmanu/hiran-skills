@@ -13,7 +13,7 @@
       "source": "./plugins/cv-tailoring",
       "description": "Tailors a CV to a job description, scores ATS keyword coverage via semantic clustering, generates DOCX + PDF, and logs the application to a Google Sheets tracker in GDrive. Includes board/investor, BI tool, and Design function assessment per role.",
       "category": "productivity",
-      "version": "1.6.0"
+      "version": "1.6.1"
     }
   ]
 }

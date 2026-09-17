@@ -90,7 +90,7 @@ Two independent lenses, both must pass: **Hiring Manager (HM)** and **Talent Acq
 
 ## Render
 
-Renders DOCX + PDF from the text that just passed Phase 5.1. See `cv-tailoring.md` "Render" section for the mechanics (filenames, GDrive path, metadata).
+Renders DOCX + PDF from the text that just passed Phase 5.1. See `SKILL.md` "Render" section for the mechanics (filenames, GDrive path, metadata).
 
 ---
 

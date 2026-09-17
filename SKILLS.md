@@ -1,6 +1,6 @@
 # Available Skills
 
-## cv-tailoring (v1.6.0)
+## cv-tailoring (v1.6.1)
 
 Tailors a CV to a job description using a 9-phase workflow: intake → research → gap assessment → discovery → ATS scoring → generation → validation/QA → summary → tracker sync.
 
@@ -47,6 +47,9 @@ Tailors a CV to a job description using a 9-phase workflow: intake → research 
 ---
 
 ## Version History
+
+**v1.6.1 (Sep 17, 2026):**
+- Full per-file QA sweep after the v1.6.0 restructure: found and fixed 5 stale `cv-tailoring.md` self-references left over from the SKILL.md rename
 
 **v1.6.0 (Sep 17, 2026):**
 - Restructured into the real Claude Code plugin/skill format: `plugins/cv-tailoring/skills/cv-tailoring/SKILL.md` + `references/` — previous versions would not have loaded via `/plugin install`

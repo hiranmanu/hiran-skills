@@ -2,6 +2,29 @@
 
 All notable changes to the cv-tailoring skill and supporting reference files are documented here.
 
+## [1.6.1] - 2026-09-17 (Post-Restructure QA Sweep)
+
+After the v1.6.0 restructure (SKILL.md + references/), did a full per-file
+read-through rather than trust the mechanical move. Found and fixed 5 stale
+self-references the restructure left behind — the orchestrator was renamed
+from `cv-tailoring.md` to `SKILL.md`, but four reference files
+(`cv-config.md` x3, `cv-decision-gates.md`, `cv-market-research.md`,
+`cv-tracker.md` x2) still called it by its old name in prose:
+- `cv-config.md`: file-locations table, two decision-gate rows, and the
+  "file modification notes" section all said `cv-tailoring.md`
+- `cv-decision-gates.md`: the Render section pointed at `cv-tailoring.md`
+- `cv-market-research.md`: the Quick-mode skip note pointed at
+  `cv-tailoring.md`
+- `cv-tracker.md`: two references (the tracker-location note and the
+  logging-confirmation note) pointed at `cv-tailoring.md`
+
+Verified after fixing: `grep` sweep for `cv-tailoring.md` across
+`references/` returns nothing; every `Phase 4.x` / `5.x` mentioned anywhere
+in the skill is actually defined somewhere (no orphaned references left);
+`plugin.json` and `marketplace.json` parse as valid JSON and agree on name
+(`cv-tailoring`) and version (`1.6.0`); `SKILL.md` is 315 lines (under the
+500-line guidance) with a 66-word frontmatter description.
+
 ## [1.6.0] - 2026-09-17 (Real Plugin/Skill Structure)
 
 Every prior version of this repo would **not have loaded as an installable

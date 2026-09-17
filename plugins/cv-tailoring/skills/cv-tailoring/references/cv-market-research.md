@@ -4,7 +4,7 @@ Goal: build a short "success profile" that goes beyond the JD text itself,
 so tailoring targets what the role actually screens for, not just what the
 posting says.
 
-**Skip this entire file in Quick mode** (see `cv-tailoring.md` Phase 0's
+**Skip this entire file in Quick mode** (see `SKILL.md` Phase 0's
 speed-mode table) — parse the JD text directly and move to Phase 2. Use it
 in full for Balanced and Full Manual.
 

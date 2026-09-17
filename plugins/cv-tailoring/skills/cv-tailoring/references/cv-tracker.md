@@ -9,7 +9,7 @@ in a local `Hiran_Applications_Tracker.xlsx` file with no cross-tool sync.
 That changed with the move to GDrive-based output storage (Phase 4) — the
 tracker moved with it so both live in the same place. If you've reverted to
 a local workbook since, this file is the one that's now out of date, not
-`cv-config.md` / `cv-tailoring.md`.
+`cv-config.md` / `SKILL.md`.
 
 ## Schema (sheet: "Applications")
 
@@ -33,7 +33,7 @@ a local workbook since, this file is the one that's now out of date, not
    existing rows.
 2. Never overwrite a user-edited Status cell — this skill only ever adds
    new rows, never edits existing ones.
-3. Before logging, always ask for confirmation (see `cv-tailoring.md`
+3. Before logging, always ask for confirmation (see `SKILL.md`
    Phase 7) — don't log silently.
 
 ## Multiple applications to same company/role

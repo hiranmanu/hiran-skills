@@ -18,7 +18,7 @@ All skill-file paths are relative to `plugins/cv-tailoring/skills/cv-tailoring/`
 | Market Research Prompts | `cv-market-research.md` | Company research, role benchmarking, JD parsing guidance |
 | Scoring Methodology | `cv-scoring.md` | Keyword presence + semantic clustering logic (single source of truth for the method) |
 | QA Personas | `cv-qa-personas.md` | Hiring Manager + Talent Acquisition review checklists |
-| Tailoring Orchestrator | `cv-tailoring.md` | Main workflow: Phases 0-7, decision gates, edge cases |
+| Tailoring Orchestrator | `SKILL.md` (not in `references/` — sits one level up) | Main workflow: Phases 0-7, decision gates, edge cases |
 | Tracker Schema | `cv-tracker.md` | Applications tracker structure and update rules |
 
 ---
@@ -92,8 +92,8 @@ What is the target role type?
 |-----------|---------|-----------------|
 | ATS Target Score | 85%+ | JD complexity requires higher score (aim 90%+) |
 | Rewrite Loops | 2 iterations max per phase | Complex role requires 3+ iterations |
-| Decision Gate: Validation fails | Loop back to Phase 4.1 | See cv-tailoring.md for detailed logic |
-| Decision Gate: QA Personas fail | Loop back to Phase 4.1 or 4.2 | See cv-tailoring.md for detailed logic |
+| Decision Gate: Format validation fails (5.3) | Loop back to Phase 4.x, re-render | See `cv-decision-gates.md` for detailed logic |
+| Decision Gate: QA Personas fail (5.1) | Loop back to Phase 4.1 or 4.2, re-run 5.1 (no render yet) | See `cv-decision-gates.md` for detailed logic |
 | Recommendations Section | Remove for all roles | Never include in tailored output |
 | Blended Titles | Max 1-2 per CV | Never blend more than 1-2 roles per CV |
 | LinkedIn URL in output | Product roles only | Remove for Data Architect roles |
@@ -104,5 +104,5 @@ What is the target role type?
 
 - This file was last updated: 2026-09-17
 - When adding new templates (e.g., Solution Architect), update this config first before creating new files
-- When changing GDrive paths, update both this config and the orchestrator (cv-tailoring.md Phase 0)
+- When changing GDrive paths, update both this config and the orchestrator (`SKILL.md` Phase 0)
 - When adding new semantic clusters, update cv-semantic-clusters.md and the term-to-cluster mappings
