@@ -43,7 +43,7 @@ All generated CVs go to GDrive in timestamped folders.
 |---------|-------|-------|
 | Output Base Path | `Interviews CV/claude-output/` | Parent folder for all tailored CV outputs |
 | Folder Naming | `{YYYY.MM.DD}_{Company}_{Role}/` | Example: `2026.09.14_TalentInternational_ProductDirector/` |
-| File Naming (DOCX/PDF) | `{YYYY-MM-DD}_{Company}_{Role}` | Example: `2026-09-14_TalentInternational_ProductDirector.docx` |
+| File Naming (DOCX only) | `{YYYY-MM-DD}_{Company}_{Role}.docx` | Example: `2026-09-14_TalentInternational_ProductDirector.docx` — DOCX is the only deliverable, see `cv-formatting.md` "Output Format" |
 | Tracker Sheet ID | (stored in memory, see session context) | Applications tracking spreadsheet in Google Sheets |
 | Tracker Sheet Name | Applications | Tab name within tracker spreadsheet |
 
@@ -107,7 +107,7 @@ What is the target role type?
 
 ## File Modification Notes
 
-- This file was last updated: 2026-09-17
+- This file was last updated: 2026-09-18
 - When adding new templates (e.g., Solution Architect), update this config first before creating new files
 - When changing GDrive paths, update both this config and the orchestrator (`SKILL.md` Phase 0)
 - When adding new semantic clusters, update cv-semantic-clusters.md and the term-to-cluster mappings

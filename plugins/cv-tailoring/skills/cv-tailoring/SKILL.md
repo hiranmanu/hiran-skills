@@ -4,8 +4,8 @@ description: >
   Tailors a CV/resume to a specific job description for CPO/VP Product, Data
   Architect, Solution/Enterprise Architect, and related senior product/data
   roles. Scores ATS keyword coverage (target 85%+) via semantic clustering,
-  generates DOCX + PDF with timestamps, and syncs the application to a Google
-  Sheets tracker in GDrive. Supports batch processing of multiple JDs,
+  generates a timestamped DOCX (the only deliverable format), and syncs the
+  application to a Google Sheets tracker in GDrive. Supports batch processing of multiple JDs,
   experience discovery when gaps appear, and generates a summary report per CV.
 ---
 
@@ -59,7 +59,7 @@ section is never included in tailored output.
 | 3 | Scoring & Matching | `references/cv-scoring.md`, `references/cv-semantic-clusters.md` |
 | 4 | Generation (draft text) | `references/cv-formatting.md` |
 | 5.1 | QA Personas (on draft text, before render) | `references/cv-qa-personas.md`, `references/cv-decision-gates.md` |
-| — | Render DOCX + PDF | `references/cv-formatting.md` |
+| — | Render DOCX (internal PDF for validation only) | `references/cv-formatting.md` |
 | 5.3 | Format Validation (on the render) | `references/cv-decision-gates.md` |
 | 6 | Summary Report | — |
 | 7 | Tracker Sync | `references/cv-tracker.md` |
@@ -219,12 +219,16 @@ on. Skipped in Quick mode (see Phase 0's mode table).
 Once Phase 5.1 passes:
 1. Render DOCX (use the `docx` skill for the mechanics; this file only
    covers what's CV-specific).
-2. Convert to PDF.
-3. Filename: `{YYYY-MM-DD}_{Company}_{Role}` for both DOCX and PDF.
+2. **DOCX is the only deliverable** — see `references/cv-formatting.md`
+   "Output Format" for why a self-generated PDF is never presented as the
+   final artifact (font-substitution/pagination bug). A LibreOffice PDF is
+   still produced internally for Phase 5.3's validation checks, but it is
+   not shipped or stored as output.
+3. Filename: `{YYYY-MM-DD}_{Company}_{Role}.docx`.
 4. Output location: Google Drive `Interviews CV/claude-output/
    {YYYY.MM.DD}_{Company}_{Role}/` — example:
-   `2026.09.14_Monzo_ChiefOfStaff/` containing both files.
-5. Set DOCX/PDF core properties (Author) to the user's own name.
+   `2026.09.14_Monzo_ChiefOfStaff/` containing the `.docx`.
+5. Set DOCX core properties (Author) to the user's own name.
 
 ## Phase 5.3 — Format Validation (on the render)
 

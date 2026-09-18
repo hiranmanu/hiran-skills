@@ -90,7 +90,7 @@ Two independent lenses, both must pass: **Hiring Manager (HM)** and **Talent Acq
 
 ## Render
 
-Renders DOCX + PDF from the text that just passed Phase 5.1. See `SKILL.md` "Render" section for the mechanics (filenames, GDrive path, metadata).
+Renders the DOCX from the text that just passed Phase 5.1 (plus an internal-only PDF for Phase 5.3's validation checks — never a shipped deliverable). See `SKILL.md` "Render" section for the mechanics (filenames, GDrive path, metadata).
 
 ---
 

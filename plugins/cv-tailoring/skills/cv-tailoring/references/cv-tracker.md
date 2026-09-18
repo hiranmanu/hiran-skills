@@ -22,7 +22,7 @@ a local workbook since, this file is the one that's now out of date, not
 | JD Source | URL if pasted as a link, else "Pasted text". |
 | ATS Score – Before | From Phase 3. |
 | ATS Score – After | From Phase 3 (after tailoring). |
-| CV File Used | Link to the GDrive folder from Phase 4. |
+| CV File Used | Link to the GDrive folder from the Render phase (after 5.1, before 5.3). |
 | Status | Applied / Screening / Interview / Offer / Rejected / Withdrawn — this user updates it manually after the fact; the skill only ever writes "Applied" on the row it creates. |
 | Next Action | Free text, optional. |
 | Notes | Free text — gaps, differentiators, prep hints from the Phase 6 summary. |

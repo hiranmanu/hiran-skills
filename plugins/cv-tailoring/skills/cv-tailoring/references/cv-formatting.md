@@ -27,13 +27,11 @@ Hard constraints and voice patterns for all CV tailoring. This covers both forma
   (company names, metrics), which render wider than plain text.
 - **Career-history bullet marker is a small square (▪), not round.** Applies
   to primary bullets throughout the Career & Key Achievements section.
-- **Blended titles (when appropriate).** When a past role's actual title undersold its real scope, prefix it with the functional title:
-  - Format: `{Functional Title}, {Actual Title}`
-  - Example: `Head of Product, Principal AdTech Consultant` (Amazon)
-  - Example: `Senior Product Director, VP of Product` (OneAdvanced)
-  - **Critical rule:** Only blend 1-2 roles maximum per CV. Don't blend every role. Choose roles where the scope-to-title mismatch is genuinely significant and relevant to the JD. Blending all roles looks manufactured and fake.
-  - Rule: Only blend if the functional title genuinely matches the scope. Never manufacture a title that isn't true.
-  - For JD-specific tailoring: If the JD calls for "Product Director," and you held "VP of Product," blend it as `Senior Product Director, VP of Product` to show direct relevance without fabrication.
+- **Blended titles (when appropriate).** Full rules, examples, and the
+  when-not-to-blend cases live in `cv-background.md` §3 (single source of
+  truth) — this entry is just the pointer: format is
+  `{Functional Title}, {Actual Title}`, max 1-2 blended roles per CV, only
+  when the scope genuinely matches, never a title never held.
 - **Keyword placement in bullets.** When tailoring for a JD:
   - Lead with the keyword if possible: "Architected search and discovery infrastructure..." not "Built infrastructure for search and discovery..."
   - Reorder bullets to surface JD-relevant work first, even if it means moving older achievements up.

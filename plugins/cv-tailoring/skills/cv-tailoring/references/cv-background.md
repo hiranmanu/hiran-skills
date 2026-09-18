@@ -78,6 +78,10 @@ These stay flagged as gaps if the JD emphasizes them.
 
 ## Section 3: Title Blending Strategy (When Tailoring for Specific JDs)
 
+**This section is the single source of truth for title-blending rules.**
+`cv-formatting.md` only points here — don't duplicate the rules or examples
+back into that file.
+
 When a JD calls for a specific role title (e.g., "Product Director," "Senior Product Manager," "Solution Architect"), and prior experience includes related but differently-titled roles, use title blending in the "Career & Key Achievements" section.
 
 **Format:** `{Functional Title}, {Actual Title}`
