@@ -4,8 +4,7 @@
   "version": "1.12.0",
   "description": "Hiran Patel's personal Claude skills library for CV tailoring, interview prep, and job search workflows",
   "owner": {
-    "name": "Hiran Patel",
-    "email": "[redacted-email]"
+    "name": "Hiran Patel"
   },
   "plugins": [
     {

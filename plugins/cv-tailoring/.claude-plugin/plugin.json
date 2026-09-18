@@ -3,7 +3,6 @@
   "version": "1.11.2",
   "description": "Tailors a CV to a job description, scores ATS keyword coverage via semantic clustering, generates a timestamped DOCX, and logs the application to a Google Sheets tracker in GDrive.",
   "author": {
-    "name": "Hiran Patel",
-    "email": "[redacted-email]"
+    "name": "Hiran Patel"
   }
 }
