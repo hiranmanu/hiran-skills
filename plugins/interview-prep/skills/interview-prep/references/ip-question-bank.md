@@ -65,6 +65,42 @@ Tier by seniority if the interview stage is known (see `ip-config.md`):
 Rapid mode: 3 questions, still each tied to a Phase 1 fact — just fewer of
 them, not lower-quality ones.
 
+**Annotate each question with what it tests** (Standard/Deep) — a short
+line under each question naming what the answer will actually reveal
+(e.g. "tests whether 'strategy drives the business' is real authority or
+a line in the job spec"). This does double duty: it sharpens the question
+itself during generation, and it means the user knows what to listen for
+in the answer, not just what to ask.
+
+### Round-posture calibration
+
+Not every question belongs in every round — presuming too much too early
+reads worse than asking too little. Default posture by round, refine
+using any transcript debrief carried forward from a prior round (see
+`ip-transcript-debrief.md`):
+
+- **First conversation / initial screen:** lead with questions that
+  signal preparation without presuming an offer (decision rights, what
+  the strategic bet actually is). Soften anything time-bound ("how are
+  you thinking about the next few years" rather than asking for a
+  specific exit timeline cold). **Hold back** anything that presumes
+  mutual commitment not yet earned — reporting-line questions
+  ("will the team report to me") and comp/logistics specifics belong in
+  a later round, not round one.
+- **Middle rounds (hiring manager, panel):** the held-back questions from
+  round one become fair game, plus anything the transcript debrief
+  flagged as newly relevant.
+- **Final/diligence-adjacent rounds:** see `ip-diligence.md` — the
+  question list itself changes shape at this stage, not just its
+  content.
+
+Also present the north star/pitch material itself as a **hypothesis to
+pressure-test**, not a finished solution, in any round before the user
+has clear signal the company wants their point of view fully formed —
+"I've been thinking about where the highest leverage is here, keen to
+pressure-test it against what you're actually seeing day to day" invites
+correction rather than reading as "I've already solved your job."
+
 ## Part C — HR Screen Basics
 
 **Mandatory whenever the interview stage is HR/recruiter screen**, in

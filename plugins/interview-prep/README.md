@@ -1,4 +1,4 @@
-# interview-prep (v1.0.0)
+# interview-prep (v1.1.0)
 
 Builds interview intel from a job description and company name — not CV
 tailoring, interview prep specifically.
@@ -17,31 +17,46 @@ interview-prep/                                  # this plugin
 ├── CHANGELOG.md                                  # full version history for this plugin
 └── skills/
     └── interview-prep/                          # the actual skill Claude loads
-        ├── SKILL.md                             # entrypoint — 8-phase orchestrator
+        ├── SKILL.md                             # entrypoint — 11-phase orchestrator (3 conditional)
         └── references/                          # loaded on demand, not upfront
             ├── ip-config.md                      # speed modes, interview stages, output conventions
-            ├── ip-research.md                    # company research methodology
+            ├── ip-research.md                    # company + named-interviewer research methodology
             ├── ip-background.md                  # STAR story bank + confirmed career facts
             ├── ip-question-bank.md                # likely-Q/STAR, smart-questions, HR-screen basics
-            └── ip-dossier-template.md             # Phase 7 output structure
+            ├── ip-transcript-debrief.md           # Phase 1.5 — prior-round transcript reconciliation
+            ├── ip-diagrams.md                     # Phase 4.5 — optional strategic diagram pack
+            ├── ip-diligence.md                    # Phase 6.5 — final-round/diligence-level prep
+            └── ip-dossier-template.md             # Phase 7 output structure, append-only across rounds
 ```
 
-## What it does (Phases 0-7, see `skills/interview-prep/SKILL.md` for the full sequence)
+## What it does (see `skills/interview-prep/SKILL.md` for the full sequence)
 
-1. Intake — speed mode, interview stage, JD, company (Phase 0)
-2. Researches the company: site news, internet news, revenue model,
-   annual reports/earnings calls (Phase 1)
-3. Breaks the JD into must-have/nice-to-have/signal (Phase 2)
-4. Generates likely interviewer questions with STAR-format answers, pulled
+1. Intake — speed mode, interview stage, JD, company, prior-round material (Phase 0)
+2. Researches the company and named interviewers: entity check, site
+   news + partnership cadence, internet news, revenue model, annual
+   reports/earnings calls (Phase 1)
+3. **If a transcript/recording from a completed prior round exists:**
+   reconciles prior assumptions into Confirmed / Corrected / Genuinely New,
+   flags anything that changes next-round sequencing, and carries the
+   update forward (Phase 1.5, conditional)
+4. Breaks the JD into must-have/nice-to-have/signal (Phase 2)
+5. Generates likely interviewer questions with STAR-format answers, pulled
    from a real background story bank — never a fabricated metric (Phase 3)
-5. Generates smart questions to ask back, each tied to a specific fact
-   from the company research — no generic questions (Phase 4)
-6. Builds a self-introduction, length scaled to speed mode (Phase 5)
-7. Preps HR-screen basics — motivation, salary, notice period,
+6. Generates smart questions to ask back, each tied to a specific fact
+   from the company research, annotated with what each tests, and
+   calibrated to the interview round — no generic questions (Phase 4)
+7. **If asked:** builds an editable strategic diagram pack (capability
+   map, architecture, business model, revenue model, ecosystem — modeled
+   figures always visibly disclaimed) (Phase 4.5, conditional)
+8. Builds a self-introduction, length scaled to speed mode (Phase 5)
+9. Preps HR-screen basics — motivation, salary, notice period,
    visa/right-to-work — whenever the stage is an HR/recruiter screen
    (Phase 6)
-8. Writes a dossier file for later reuse (e.g. by the `pptx` skill),
-   depending on speed mode (Phase 7)
+10. **For final-round/diligence-level stages:** reframes into a formal
+    document-request list and mines any shared company documents for
+    internal contradictions (Phase 6.5, conditional)
+11. Writes (or updates, append-only) a dossier file for later reuse (e.g.
+    by the `pptx` skill), depending on speed mode (Phase 7)
 
 ## Speed modes
 
@@ -102,6 +117,12 @@ python3 scripts/check_release_consistency.py
 from the repo root.
 
 ## Recent Updates
+
+**v1.1.0** — Multi-round support: transcript debrief (Phase 1.5), named-
+interviewer research and entity disambiguation, round-posture-calibrated
+questions, an optional strategic diagram pack (Phase 4.5), and final-round
+diligence prep (Phase 6.5). Built from reviewing an actual multi-round
+interview-prep conversation.
 
 **v1.0.0** — Initial release.
 

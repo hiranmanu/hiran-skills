@@ -2,12 +2,15 @@
 name: interview-prep
 description: >
   Builds interview intel from a job description and company name — company
-  research (site news, internet news, revenue model, annual reports, earnings
-  calls), STAR-format answers to likely questions, a genuine self-introduction,
-  smart questions to ask that are baked with real company knowledge (not
-  generic), and HR-screen basics (motivation, salary, notice period,
-  logistics). Scales from a 10-minute rapid brief before a call to a full
-  dossier for later reuse. This is interview prep — it does not touch the CV.
+  and named-interviewer research (site news, internet news, revenue model,
+  annual reports, earnings calls), STAR-format answers to likely questions,
+  a genuine self-introduction, smart questions to ask that are baked with
+  real company knowledge (not generic), and HR-screen basics (motivation,
+  salary, notice period, logistics). Scales from a 10-minute rapid brief
+  before a call to a full dossier for later reuse. Multi-round aware: feed
+  it a transcript/recording from a completed round and it reconciles prior
+  assumptions against what was actually said, then carries the update into
+  the next round's prep. This is interview prep — it does not touch the CV.
 ---
 
 # Interview Prep
@@ -34,23 +37,30 @@ pass unless asked.
 - A pasted JD with "interview" mentioned, not "tailor my CV"
 - "What questions should I ask them?" / "STAR answers for this JD"
 - "HR screen prep for [Company]"
+- "Here's the transcript/recording from the first/last call, help me prep
+  for round 2" (or any similar reference to a prior round's material)
 
 ## Workflow overview
 
 | Phase | Name | Reference file |
 |---|---|---|
 | 0 | Intake (mode, stage, JD, company) | `references/ip-config.md` |
-| 1 | Company Intel Research | `references/ip-research.md` |
+| 1 | Company Intel Research (incl. named-interviewer research, entity check) | `references/ip-research.md` |
+| 1.5 | Prior-Stage Transcript Debrief (only if a prior round's transcript/notes exist) | `references/ip-transcript-debrief.md` |
 | 2 | JD Breakdown | — |
 | 3 | Likely Questions + STAR Answers | `references/ip-question-bank.md` (Part A), `references/ip-background.md` |
 | 4 | Smart Questions to Ask | `references/ip-question-bank.md` (Part B) |
+| 4.5 | Strategic Diagram Pack (only if asked for) | `references/ip-diagrams.md` |
 | 5 | Self-Introduction | — |
 | 6 | HR Screen Basics (if applicable) | `references/ip-question-bank.md` (Part C) |
+| 6.5 | Late-Stage / Diligence Prep (final/exec rounds only) | `references/ip-diligence.md` |
 | 7 | Dossier (if applicable) | `references/ip-dossier-template.md` |
 
 Speed mode and interview stage (set in Phase 0) determine what each later
 phase actually does — both tables live in `references/ip-config.md` and
-are the single source of truth; don't restate them here.
+are the single source of truth; don't restate them here. Phases 1.5, 4.5,
+and 6.5 are conditional — most single-round Rapid/Standard sessions never
+touch them; they exist for the multi-round, higher-stakes case.
 
 ## Phase 0 — Intake
 
@@ -68,14 +78,35 @@ Need, in order of how fast they matter:
 5. **Background context** — always check `references/ip-background.md`
    first for STAR material before asking the user for anything; only run
    its Discovery prompt for a genuine gap.
+6. **Prior-round material** — ask (or check the working directory for an
+   existing `{company}-interview-dossier-*.md`) whether this is a later
+   round with a transcript, recording, or notes from a completed prior
+   stage. If yes, that's Phase 1.5. If a dossier already exists for this
+   application, read it first — it carries the prior round's confirmed
+   facts and posture forward; don't re-research from scratch.
 
 ## Phase 1 — Company Intel Research
 
 Full method and depth-by-mode in `references/ip-research.md`. In brief:
-site news → internet news → revenue model → annual report/earnings call →
-(Deep only) competitive landscape. Checkpoint with a 3-5 line summary
-before moving on, except in Rapid mode where there's no time for a
-checkpoint — proceed straight through.
+entity check → site news (+ partnership-cadence timeline) → internet news
+→ named-interviewer research → revenue model → annual report/earnings
+call → (Deep only) competitive landscape + adjacent-industry playbook
+translation. Checkpoint with a 3-5 line summary **plus a "verify before
+you say this" list** before moving on, except in Rapid mode where there's
+no time for a checkpoint — proceed straight through.
+
+## Phase 1.5 — Prior-Stage Transcript Debrief (conditional)
+
+Only runs if Phase 0 surfaced a transcript/recording/notes from a
+completed prior round, or an existing dossier for this application. Full
+method in `references/ip-transcript-debrief.md`: reconcile prior
+assumptions against the transcript into Confirmed / Corrected / Genuinely
+New, call out anything that changes sequencing for the next round, update
+the smart-questions list so nothing already answered gets asked again,
+and append the result to the dossier's Round History rather than starting
+fresh. If this reveals the process has moved into final-round/diligence
+territory, hand off to `references/ip-diligence.md` for Phase 6.5 instead
+of continuing with round-one framing.
 
 ## Phase 2 — JD Breakdown
 
@@ -95,8 +126,19 @@ that file's Discovery prompt rather than fabricating one.
 ## Phase 4 — Smart Questions to Ask
 
 Full method in `references/ip-question-bank.md` Part B. Every question in
-Standard/Deep mode must cite a specific Phase 1 fact. Tier by interview
-stage if known.
+Standard/Deep mode must cite a specific Phase 1 fact, and should be
+annotated with what it tests. Tier by interview stage if known, and apply
+the round-posture calibration in that file — first-conversation questions
+are not the same set as final-round questions.
+
+## Phase 4.5 — Strategic Diagram Pack (conditional)
+
+Only if the user explicitly asks for a visual/diagram/north star/deck
+material — never by default. Full method in `references/ip-diagrams.md`:
+produced as a single editable `.drawio` file, build only the tab(s)
+asked for, and any modeled/assumed figure (e.g. a revenue projection)
+must carry a visible disclaimer in the diagram itself distinguishing it
+from a verified source figure.
 
 ## Phase 5 — Self-Introduction
 
@@ -114,12 +156,27 @@ Phase 0 for Rapid mode with unknown stage). Full checklist in
 directly for salary expectations, notice period, and visa/right-to-work
 status rather than assuming any of them.
 
+## Phase 6.5 — Late-Stage / Diligence Prep (conditional)
+
+Only when the interview stage is final/exec-level, or Phase 1.5's
+transcript debrief indicates the process has moved into offer-adjacent or
+document-sharing territory. Full method in `references/ip-diligence.md`:
+reframes the question list into a formal diligence-style document request
+by category, and — if the company has shared internal documents — mines
+them for internal tensions and contradictions rather than paraphrasing
+them back generically. Does not extend into building actual engagement
+deliverables (workshop decks, prototypes) — that's explicitly out of
+scope, see that file's closing note.
+
 ## Phase 7 — Dossier
 
 Per the Output table in `references/ip-config.md`: skip in Rapid, offer in
 Standard, always produce in Deep. Use the structure in
 `references/ip-dossier-template.md` so a later session (or the `pptx`
-skill) can build on it directly rather than re-deriving research.
+skill) can build on it directly rather than re-deriving research. If a
+dossier already exists for this application (multi-round case), update it
+in place per that file's append-only convention rather than creating a
+new one.
 
 ## Edge Cases
 
@@ -137,3 +194,14 @@ skill) can build on it directly rather than re-deriving research.
    set but tier the smart-questions list (Phase 4) so the user can pick
    per-interviewer rather than asking a board-level question of an HR
    screener.
+5. **User wants an actual deliverable built for the company** (a workshop
+   deck, a working prototype, a formal proposal document): that's past
+   this skill's scope — see `references/ip-diligence.md`'s closing note.
+   Point to using the dossier this skill produced as input to the
+   `pptx`/`docx`/`artifact-design` tooling directly, rather than
+   expanding this workflow to cover it.
+6. **A transcript arrives with no prior dossier/context for this
+   application:** still run Phase 1.5 (`ip-transcript-debrief.md`) — it
+   can reconcile against this session's own fresh Phase 1 research
+   instead of a prior dossier; just skip the "append to existing dossier"
+   step and create one fresh in Phase 7 instead.

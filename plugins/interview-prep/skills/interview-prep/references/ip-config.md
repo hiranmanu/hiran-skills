@@ -14,12 +14,15 @@ wins — fix the other file rather than trusting it.
 |---|---|---|---|
 | **Trigger** | "interview in X min", any X ≤ 15, or explicit "quick brief" | Default when a JD + company is given with no time pressure stated | "board-level", "final round", "build me a dossier", "this is a big one" |
 | **Typical time to produce** | 3-5 min of work | 10-15 min of work | 20-40 min of work |
-| Phase 1 (Company Intel) | Company site headlines + top 2-3 news hits only. Skip annual report/earnings call unless already summarized publicly in a recent article. | Full: site, news, revenue model, most recent annual report or earnings call. | Full + prior year(s) comparison, competitor landscape, analyst commentary if available. |
+| Phase 1 (Company Intel) | Company site headlines + top 2-3 news hits only, entity check still mandatory. Skip named-interviewer research, annual report/earnings call unless already summarized publicly in a recent article. | Full: entity check, site, news + cadence timeline, named-interviewer research, revenue model, most recent annual report or earnings call. | Full + prior year(s) comparison, competitor landscape, adjacent-industry playbook translation, analyst commentary if available. |
+| Phase 1.5 (Transcript debrief) | Only if a transcript exists; lightweight 3-bucket pass, skip escalating-posture guidance | Full reconciliation + posture update | Full + explicit sequencing-impact call-out |
 | Phase 2 (JD breakdown) | Skim for must-haves only | Full must-have/nice-to-have/signal breakdown | Full + mapped to company strategy from Phase 1 |
 | Phase 3 (Question bank) | Top 5 likely questions, STAR-lite (2-3 sentences each) | 8-10 questions, full STAR | 10-15 questions, full STAR + backup story per theme |
-| Phase 4 (Smart questions to ask) | 3, each tied to one Phase 1 fact | 5-6, each tied to a specific fact | 6-8, tiered by interviewer seniority |
+| Phase 4 (Smart questions to ask) | 3, each tied to one Phase 1 fact | 5-6, each tied to a specific fact, annotated with what it tests | 6-8, tiered by interviewer seniority, annotated, round-posture calibrated |
+| Phase 4.5 (Diagram pack) | Skip — no time | Only if explicitly asked, single tab | Only if explicitly asked, full pack available |
 | Phase 5 (Intro) | 3-sentence version only | 3-sentence + 60-second version | Both + a 2-minute board-level version |
 | Phase 6 (HR-screen basics) | Always included if stage is HR/recruiter screen, in any mode | Always included | Always included |
+| Phase 6.5 (Diligence prep) | Skip | Only if stage is final/exec | Only if stage is final/exec |
 | Phase 7 (Dossier file) | Skip — chat output only | Offer; write if user confirms | Always write, structured for later PPTX reuse |
 
 If unsure which mode fits and there's no time pressure stated, ask once —
