@@ -5,6 +5,25 @@ This file versions independently of other skills in this marketplace — see
 the repo root `CHANGELOG.md` for marketplace-level changes (new skills
 added, shared tooling, manifest schema).
 
+## [1.12.0] - 2026-09-18 (Local-Only Output, Tracker Removed, Data Exposure Fixed)
+
+### Removed
+- GDrive as the output destination. All generated CVs now save to a fixed
+  local folder (`C:\Users\hiran\Downloads\CV Output\`, see `cv-config.md`)
+  — no cloud upload, no per-session folder guessing.
+- The Google Sheets applications tracker (`cv-tracker.md` deleted, Phase 7
+  removed from `SKILL.md`). The skill no longer logs applications anywhere;
+  the workflow is now 8 phases (0-6), not 9.
+
+### Fixed
+- `scripts/build_cv_reference.js` contained real personal data (name, email,
+  LinkedIn URL, actual CV content/figures) committed to this **public**
+  repo since v1.8.0. Redacted to generic placeholder content — the file is
+  a styling/structure reference only now, never real data.
+- dh (dunnhumby) role end date: was open-ended ("2026-present") in
+  `cv-background.md` and `build_cv_reference.js`; corrected to
+  Jan 2026 - Sep 2026 now that the contract has ended.
+
 ## [1.11.2] - 2026-09-18 (Independent Per-Plugin Versioning)
 
 The marketplace is about to grow beyond one skill (job-prep skills coming

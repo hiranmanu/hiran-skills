@@ -1,51 +1,53 @@
 # CV Tailoring Configuration
 
-Centralized configuration for file paths, source CVs, GDrive locations, and template rules. Update this file once; reference it everywhere.
+Centralized configuration for file paths, source CVs, and template rules. Update this file once; reference it everywhere.
 
 ---
 
 ## File Locations
 
-All skill-file paths are relative to `plugins/cv-tailoring/skills/cv-tailoring/` unless otherwise noted (so `cv-formatting.md` in this table means `references/cv-formatting.md` from `SKILL.md`'s perspective). CV library and GDrive paths are absolute/GDrive-native as shown.
+All skill-file paths are relative to `plugins/cv-tailoring/skills/cv-tailoring/` unless otherwise noted (so `cv-formatting.md` in this table means `references/cv-formatting.md` from `SKILL.md`'s perspective). CV library and output paths are local absolute paths as shown.
 
 | File | Path | Purpose |
 |------|------|---------|
-| CV Library (Product Template) | `/home/claude/cv-work/resumes/Hiran_Patel_CV_2Page_Product.md` | Source content for all Product Director/VP/CPO roles |
-| CV Library (Data Architect Template) | `/home/claude/cv-work/resumes/Hiran_Patel_CV_2Page_DataArchitect.md` | Source content for all Data Architect/Engineer roles |
+| CV Library (Product Template) | `C:\Users\hiran\Downloads\CV Output\library\Hiran_Patel_CV_2Page_Product.md` | Source content for all Product Director/VP/CPO roles |
+| CV Library (Data Architect Template) | `C:\Users\hiran\Downloads\CV Output\library\Hiran_Patel_CV_2Page_DataArchitect.md` | Source content for all Data Architect/Engineer roles |
 | Formatting Rules | `cv-formatting.md` | Hard constraints: font, layout, voice patterns, validation |
 | Background Context | `cv-background.md` | Confirmed facts, template selection, title blending rules |
 | Semantic Clusters | `cv-semantic-clusters.md` | ATS scoring methodology and role-type clusters |
 | Market Research Prompts | `cv-market-research.md` | Company research, role benchmarking, JD parsing guidance |
 | Scoring Methodology | `cv-scoring.md` | Keyword presence + semantic clustering logic (single source of truth for the method) |
 | QA Personas | `cv-qa-personas.md` | Hiring Manager + Talent Acquisition review checklists |
-| Tailoring Orchestrator | `SKILL.md` (not in `references/` — sits one level up) | Main workflow: Phases 0-7, decision gates, edge cases |
-| Tracker Schema | `cv-tracker.md` | Applications tracker structure and update rules |
+| Tailoring Orchestrator | `SKILL.md` (not in `references/` — sits one level up) | Main workflow: Phases 0-6, decision gates, edge cases |
 
 ---
 
-## Source CVs (GDrive)
+## Source CVs (Local)
 
-| Template | Filename | GDrive Folder | Purpose | LinkedIn URL? |
-|----------|----------|---------------|---------|----------------|
-| PRODUCT_CV | Hiran_Patel_CV_2Page.pdf | Interviews CV | Use for Product Director, VP of Product, CPO, Senior PM roles | Yes: `linkedin.com/in/hiran-patel/` |
-| DATA_ARCHITECT_CV | Hiran_Patel_CV_2Page_Data_Architect.pdf | Interviews CV | Use for Data Architect, Data Engineer, Analytics Engineer roles | No |
+| Template | Filename | Purpose | LinkedIn URL? |
+|----------|----------|---------|----------------|
+| PRODUCT_CV | Hiran_Patel_CV_2Page.pdf | Use for Product Director, VP of Product, CPO, Senior PM roles | Yes: `linkedin.com/in/hiran-patel/` |
+| DATA_ARCHITECT_CV | Hiran_Patel_CV_2Page_Data_Architect.pdf | Use for Data Architect, Data Engineer, Analytics Engineer roles | No |
 
-**GDrive Folder ID:** `1_bf1bZ0OCzbFFOftwZNjQQ1q6QeFEg9v`
-**GDrive Path:** `Interviews CV/`
+Source CVs live in the same local library folder as the output config below,
+under a `library\` subfolder — not GDrive.
 
 ---
 
 ## Output Configuration
 
-All generated CVs go to GDrive in timestamped folders.
+All generated CVs are saved locally — nothing is uploaded to GDrive or any
+other cloud location. This is a fixed folder; don't pick a different
+location per session.
 
 | Setting | Value | Notes |
 |---------|-------|-------|
-| Output Base Path | `Interviews CV/claude-output/` | Parent folder for all tailored CV outputs |
-| Folder Naming | `{YYYY.MM.DD}_{Company}_{Role}/` | Example: `2026.09.14_TalentInternational_ProductDirector/` |
+| Output Base Path | `C:\Users\hiran\Downloads\CV Output\` | Parent folder for all tailored CV outputs. Outside the git repo — never commit generated CVs. |
+| Folder Naming | `{YYYY.MM.DD}_{Company}_{Role}\` | Example: `2026.09.14_TalentInternational_ProductDirector\` |
 | File Naming (DOCX only) | `{YYYY-MM-DD}_{Company}_{Role}.docx` | Example: `2026-09-14_TalentInternational_ProductDirector.docx` — DOCX is the only deliverable, see `cv-formatting.md` "Output Format" |
-| Tracker Sheet ID | (stored in memory, see session context) | Applications tracking spreadsheet in Google Sheets |
-| Tracker Sheet Name | Applications | Tab name within tracker spreadsheet |
+
+There is no applications tracker — the skill does not log applications
+anywhere. Track applications however you already do outside this skill.
 
 ---
 
@@ -109,5 +111,5 @@ What is the target role type?
 
 - This file was last updated: 2026-09-18
 - When adding new templates (e.g., Solution Architect), update this config first before creating new files
-- When changing GDrive paths, update both this config and the orchestrator (`SKILL.md` Phase 0)
+- When changing the local output path, update both this config and the orchestrator (`SKILL.md` Phase 0 and the Render section)
 - When adding new semantic clusters, update cv-semantic-clusters.md and the term-to-cluster mappings

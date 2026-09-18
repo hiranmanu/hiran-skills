@@ -90,7 +90,7 @@ Two independent lenses, both must pass: **Hiring Manager (HM)** and **Talent Acq
 
 ## Render
 
-Renders the DOCX from the text that just passed Phase 5.1 (plus an internal-only PDF for Phase 5.3's validation checks — never a shipped deliverable). See `SKILL.md` "Render" section for the mechanics (filenames, GDrive path, metadata).
+Renders the DOCX from the text that just passed Phase 5.1 (plus an internal-only PDF for Phase 5.3's validation checks — never a shipped deliverable). See `SKILL.md` "Render" section for the mechanics (filenames, local output path, metadata).
 
 ---
 
@@ -190,18 +190,18 @@ which is why they run after Render rather than folded into Phase 5.1.
 
 ## Multiple Applications to Same Company
 
+There's no tracker to check this against — ask the user directly.
+
 ### Scenario: User applies to Company X for Role A, then later applies to Company X for Role B (different role)
 
 **Action:**
-1. Check the tracker (Phase 0 Intake)
-2. If same role at same company → note as "reapplication," update existing row, flag with timestamp
-3. If different role at same company → create new row, note the prior application in comments
-4. If role appears to be same but with minor JD variation → ask user: "Is this the same role as [prior application] or a different opening?"
+1. Ask: "Is this the same role you applied for before, or a different opening?"
+2. If different role → proceed as a fresh tailoring run, no special handling needed.
+3. If it might be the same role with a minor JD variation → confirm with the user before treating it as a reapplication.
 
-### Scenario: User wants to reapply to the same role after 3 months
+### Scenario: User wants to reapply to the same role after some time has passed
 
 **Action:**
-1. Note the reapplication in tracker
-2. Flag that prior CV was for this role
-3. Proceed with fresh tailoring (JD may have changed, market may have shifted)
-4. Compare before/after ATS score to show improvement in the summary report
+1. Confirm this is a reapplication to the same role.
+2. Proceed with fresh tailoring (JD may have changed, market may have shifted).
+3. Compare before/after ATS score to show improvement in the summary report.

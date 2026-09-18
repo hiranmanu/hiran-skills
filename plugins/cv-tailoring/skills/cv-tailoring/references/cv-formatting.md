@@ -146,7 +146,7 @@ rather than re-deriving the styling from prose each time.
   `{YYYY-MM-DD}_{Company}_{Role}.docx` (drop the `.pdf` half of the pair
   described below unless a PDF is separately requested).
   - Example: `2026-09-14_TalentInternational_ProductDirector.docx`
-  - Use ISO date format (YYYY-MM-DD) in filenames, folder-date format (YYYY.MM.DD) for GDrive subfolder names.
+  - Use ISO date format (YYYY-MM-DD) in filenames, folder-date format (YYYY.MM.DD) for local output subfolder names.
 
 ### ATS Parsing Rules
 

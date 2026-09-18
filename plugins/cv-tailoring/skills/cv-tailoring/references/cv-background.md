@@ -25,7 +25,7 @@ Check this section first when assessing gaps. These are facts directly confirmed
 
 - **Hybrid Theory (Chief Product Officer, 2019-2021):** Presented to board pre-acquisition. Investor updates and M&A negotiations with Azerion. Led M&A due diligence. Investment strategy for social AI acquisition (£3M).
 - **OneAdvanced (VP of Product, 2024-2025):** PE-backed portfolio company. Regular board-level updates on product roadmap and P&L. Presented to PE investors and portfolio optimization forums. M&A evaluation involvement.
-- **dunnhumby (Interim Director of Product, Data & Technology, 2026-present):** £10M+ raise in progress. Investor roadshows. Board-level product strategy presentations. Direct exposure to venture, strategic investors, and corporate venture capital.
+- **dunnhumby (Interim Director of Product, Data & Technology, Jan 2026 - Sep 2026):** £10M+ raise in progress. Investor roadshows. Board-level product strategy presentations. Direct exposure to venture, strategic investors, and corporate venture capital.
 
 **Hint for JD matching:** If the role mentions "investor relations," "board reporting," "quarterly business reviews," or "strategic planning for stakeholders," check this list before flagging as a gap.
 
@@ -60,9 +60,23 @@ Excel, Power BI, Tableau, Looker, MicroStrategy, QuickSight, Google Data Studio.
 ### Regulator/Compliance Exposure (Limited)
 
 - **GDPR:** Some experience with data privacy compliance on first-party data strategies (dunnhumby and Amazon).
-- **Not in background:** Banking/fintech regulation, healthcare compliance, securities experience, formal regulatory affairs background.
+- **Aviva (Enterprise Data Architect, contract, Aug 2024 - Jul 2026):** Genuine regulated financial services exposure, insurance not banking. Owned vendor relationships and technical roadmap for a £90M programme (Guidewire, AWS, Snowflake, Collibra), and delivery blueprints/RACI governance. This role only appears on the DATA_ARCHITECT_CV template by default; when a Product-track JD emphasises FinTech/financial services/regulated environments, it's fair to pull this into the PRODUCT_CV as an extra role, title-blended (e.g. `Technical Product Owner, Enterprise Data Architect`) and reframed toward delivery/roadmap/vendor-management language, since that's genuinely what was done there.
+- **Not in background:** Banking/fintech regulation specifically, healthcare compliance, securities experience, formal regulatory affairs background.
 
-**Hint for JD matching:** If the role heavily emphasizes regulator-facing work, compliance expertise, or financial/healthcare/telecom domain regulation, this is a genuine gap — don't force it.
+**Hint for JD matching:** If the role heavily emphasizes regulator-facing work, compliance expertise, or financial/healthcare/telecom domain regulation, check whether Aviva (insurance) covers it first before flagging as a genuine gap — it's adjacent, not a full match for banking-specific regulation (e.g. PRA/FCA banking rules, AML/KYC), which stays a genuine gap.
+
+### AI Coding Assistants / Agentic Tooling (Hands-On)
+
+- **Hands-on daily user** of coding assistants and agentic AI tools: Claude Code, Claude, OpenClaw, Hermes, and other relevant assistants, used directly in workflow (e.g. this CV-tailoring plugin itself is built and run through Claude Code).
+
+**Hint for JD matching:** If the role mentions "coding assistants," "AI-native mindset," "leveraging Claude/AI tools," or similar, this is a direct, truthful match, not a gap.
+
+### AI Platform Ownership: Agent/RAG/Tooling-Adjacent Work (dunnhumby, OneAdvanced)
+
+- **dunnhumby/Tesco (Interim Director of Product, Data & Technology, Jan 2026 - Sep 2026):** Owns the AI tooling and agentic product roadmap for the retail media aggregator platform (strategy/ownership level, not hands-on engineering). Ran vendor and build-vs-buy evaluation for AI infrastructure (data clean rooms, ad-serving, external engineering partners). Drove adoption of internal AI tooling/workflows across the product, engineering, and data science org.
+- **OneAdvanced (VP of Product, 2024-2025):** Defined the AI and data strategy for the product organisation, including build-vs-buy decisions on AI capability investment, and drove internal AI tooling adoption across the SaaS product portfolio.
+
+**Hint for JD matching:** If the role mentions "Agent Hub," "RAG," "AI Gateways," "internal AI tooling adoption," "AI platform roadmap ownership," or "build-vs-buy for AI infrastructure," this is a legitimate match at the ownership/roadmap level, not a hands-on engineering claim. Don't overstate this into implying he personally built RAG pipelines or agent frameworks; frame as product/roadmap ownership, vendor evaluation, and adoption-driving.
 
 ### Notable Absences (Genuinely Not in Background)
 

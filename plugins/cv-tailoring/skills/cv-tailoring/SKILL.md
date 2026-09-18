@@ -4,8 +4,8 @@ description: >
   Tailors a CV/resume to a specific job description for CPO/VP Product, Data
   Architect, Solution/Enterprise Architect, and related senior product/data
   roles. Scores ATS keyword coverage (target 85%+) via semantic clustering,
-  generates a timestamped DOCX (the only deliverable format), and syncs the
-  application to a Google Sheets tracker in GDrive. Supports batch processing of multiple JDs,
+  generates a timestamped DOCX (the only deliverable format), saved to a
+  local output folder. Supports batch processing of multiple JDs,
   experience discovery when gaps appear, and generates a summary report per CV.
 ---
 
@@ -13,8 +13,7 @@ description: >
 
 Turns a job description into a tailored, ATS-clean CV — sourced from the
 user's real CV library, never invented — plus a before/after keyword-coverage
-score, a generation summary report, and a logged row in the applications
-tracker (synced to Google Drive).
+score and a generation summary report, saved locally as a DOCX.
 
 **Core principle — truth-preserving optimisation.** Reframe, reorder, and
 re-emphasise real experience. Never fabricate a skill, metric, or
@@ -44,11 +43,10 @@ section is never included in tailored output.
 - "What's my ATS score for this?" / "Will this pass ATS?"
 - A pasted job description or LinkedIn job posting
 - "Help me apply for [Company]" / "Build me a CV for [Company/role]"
-- "Log this application" / "add this to the tracker"
 - "Batch these JDs" / "tailor for multiple roles at once"
 - "Update my CV library with this"
 
-## Workflow overview (9 phases)
+## Workflow overview (8 phases)
 
 | Phase | Name | Reference file |
 |---|---|---|
@@ -62,7 +60,6 @@ section is never included in tailored output.
 | — | Render DOCX (internal PDF for validation only) | `references/cv-formatting.md` |
 | 5.3 | Format Validation (on the render) | `references/cv-decision-gates.md` |
 | 6 | Summary Report | — |
-| 7 | Tracker Sync | `references/cv-tracker.md` |
 
 For what happens when a phase fails a check, see `references/cv-decision-gates.md` —
 that file is the authority on loop targets and pass/fail criteria; this file
@@ -91,7 +88,7 @@ re-rendering a PDF just to fix a missing keyword.
   new confirmed facts, so re-read it if this is a repeat session.
 - `references/cv-formatting.md` — hard constraints and voice on generation.
 - `references/cv-scoring.md` — ATS coverage methodology.
-- `references/cv-config.md` — file paths, GDrive folder IDs, workflow defaults.
+- `references/cv-config.md` — file paths, local output folder, workflow defaults.
 
 **Job description input:**
 - Pasted text (full posting) — preferred
@@ -225,9 +222,11 @@ Once Phase 5.1 passes:
    still produced internally for Phase 5.3's validation checks, but it is
    not shipped or stored as output.
 3. Filename: `{YYYY-MM-DD}_{Company}_{Role}.docx`.
-4. Output location: Google Drive `Interviews CV/claude-output/
-   {YYYY.MM.DD}_{Company}_{Role}/` — example:
-   `2026.09.14_Monzo_ChiefOfStaff/` containing the `.docx`.
+4. Output location: local folder `C:\Users\hiran\Downloads\CV Output\
+   {YYYY.MM.DD}_{Company}_{Role}\` — example:
+   `2026.09.14_Monzo_ChiefOfStaff\` containing the `.docx`. See
+   `references/cv-config.md` for the fixed base path — always the same
+   folder, never a different location per session.
 5. Set DOCX core properties (Author) to the user's own name.
 
 ## Phase 5.3 — Format Validation (on the render)
@@ -283,18 +282,9 @@ After 5.1 and 5.3 both pass, output a markdown summary:
 - Watch for [red flag], have examples ready for [related skill]
 ```
 
-Share with the user before logging. No decision gate here — always ship the
-report.
-
-## Phase 7 — Tracker Sync
-
-See `references/cv-tracker.md` for the full schema and update logic (a Google Sheets
-tab inside the `Interviews CV` GDrive folder, one row appended per run —
-never edits an existing row's Status).
-
-Ask before logging:
-> Ready to log to the tracker? I'll add the row with scores, file location,
-> and summary.
+Share with the user. No decision gate here — always ship the report. This
+is the last step; there is no separate tracker/logging phase — the skill
+doesn't maintain an applications tracker.
 
 ## Edge Cases
 
@@ -306,8 +296,9 @@ Ask before logging:
    (2) per-role generation.
 5. **User requests fabrication:** "I can reframe that, but it wouldn't be
    true. Here's what's actually there. Use as-is or leave blank?"
-6. **Multiple applications to same company:** Check the tracker (Phase 0).
-   See `references/cv-decision-gates.md` for same-role vs. different-role handling.
+6. **Multiple applications to same company:** Ask the user directly whether
+   this is a reapplication or a different role. See
+   `references/cv-decision-gates.md` for same-role vs. different-role handling.
 7. **Solution Architect / Enterprise Architect JD:** No template exists yet
    (`references/cv-config.md`'s template rules flag this explicitly). Don't force
    PRODUCT_CV or DATA_ARCHITECT_CV silently — ask whether to use one as a
@@ -320,7 +311,5 @@ Before handing off:
 - [ ] No bullet wraps (visual PDF check)
 - [ ] pdftotext readable (spot-check 3-4 bullets)
 - [ ] Filename: `{YYYY-MM-DD}_{Company}_{Role}`
-- [ ] GDrive location correct
-- [ ] Tracker row ready
+- [ ] Output folder correct (see `references/cv-config.md`)
 - [ ] Summary report generated
-- [ ] User confirmed before logging

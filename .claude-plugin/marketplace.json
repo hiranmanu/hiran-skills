@@ -10,9 +10,9 @@
     {
       "name": "cv-tailoring",
       "source": "./plugins/cv-tailoring",
-      "description": "Tailors a CV to a job description, scores ATS keyword coverage via semantic clustering, generates a timestamped DOCX, and logs the application to a Google Sheets tracker in GDrive. Includes board/investor, BI tool, and Design function assessment per role.",
+      "description": "Tailors a CV to a job description, scores ATS keyword coverage via semantic clustering, and generates a timestamped DOCX saved to a local output folder. Includes board/investor, BI tool, and Design function assessment per role.",
       "category": "productivity",
-      "version": "1.11.2"
+      "version": "1.12.0"
     },
     {
       "name": "interview-prep",

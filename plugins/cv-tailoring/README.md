@@ -1,4 +1,4 @@
-# cv-tailoring (v1.11.2)
+# cv-tailoring (v1.12.0)
 
 Tailors a CV to a job description for CPO/VP Product, Data Architect, Solution/Enterprise Architect, and related senior product/data roles.
 
@@ -14,7 +14,7 @@ cv-tailoring/                                  # this plugin
 ├── CHANGELOG.md                                # full version history for this plugin
 └── skills/
     └── cv-tailoring/                          # the actual skill Claude loads
-        ├── SKILL.md                           # entrypoint — 9-phase orchestrator
+        ├── SKILL.md                           # entrypoint — 8-phase orchestrator
         ├── scripts/
         │   ├── validate_cv.py                  # automated Phase 5.3 checks
         │   └── build_cv_reference.js           # reference docx-js house-style implementation
@@ -26,11 +26,10 @@ cv-tailoring/                                  # this plugin
             ├── cv-semantic-clusters.md         # cluster lookup data only
             ├── cv-scoring.md                   # ATS methodology (single source of truth)
             ├── cv-qa-personas.md               # HM + TA checklists (single source of truth)
-            ├── cv-market-research.md           # research patterns
-            └── cv-tracker.md                   # tracker schema (GDrive/Sheets)
+            └── cv-market-research.md           # research patterns
 ```
 
-## What it does (Phases 0-7, see `skills/cv-tailoring/SKILL.md` for the full sequence)
+## What it does (Phases 0-6, see `skills/cv-tailoring/SKILL.md` for the full sequence)
 
 1. Intake — load CV library and reference files (Phase 0)
 2. Researches the role and company signals (Phase 1)
@@ -40,7 +39,9 @@ cv-tailoring/                                  # this plugin
 6. Rewrites profile, skills, and bullets to match the JD (Phase 4)
 7. Reviews draft text via Hiring Manager + Talent Acquisition lenses before rendering (Phase 5.1), then validates the render's hard constraints (Phase 5.3)
 8. Generates a summary report (Phase 6)
-9. Logs the application to the Google Sheets tracker in GDrive (Phase 7)
+
+There is no application-tracker step — the skill doesn't log anywhere,
+GDrive or otherwise. Output is a local DOCX only.
 
 ## Workflow modes
 
@@ -53,7 +54,7 @@ Paste JD → get a tailored DOCX → done. Skips web research and the discovery 
 Paste JD → 2-3 quick questions (only for gaps that move the ATS score) → generate → review once → upload.
 
 ### Full Manual (90-135 min)
-All 9 phases with full discovery interview, gap assessment, QA, decision loops. Best for high-stakes roles or skill refinement.
+All 8 phases with full discovery interview, gap assessment, QA, decision loops. Best for high-stakes roles or skill refinement.
 
 ## Output
 
@@ -93,6 +94,6 @@ from the repo root.
 
 ## Recent Updates
 
-**v1.11.2** — Split into independent per-plugin versioning; this README and this plugin's own `CHANGELOG.md` are new.
+**v1.12.0** — Removed GDrive output and the Google Sheets applications tracker entirely; output is now a local DOCX in a fixed local folder (see `cv-config.md`). Redacted real personal data (name/email/LinkedIn/CV content) that had been committed in `build_cv_reference.js` since v1.8.0.
 
 See [`CHANGELOG.md`](CHANGELOG.md) in this folder for the full version history (every version back to v1.0.0).
