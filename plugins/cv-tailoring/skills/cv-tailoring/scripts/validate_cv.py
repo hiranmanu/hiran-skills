@@ -30,6 +30,7 @@ import argparse
 import re
 import subprocess
 import sys
+import tempfile
 import zipfile
 from pathlib import Path
 
@@ -229,76 +230,81 @@ def main():
         print(f"FAIL: file not found: {args.path}")
         sys.exit(1)
 
-    workdir = args.path.parent
-    pdf_path = to_pdf(args.path, workdir)
-    pages = extract_pages(pdf_path)
-    all_text = "\n".join(pages)
-    n_pages = page_count(pdf_path)
+    # The converted PDF is a throwaway validation artifact, not part of the
+    # deliverable — render it into a scratch temp dir, never into the
+    # output folder next to the .docx, and let the context manager clean
+    # it up automatically once validation finishes.
+    with tempfile.TemporaryDirectory(prefix="cv-validate-") as tmp:
+        workdir = Path(tmp)
+        pdf_path = to_pdf(args.path, workdir)
+        pages = extract_pages(pdf_path)
+        all_text = "\n".join(pages)
+        n_pages = page_count(pdf_path)
 
-    report = []
-    ok = True
+        report = []
+        ok = True
 
-    # Check 1: page count
-    if n_pages > args.max_pages:
-        ok = False
-        report.append(f"FAIL  page count: {n_pages} pages (max {args.max_pages})")
-    else:
-        report.append(f"PASS  page count: {n_pages} page(s), within max {args.max_pages}")
+        # Check 1: page count
+        if n_pages > args.max_pages:
+            ok = False
+            report.append(f"FAIL  page count: {n_pages} pages (max {args.max_pages})")
+        else:
+            report.append(f"PASS  page count: {n_pages} page(s), within max {args.max_pages}")
 
-    # Check 2: em/en dashes
-    dash_failures = check_dashes(all_text)
-    if dash_failures:
-        ok = False
-        report.append("FAIL  dash check:\n  " + "\n  ".join(dash_failures))
-    else:
-        report.append("PASS  dash check: no em dashes or en dashes found")
+        # Check 2: em/en dashes
+        dash_failures = check_dashes(all_text)
+        if dash_failures:
+            ok = False
+            report.append("FAIL  dash check:\n  " + "\n  ".join(dash_failures))
+        else:
+            report.append("PASS  dash check: no em dashes or en dashes found")
 
-    # Check 3: bullet wraps
-    wrap_issues = check_bullet_wraps(pages)
-    if wrap_issues:
-        ok = False
-        report.append("FAIL  bullet-wrap check:\n  " + "\n  ".join(wrap_issues))
-    else:
-        report.append("PASS  bullet-wrap check: no suspected wrapped bullets")
+        # Check 3: bullet wraps
+        wrap_issues = check_bullet_wraps(pages)
+        if wrap_issues:
+            ok = False
+            report.append("FAIL  bullet-wrap check:\n  " + "\n  ".join(wrap_issues))
+        else:
+            report.append("PASS  bullet-wrap check: no suspected wrapped bullets")
 
-    # Check 4: role page-splits
-    split_issues = check_role_page_splits(pages)
-    if split_issues:
-        ok = False
-        report.append("FAIL  role-page-split check:\n  " + "\n  ".join(split_issues))
-    else:
-        report.append("PASS  role-page-split check: no role appears split across a page boundary")
+        # Check 4: role page-splits
+        split_issues = check_role_page_splits(pages)
+        if split_issues:
+            ok = False
+            report.append("FAIL  role-page-split check:\n  " + "\n  ".join(split_issues))
+        else:
+            report.append("PASS  role-page-split check: no role appears split across a page boundary")
 
-    # Check 5: References/Recommendations section removed
-    references_failures = check_references_section(all_text)
-    if references_failures:
-        ok = False
-        report.append("FAIL  references-section check:\n  " + "\n  ".join(references_failures))
-    else:
-        report.append("PASS  references-section check: no References/Recommendations heading or placeholder found")
+        # Check 5: References/Recommendations section removed
+        references_failures = check_references_section(all_text)
+        if references_failures:
+            ok = False
+            report.append("FAIL  references-section check:\n  " + "\n  ".join(references_failures))
+        else:
+            report.append("PASS  references-section check: no References/Recommendations heading or placeholder found")
 
-    # Check 6: authenticity metadata (Author)
-    docx_creator, docx_lmb = check_docx_author(args.path)
-    pdf_author = check_pdf_author(pdf_path)
-    author_problems = []
-    if docx_creator is not None:
-        if docx_creator.strip().lower() in GENERIC_AUTHOR_DEFAULTS or docx_creator != EXPECTED_AUTHOR:
-            author_problems.append(f'docx dc:creator is "{docx_creator}", expected "{EXPECTED_AUTHOR}"')
-        if docx_lmb and docx_lmb != EXPECTED_AUTHOR:
-            author_problems.append(f'docx cp:lastModifiedBy is "{docx_lmb}", expected "{EXPECTED_AUTHOR}"')
-    if pdf_author is not None and (not pdf_author or pdf_author.strip().lower() in GENERIC_AUTHOR_DEFAULTS or pdf_author != EXPECTED_AUTHOR):
-        author_problems.append(f'PDF Author is "{pdf_author}", expected "{EXPECTED_AUTHOR}"')
-    if author_problems:
-        ok = False
-        report.append("FAIL  authenticity metadata check:\n  " + "\n  ".join(author_problems))
-    else:
-        report.append(f'PASS  authenticity metadata check: Author is "{EXPECTED_AUTHOR}"')
+        # Check 6: authenticity metadata (Author)
+        docx_creator, docx_lmb = check_docx_author(args.path)
+        pdf_author = check_pdf_author(pdf_path)
+        author_problems = []
+        if docx_creator is not None:
+            if docx_creator.strip().lower() in GENERIC_AUTHOR_DEFAULTS or docx_creator != EXPECTED_AUTHOR:
+                author_problems.append(f'docx dc:creator is "{docx_creator}", expected "{EXPECTED_AUTHOR}"')
+            if docx_lmb and docx_lmb != EXPECTED_AUTHOR:
+                author_problems.append(f'docx cp:lastModifiedBy is "{docx_lmb}", expected "{EXPECTED_AUTHOR}"')
+        if pdf_author is not None and (not pdf_author or pdf_author.strip().lower() in GENERIC_AUTHOR_DEFAULTS or pdf_author != EXPECTED_AUTHOR):
+            author_problems.append(f'PDF Author is "{pdf_author}", expected "{EXPECTED_AUTHOR}"')
+        if author_problems:
+            ok = False
+            report.append("FAIL  authenticity metadata check:\n  " + "\n  ".join(author_problems))
+        else:
+            report.append(f'PASS  authenticity metadata check: Author is "{EXPECTED_AUTHOR}"')
 
-    print(f"\nvalidate_cv.py — {args.path.name}\n" + "=" * 60)
-    for line in report:
-        print(line)
-    print("=" * 60)
-    print("OVERALL: " + ("PASS" if ok else "FAIL"))
+        print(f"\nvalidate_cv.py — {args.path.name}\n" + "=" * 60)
+        for line in report:
+            print(line)
+        print("=" * 60)
+        print("OVERALL: " + ("PASS" if ok else "FAIL"))
 
     sys.exit(0 if ok else 1)
 

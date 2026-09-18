@@ -1,4 +1,4 @@
-# cv-tailoring (v1.12.0)
+# cv-tailoring (v1.12.1)
 
 Tailors a CV to a job description for CPO/VP Product, Data Architect, Solution/Enterprise Architect, and related senior product/data roles.
 
@@ -93,6 +93,8 @@ python3 scripts/check_release_consistency.py
 from the repo root.
 
 ## Recent Updates
+
+**v1.12.1** — Fixed `validate_cv.py` leaving a stray validation `.pdf` next to every shipped `.docx`; corrected source-CV paths to the real local files.
 
 **v1.12.0** — Removed GDrive output and the Google Sheets applications tracker entirely; output is now a local DOCX in a fixed local folder (see `cv-config.md`). Redacted real personal data (name/email/LinkedIn/CV content) that had been committed in `build_cv_reference.js` since v1.8.0.
 

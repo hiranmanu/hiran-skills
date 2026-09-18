@@ -10,8 +10,8 @@ All skill-file paths are relative to `plugins/cv-tailoring/skills/cv-tailoring/`
 
 | File | Path | Purpose |
 |------|------|---------|
-| CV Library (Product Template) | `C:\Users\hiran\Downloads\CV Output\library\Hiran_Patel_CV_2Page_Product.md` | Source content for all Product Director/VP/CPO roles |
-| CV Library (Data Architect Template) | `C:\Users\hiran\Downloads\CV Output\library\Hiran_Patel_CV_2Page_DataArchitect.md` | Source content for all Data Architect/Engineer roles |
+| CV Library (Product Template) | `C:\Users\hiran\Downloads\Hiran_Patel_CV_2Page.pdf` | Source content for all Product Director/VP/CPO roles |
+| CV Library (Data Architect Template) | `C:\Users\hiran\Downloads\Hiran_Patel_CV_2Page_Data_Architect.pdf` | Source content for all Data Architect/Engineer roles |
 | Formatting Rules | `cv-formatting.md` | Hard constraints: font, layout, voice patterns, validation |
 | Background Context | `cv-background.md` | Confirmed facts, template selection, title blending rules |
 | Semantic Clusters | `cv-semantic-clusters.md` | ATS scoring methodology and role-type clusters |
@@ -29,8 +29,8 @@ All skill-file paths are relative to `plugins/cv-tailoring/skills/cv-tailoring/`
 | PRODUCT_CV | Hiran_Patel_CV_2Page.pdf | Use for Product Director, VP of Product, CPO, Senior PM roles | Yes: `linkedin.com/in/hiran-patel/` |
 | DATA_ARCHITECT_CV | Hiran_Patel_CV_2Page_Data_Architect.pdf | Use for Data Architect, Data Engineer, Analytics Engineer roles | No |
 
-Source CVs live in the same local library folder as the output config below,
-under a `library\` subfolder — not GDrive.
+Source CVs live directly in `C:\Users\hiran\Downloads\` (not a subfolder,
+not GDrive) — that's where the two PDFs above always are.
 
 ---
 

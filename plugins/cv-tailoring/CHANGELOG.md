@@ -5,6 +5,32 @@ This file versions independently of other skills in this marketplace — see
 the repo root `CHANGELOG.md` for marketplace-level changes (new skills
 added, shared tooling, manifest schema).
 
+## [1.12.1] - 2026-09-18 (Stray Validation PDF Fixed, Stale Source-CV Paths Corrected)
+
+### Fixed
+- `validate_cv.py` converted every rendered DOCX to a throwaway PDF for
+  Phase 5.3's checks but wrote it into the *same folder as the final
+  deliverable* and never deleted it — every tailoring run was silently
+  leaving a stray `.pdf` next to the shipped `.docx` in the output folder,
+  despite `SKILL.md`/`cv-formatting.md` explicitly saying a self-generated
+  PDF is never shipped. Now renders into a temp directory that's cleaned
+  up automatically after validation. The checks themselves are unchanged
+  and still needed — they're the only automated check on the rendered
+  file (em dashes, bullet wraps, role-page-splits, author metadata), with
+  no equivalent elsewhere in the workflow, so nothing here was redundant.
+- `cv-config.md` and `SKILL.md` Phase 0 pointed at fictional source-CV
+  paths (`resumes/*.md` in a working directory that was never populated,
+  a `CV Output\library\` subfolder invented last session). Corrected to
+  the real, confirmed location: `Hiran_Patel_CV_2Page.pdf` and
+  `Hiran_Patel_CV_2Page_Data_Architect.pdf` directly under
+  `C:\Users\hiran\Downloads\`.
+
+### Known issue (not fixed, needs a decision)
+- `soffice`/LibreOffice and `pdfinfo` are not installed on this machine —
+  only `pdftotext` is. `validate_cv.py`'s Phase 5.3 checks that depend on
+  PDF conversion/metadata will hard-fail here until one of those is
+  installed, or the check is reworked to not need a real PDF render.
+
 ## [1.12.0] - 2026-09-18 (Local-Only Output, Tracker Removed, Data Exposure Fixed)
 
 ### Removed

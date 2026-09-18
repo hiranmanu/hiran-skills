@@ -76,10 +76,13 @@ re-rendering a PDF just to fix a missing keyword.
 ## Phase 0 — Intake & Context Assembly
 
 **Resume content.** In priority order:
-1. Existing library at `resumes/*.md` in the working directory.
-2. Attached CV file (PDF/DOCX).
+1. The fixed source CVs in `references/cv-config.md` ("Source CVs (Local)")
+   — `C:\Users\hiran\Downloads\Hiran_Patel_CV_2Page.pdf` (PRODUCT_CV) or
+   `C:\Users\hiran\Downloads\Hiran_Patel_CV_2Page_Data_Architect.pdf`
+   (DATA_ARCHITECT_CV), picked per the template selection rules there.
+2. Attached CV file (PDF/DOCX), if the user provides one instead.
 3. Pasted CV text or LinkedIn profile.
-4. No CV? Ask for one.
+4. No CV found or provided? Ask for one.
 
 **Reference files (always check these first):**
 - `references/cv-background.md` — confirmed facts per role (board/investor, BI tools,
