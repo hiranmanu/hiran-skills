@@ -39,18 +39,18 @@ hiran-skills/                                  # marketplace root
 
 See `SKILLS.md` for the current catalog.
 
-### cv-tailoring (v1.10.0)
+### cv-tailoring (v1.11.1)
 
 Tailors a CV to a job description for CPO/VP Product, Data Architect, Solution/Enterprise Architect, and related senior product/data roles.
 
-**What it does (Phases 0-7, see `cv-tailoring.md` for the full sequence):**
+**What it does (Phases 0-7, see `SKILL.md` for the full sequence):**
 1. Intake — load CV library and reference files (Phase 0)
 2. Researches the role and company signals (Phase 1)
 3. Assesses gaps against JD requirements, checking `cv-background.md` first (Phase 2)
 4. Runs a discovery interview for addressable gaps, writes confirmed facts back to `cv-background.md` (Phase 2.5)
 5. Scores ATS keyword coverage before/after via semantic clustering, target 85%+ (Phase 3)
 6. Rewrites profile, skills, and bullets to match the JD (Phase 4)
-7. Validates hard constraints (Phase 5.3) and reviews via Hiring Manager + Talent Acquisition lenses (Phase 5.5)
+7. Reviews draft text via Hiring Manager + Talent Acquisition lenses before rendering (Phase 5.1), then validates the render's hard constraints (Phase 5.3)
 8. Generates a summary report (Phase 6)
 9. Logs the application to the Google Sheets tracker in GDrive (Phase 7)
 
@@ -59,9 +59,10 @@ Tailors a CV to a job description for CPO/VP Product, Data Architect, Solution/E
 - **After:** 93% ATS coverage (26/28 keywords)
 - **Profile rewrite:** "Senior Product Director" + search/discovery + hands-on IC + prototyping tools (Claude Code, Cursor, Lovable, Bolt)
 - **Skills regenerated:** 5 lines of JD-only keywords, search/discovery front-loaded
-- **Output:** Professional DOCX/PDF with all sub-bullets preserved (this
-  example predates the v1.8.0 navy/grey colour house style — see
-  `cv-formatting.md` for the current spec)
+- **Output:** Professional DOCX with all sub-bullets preserved (this
+  example predates both the v1.8.0 navy/grey colour house style and the
+  v1.10.0 DOCX-only deliverable change — see `cv-formatting.md` for the
+  current spec)
 
 **Installation in Claude Code:**
 ```bash
@@ -71,7 +72,7 @@ Tailors a CV to a job description for CPO/VP Product, Data Architect, Solution/E
 
 ## Workflow
 
-Three speed modes, defined and enforced in `cv-tailoring.md` Phase 0 (not
+Three speed modes, defined and enforced in `SKILL.md` Phase 0 (not
 just described here — the orchestrator actually skips the right phases
 per mode):
 
@@ -113,6 +114,42 @@ git push origin master
 When Hiran confirms new facts about past roles, update `plugins/cv-tailoring/skills/cv-tailoring/references/cv-background.md` so the skill uses them without re-asking.
 
 ## Recent Updates
+
+**v1.11.1 (Sep 18, 2026) — Skill audit: fix stale DOCX+PDF references, dedupe title blending, phase mislabel:**
+- A full audit found the v1.10.0 "DOCX-only" change hadn't propagated
+  everywhere: `SKILL.md`'s Render section, its own frontmatter, `plugin.json`,
+  `marketplace.json`, and `cv-config.md` all still described a DOCX+PDF
+  deliverable. Aligned all five to DOCX-only.
+- Collapsed title-blending rules that were duplicated near-verbatim in
+  `cv-background.md` and `cv-formatting.md` into one source of truth.
+- Fixed `cv-tracker.md` referencing the wrong phase for GDrive output.
+- This README and `SKILLS.md` were themselves found stale at v1.10.0 during
+  the audit — fixed alongside this release, see `CHANGELOG.md`.
+
+**v1.11.0 (Sep 18, 2026) — House-style sync: descriptor colon, LinkedIn hyperlink fix, References check automated:**
+- Company/descriptor line rule (`City, UK: descriptor`, colon not dash)
+  added to `cv-formatting.md` and `cv-config.md`.
+- `validate_cv.py` now automates the References/Recommendations check.
+- Fixed a `cv-config.md`/`cv-formatting.md` contradiction over whether the
+  LinkedIn URL is plain text or hyperlinked (hyperlinked is correct).
+
+**v1.10.0 (Sep 18, 2026) — Docx-only output, widow/orphan rule, Phase 6 enforcement:**
+- DOCX made the sole deliverable — a chat session must not present a
+  self-generated LibreOffice PDF as final output or pagination proof
+  (Carlito vs. real Calibri metrics mismatch caused the v1.9.0 pagination
+  bug); LibreOffice rendering stays an internal structural check only.
+- Added the same widow/orphan rule Key Skills rows got in v1.9.0 to
+  Profile Summary paragraphs.
+- `SKILL.md` Phase 6 (Summary Report) now has an explicit "never skipped"
+  callout.
+
+**v1.9.0 (Sep 18, 2026) — Chat-session bug fixes + release backfill:**
+- Fixed a wrong LinkedIn URL in `cv-config.md` (missing hyphen).
+- Rewrote the Key Skills rule to match the confirmed 3-row/middle-dot style.
+- Documented two real docx-js bugs (`TabStopPosition.MAX`, `PositionalTab`)
+  hit by a chat session working without this repo mounted.
+- Broadened the "remove Recommendations" rule to also cover "References".
+- Backfilled GitHub Releases for v1.0.0-v1.6.1.
 
 **v1.8.0 (Sep 17, 2026) — House style confirmed, authenticity metadata:**
 - Hiran confirmed the separate chat session's conventions (flagged as an open

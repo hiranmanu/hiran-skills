@@ -2,6 +2,37 @@
 
 All notable changes to the cv-tailoring skill and supporting reference files are documented here.
 
+## [1.11.1] - 2026-09-18 (Fix Stale DOCX+PDF References, Dedupe Title Blending, Phase Mislabel)
+
+A full audit of the skill (SKILL.md, all 9 reference files, both scripts,
+plus the plugin/marketplace manifests) surfaced drift left behind by the
+v1.10.0 "DOCX-only" change, which had updated `cv-formatting.md` but not
+everywhere else that described the deliverable.
+
+### Fixed
+- **DOCX-only output wasn't reflected everywhere.** `SKILL.md`'s Render
+  section, its own frontmatter description, `plugin.json`,
+  `marketplace.json`, and `cv-config.md`'s output table all still described
+  a DOCX+PDF deliverable after v1.10.0 made DOCX the sole shipped artifact.
+  All five now say DOCX-only, with the LibreOffice PDF explicitly scoped as
+  internal-only (used for Phase 5.3 validation, never shipped or stored).
+- **Title-blending rules were duplicated near-verbatim** in both
+  `cv-background.md` §3 and `cv-formatting.md` (same format, same 1-2-max
+  rule, same Amazon/OneAdvanced examples). Collapsed to a single source of
+  truth (`cv-background.md` §3); `cv-formatting.md` now just points to it.
+- **`cv-tracker.md`'s "CV File Used" column referenced "Phase 4"** — but
+  Phase 4 is draft-text generation only; the GDrive output actually happens
+  in the unnumbered Render phase between 5.1 and 5.3. Corrected.
+
+### Housekeeping
+- Bumped `marketplace.json` and `plugin.json` versions to 1.11.1.
+- This entry itself was originally missing from `CHANGELOG.md`, and
+  `README.md`/`SKILLS.md` were still showing v1.10.0 in their headers even
+  though `plugin.json` had already reached v1.11.0 — both fixed alongside
+  this release. Going forward, a version bump isn't done until
+  `CHANGELOG.md`, `README.md`, and `SKILLS.md` are updated in the same pass,
+  not just the manifests and skill files.
+
 ## [1.11.0] - 2026-09-18 (House-Style Sync: Descriptor Colon, LinkedIn Hyperlink Fix, References Check Automated)
 
 Synced a set of house-style rules and docx-js bug-fix learnings from a

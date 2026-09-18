@@ -1,6 +1,6 @@
 # Available Skills
 
-## cv-tailoring (v1.10.0)
+## cv-tailoring (v1.11.1)
 
 Tailors a CV to a job description using a 9-phase workflow: intake → research → gap assessment → discovery → ATS scoring → generation → validation/QA → summary → tracker sync.
 
@@ -23,14 +23,20 @@ Tailors a CV to a job description using a 9-phase workflow: intake → research 
 - **TalentInternational Product Director:** 64% → 93% ATS coverage (search/discovery/hands-on IC emphasis)
 
 **Workflow Modes:**
-1. **Quick (1-2 min):** Paste JD → generate → done. No questions, no gates.
+1. **Quick (1-2 min):** Paste JD → generate → done. Skips web research, the
+   discovery interview, and pre-render QA personas — Phase 5.3 format
+   validation is never skipped, in any mode.
 2. **Balanced (15-20 min):** Paste JD → 2-3 quick questions → generate → review once → upload.
 3. **Full Manual (90-135 min):** All 9 phases with discovery interview, gap assessment, multi-loop QA.
 
 **Output:**
-- Tailored DOCX (editable) + PDF (for submission)
-- Professional black-and-white formatting: Calibri font, section underlines, proper bullet hierarchy
-- No LinkedIn URL for agency postings (configurable per JD source)
+- Tailored DOCX (the sole deliverable — see `cv-formatting.md` "Output
+  Format"; a self-generated PDF is never shipped, only used internally for
+  Phase 5.3 validation)
+- Plain Calibri 10.5pt, A4, navy/grey colour scheme, square (▪) bullets,
+  hyperlinked contact details, section underlines
+- No LinkedIn URL for Data Architect roles (Product roles only — see
+  `cv-config.md`)
 - All sub-bullets preserved; no em-dashes; proper spacing and alignment
 
 **Installation in Claude Code:**
@@ -49,6 +55,26 @@ Tailors a CV to a job description using a 9-phase workflow: intake → research 
 ---
 
 ## Version History
+
+**v1.11.1 (Sep 18, 2026):**
+- Full skill audit found the v1.10.0 DOCX-only change hadn't propagated to
+  `SKILL.md`'s Render section, its own frontmatter, `plugin.json`,
+  `marketplace.json`, or `cv-config.md` — all still described a DOCX+PDF
+  deliverable. Aligned all five to DOCX-only.
+- Deduplicated title-blending rules that were repeated near-verbatim in
+  both `cv-background.md` and `cv-formatting.md` into one source of truth.
+- Fixed `cv-tracker.md` referencing the wrong phase (Phase 4, should be the
+  Render phase) for GDrive output.
+- This file and `README.md` were themselves found stale at v1.10.0 during
+  the audit — fixed alongside this release.
+
+**v1.11.0 (Sep 18, 2026):**
+- Company/descriptor line rule (`City, UK: descriptor`, colon not dash)
+  added to `cv-formatting.md` and `cv-config.md`.
+- `validate_cv.py` now automates the References/Recommendations check
+  (heading label or downgraded "available on request" placeholder).
+- Fixed a `cv-config.md`/`cv-formatting.md` contradiction over whether the
+  LinkedIn URL is plain text or hyperlinked (hyperlinked is correct).
 
 **v1.10.0 (Sep 18, 2026):**
 - DOCX is now the sole deliverable — a chat session must not present a
