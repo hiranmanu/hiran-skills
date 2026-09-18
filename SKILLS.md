@@ -5,6 +5,7 @@ Catalog of every skill in this marketplace. Each skill versions independently �
 | Skill | Version | Description | Docs |
 |---|---|---|---|
 | `cv-tailoring` | 1.11.2 | Tailors a CV to a job description using a 9-phase workflow: intake → research → gap assessment → discovery → ATS scoring → generation → validation/QA → summary → tracker sync. | [README](plugins/cv-tailoring/README.md) · [CHANGELOG](plugins/cv-tailoring/CHANGELOG.md) |
+| `interview-prep` | 1.0.0 | Builds interview intel from a JD + company using an 8-phase workflow: intake → company research → JD breakdown → likely questions/STAR answers → smart questions to ask → intro → HR-screen basics → dossier. Scales from a 10-minute rapid brief to a full dossier. | [README](plugins/interview-prep/README.md) · [CHANGELOG](plugins/interview-prep/CHANGELOG.md) |
 
 ## Installation
 
@@ -17,7 +18,6 @@ e.g. `/plugin install cv-tailoring@hiran-skills`.
 
 ## Upcoming Skills
 
-- `interview-prep` — Interview prep (STAR format, Q&A, role-specific research, mock interviews)
 - `linkedin-optimizer` — LinkedIn profile optimization (headline, summary, experience section)
 
-Each will land as its own plugin under `plugins/`, with its own `plugin.json` version starting at `1.0.0`, independent of `cv-tailoring`'s version — see `CLAUDE.md` for the checklist to follow when adding one.
+Each will land as its own plugin under `plugins/`, with its own `plugin.json` version starting at `1.0.0`, independent of every other skill's version — see `CLAUDE.md` for the checklist to follow when adding one.

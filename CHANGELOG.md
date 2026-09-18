@@ -12,6 +12,24 @@ version independently. `marketplace.json`'s top-level `version` bumps on
 structural changes only (a new skill added, schema change), not on every
 skill release.
 
+## 2026-09-18 — Added `interview-prep` skill
+
+New plugin under `plugins/interview-prep/` (v1.0.0), same shape as
+`cv-tailoring`. Builds interview intel from a JD + company name — company
+research, STAR-format answers, smart questions to ask, self-intro, and
+HR-screen basics — across three speed modes (Rapid/Standard/Deep). Not a
+CV-tailoring tool; deliberately kept as a separate, self-contained plugin
+per `CLAUDE.md`'s plugin self-containment rule, duplicating a small set of
+career facts from `cv-tailoring`'s `cv-background.md` rather than sharing
+a file across plugin folders.
+
+- Added to `.claude-plugin/marketplace.json`'s `plugins` array; bumped the
+  marketplace's top-level `version` to `1.13.0` (structural change — new
+  skill added).
+- Added a row to `SKILLS.md`'s catalog table; removed `interview-prep`
+  from the "Upcoming Skills" list.
+- Tagged `interview-prep-v1.0.0`.
+
 ## 2026-09-18 — Repository restructure: independent per-plugin versioning
 
 The marketplace is about to grow beyond one skill (`cv-tailoring`), so
