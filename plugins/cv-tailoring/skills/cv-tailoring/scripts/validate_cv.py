@@ -110,6 +110,26 @@ def check_pdf_author(pdf_path: Path):
     return m.group(1).strip() if m else None
 
 
+REFERENCES_HEADING_RE = re.compile(r"^\s*(references|recommendations)\s*$", re.IGNORECASE)
+REFERENCES_DOWNGRADE_RE = re.compile(r"available\s+(up\s*on|on)\s+request", re.IGNORECASE)
+
+
+def check_references_section(all_text: str):
+    """Flags a References/Recommendations heading, or a downgraded
+    'available on request' placeholder line, anywhere in the document —
+    both are banned per cv-formatting.md, not just the heading form."""
+    failures = []
+    for line in all_text.splitlines():
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if REFERENCES_HEADING_RE.match(stripped):
+            failures.append(f'heading found: "{stripped}"')
+        elif REFERENCES_DOWNGRADE_RE.search(stripped):
+            failures.append(f'downgraded placeholder line found: "{stripped}"')
+    return failures
+
+
 def check_dashes(all_text: str):
     failures = []
     for ch, label in DASH_CHARS.items():
@@ -249,7 +269,15 @@ def main():
     else:
         report.append("PASS  role-page-split check: no role appears split across a page boundary")
 
-    # Check 5: authenticity metadata (Author)
+    # Check 5: References/Recommendations section removed
+    references_failures = check_references_section(all_text)
+    if references_failures:
+        ok = False
+        report.append("FAIL  references-section check:\n  " + "\n  ".join(references_failures))
+    else:
+        report.append("PASS  references-section check: no References/Recommendations heading or placeholder found")
+
+    # Check 6: authenticity metadata (Author)
     docx_creator, docx_lmb = check_docx_author(args.path)
     pdf_author = check_pdf_author(pdf_path)
     author_problems = []

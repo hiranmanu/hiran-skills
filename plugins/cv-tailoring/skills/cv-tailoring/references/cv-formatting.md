@@ -66,18 +66,25 @@ Light / US Letter / black-and-white guidance in this file's history:
   spacing.after for section/role breaks only.
 - **Header layout:**
   - Name: left-aligned, bold, large, navy
-  - Contact line: `London, UK | Phone | Email (hyperlinked, mailto:) | LinkedIn (hyperlinked)`
-    — no parenthetical asides (e.g. don't add "(open to remote/global)")
+  - Contact line: `London, UK | Phone | Email | LinkedIn` — pipe (`|`)
+    dividers, no parenthetical asides (e.g. don't add "(open to
+    remote/global)"). Email and LinkedIn are both live hyperlinks
+    (`mailto:` for email), never plain text.
+  - Company/descriptor line: format is `City, Country: descriptor` — a
+    **colon**, not a dash. Example: `London, UK: Global media technology
+    consultancy`, not `London, UK - Global media technology consultancy`.
   - Role dates: right-aligned via a tab stop, **not bold**, same size as
-    everything else. Compute the tab position explicitly from this
-    template's actual page width minus its margins — do NOT use docx-js's
-    `TabStopPosition.MAX`, which is a fixed 9026-twip constant tuned for a
-    different margin setup and undershoots the true right edge here (this
-    caused a real "dates aren't flush right" bug). Also avoid `PositionalTab`
-    (`w:ptab`) for this — it renders broken in LibreOffice (text runs into
-    the date with no space), which is how this got caught. `roleHeader()`
-    in `build_cv_reference.js` has the correct working tab-stop math; copy
-    it rather than re-deriving from scratch.
+    everything else, and must sit flush on the true page margin edge —
+    verify visually against the page edge, not just against other text.
+    Compute the tab position explicitly from this template's actual page
+    width minus its margins — do NOT use docx-js's `TabStopPosition.MAX`,
+    which is a fixed 9026-twip constant tuned for a different margin setup
+    and undershoots the true right edge here (this caused a real "dates
+    aren't flush right" bug). Also avoid `PositionalTab` (`w:ptab`) for
+    this — it renders broken in LibreOffice (text runs into the date with
+    no space), which is how this got caught. `roleHeader()` in
+    `build_cv_reference.js` has the correct working tab-stop math; copy it
+    rather than re-deriving from scratch.
   - Dual nationality: appears once only, at the bottom under
     Qualifications/Personal Details, right-aligned to the same tab stop as
     role dates (`Languages: ... [tab] Joint Nationality: British & American`)
@@ -126,6 +133,12 @@ rather than re-deriving the styling from prose each time.
   against the other. Ship the `.docx`; Hiran exports the PDF himself from
   real Word/Calibri when he needs one, which is the only render that
   actually reflects what a reader will see.
+- **Treat the `.docx` as the source of truth for pagination**, never a
+  LibreOffice-rendered PDF. Proof the final layout from a PDF exported by
+  real Word (real Calibri metrics), not `soffice`/LibreOffice (Carlito
+  substitution) — this is the same font-substitution issue as above,
+  called out separately because it's specifically the pagination-proofing
+  step that gets skipped, not just the final-deliverable choice.
 - **LibreOffice rendering is still fine as an internal structural
   gut-check** (page count sanity, does the numbering config parse, is text
   extractable) — just don't present that PDF to Hiran as a deliverable or
@@ -194,7 +207,7 @@ rather than re-deriving the styling from prose each time.
 ### Validation Before Output
 
 Run `python3 scripts/validate_cv.py <path> --max-pages 2` (see `cv-decision-gates.md`
-§5.3) — it automates the five checks below marked ⚙ in one pass. The rest still need
+§5.3) — it automates the checks below marked ⚙ in one pass. The rest still need
 a human look at the rendered page images.
 
 - [ ] ⚙ No em dashes or en dashes (grep on PDF text extraction)
@@ -212,7 +225,11 @@ a human look at the rendered page images.
       `https://www.linkedin.com/in/hiran-patel/` exactly (confirmed URL —
       `cv-config.md`'s table is the source of truth; if the two ever
       disagree, `cv-config.md` is stale, not this line)
-- [ ] Recommendations/References section removed (either label)
+- [ ] ⚙ Recommendations/References section removed (either label, including
+      a downgraded "available on request" line — no heading at all, even
+      empty)
+- [ ] Company/descriptor lines use a colon (`City, UK: descriptor`), never
+      a dash
 - [ ] Each Key Skills row wraps to ~1.4-1.8 lines, not a 3rd line and not
       a 2nd line with only 1-3 orphan words
 - [ ] Profile Summary paragraphs don't wrap to a 1-2 word final line

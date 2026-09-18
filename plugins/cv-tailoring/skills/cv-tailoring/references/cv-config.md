@@ -72,12 +72,15 @@ What is the target role type?
 - Font: plain Calibri, 10.5pt uniform across every section
 - Colour scheme: navy/grey (not black-and-white) — see `cv-formatting.md`
 - Voice pattern: Action + Number + Method + Scale
-- Layout rules: A4, date right-aligned (not bold), citizenship/nationality right-aligned to the same tab stop at the bottom, no em-dashes or en-dashes
+- Layout rules: A4, date right-aligned (not bold, flush on the true page
+  margin edge), citizenship/nationality right-aligned to the same tab stop
+  at the bottom, no em-dashes or en-dashes anywhere including date ranges
+- Company/descriptor lines: colon divider (`City, UK: descriptor`), not a dash
 - Formatting: single-line bullets only, square (▪) primary bullets
 - Authenticity: DOCX/PDF Author metadata set to "Hiran Patel"
 
 **PRODUCT_CV unique:**
-- LinkedIn URL: Present, plain text format
+- LinkedIn URL: Present, hyperlinked (not plain text)
 - Sections: Profile, Key Skills & Competencies, Career & Key Achievements
 - Sections: No Recommendations section
 

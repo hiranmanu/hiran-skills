@@ -2,6 +2,40 @@
 
 All notable changes to the cv-tailoring skill and supporting reference files are documented here.
 
+## [1.11.0] - 2026-09-18 (House-Style Sync: Descriptor Colon, LinkedIn Hyperlink Fix, References Check Automated)
+
+Synced a set of house-style rules and docx-js bug-fix learnings from a
+review session into this repo, so future tailoring sessions inherit them
+without depending on chat memory.
+
+### Added
+- **Company/descriptor line rule:** `City, UK: descriptor` uses a colon,
+  not a dash. New to `cv-formatting.md` and `cv-config.md`.
+- **`validate_cv.py` now automates the References/Recommendations check**
+  (previously manual-only): flags either heading label, and separately
+  flags a downgraded "available on request" placeholder line even without
+  a heading. Checklist item in `cv-formatting.md` marked ⚙ accordingly.
+
+### Fixed
+- **`cv-config.md`'s LinkedIn URL rule contradicted `cv-formatting.md`.**
+  The template-comparison table said "plain text format"; the formatting
+  rules said hyperlinked. Hyperlinked is correct (confirmed house style) —
+  the config table was stale. Corrected to match.
+- **Role-date right-alignment rule now explicit about "flush on the true
+  page margin edge,"** not just "flush against other text" — reinforces
+  the existing `TabStopPosition.MAX` / `PositionalTab` bug guidance with
+  the specific verification a chat session should do (check against the
+  page edge, not just visual alignment with other lines).
+- **Pagination source-of-truth rule reinforced as its own line** in the
+  Output Format section: the `.docx` is the source of truth, and a final
+  layout proof must come from a real-Word-exported PDF, not a
+  LibreOffice/`soffice` one — called out separately from the "don't ship a
+  self-generated PDF" rule since it's specifically the proofing step that
+  keeps getting skipped.
+
+### Housekeeping
+- Bumped `marketplace.json` and `plugin.json` versions to 1.11.0.
+
 ## [1.10.0] - 2026-09-18 (Docx-Only Output, Widow/Orphan Rule, Phase 6 Enforcement)
 
 Three more chat-session gaps caught in the same conversation as v1.9.0,
