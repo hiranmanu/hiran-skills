@@ -5,6 +5,55 @@ here. This file versions independently of other skills in this
 marketplace — see the repo root `CHANGELOG.md` for marketplace-level
 changes (new skills added, shared tooling, manifest schema).
 
+## [1.2.0] - 2026-09-18 (Senior/Exec-Round Gaps: Broader Research, Stakeholder Alignment, Presentation Rounds, Engagement Types)
+
+Prompted by a direct review pass — asked to look through v1.1.0 for what
+still didn't hold up for senior interviews, especially ones where the
+candidate also has to present back to the company. Found four real gaps
+and closed all four rather than partially addressing them.
+
+### Added
+- **Research broadened well past site + news** (`ip-research.md`): added
+  hiring signals (§2.6 — live job postings as a sharper priority signal
+  than marketing copy), company filings/registries (§2.7 — Companies
+  House/SEC EDGAR/OpenCorporates, turning "no evidence of funding found"
+  from inference into sourced fact), and employer reputation + existing-
+  team research (§6 — Glassdoor-style review sites and scanning the
+  actual team's LinkedIn profiles, not just the named interviewers). The
+  file now opens with an explicit "don't stop at site + news" callout
+  rather than leaving this to be inferred from the step list.
+- **Stakeholder-alignment check** (`ip-question-bank.md`): a standing
+  question pattern for any process with 2+ senior stakeholders — testing
+  for daylight between what each would independently say about success —
+  promoted from a one-off in a real conversation to a reusable technique,
+  and wired into `ip-config.md`'s stage guidance and Phase 4.
+- **Phase 4.7 — Presentation Round Prep** (`references/ip-presentation.md`,
+  conditional): builds the actual presentation when the interview process
+  itself requires presenting back (a case-study round, "bring your
+  90-day plan," a formal panel slot) — using the right tool for the
+  format asked for (`pptx`/`docx`/diagram reuse), with a narrative-arc
+  structure and the same round-posture calibration and sourcing
+  discipline as the rest of the skill. Explicitly distinguished from
+  Phase 4.5 (an optional personal thinking aid) and from the
+  already-out-of-scope post-hire engagement deliverables — the test is
+  whether the work is produced to get the role or after getting it.
+- **Engagement-type-aware HR basics** (`ip-question-bank.md` Part C,
+  `ip-config.md`): Phase 6 now branches on permanent vs. fractional/
+  interim/advisory. The permanent-employee framing (salary, notice
+  period, visa) doesn't cover what actually gets asked in a fractional/
+  interim/advisory screen — day rate or retainer, availability and other
+  concurrent engagements, engagement structure, IR35/contractor status,
+  and engagement exit terms. Phase 0 now asks for engagement type
+  up front.
+
+### Changed
+- `SKILL.md`'s phase table grew to 12 phases (4 conditional: 1.5, 4.5,
+  4.7, 6.5); Phase 0 intake now also asks for engagement type and
+  whether a presentation is required.
+- `ip-diligence.md`'s "out of scope" closing note sharpened to state the
+  actual test (before vs. after the role is secured) now that Phase 4.7
+  exists and could otherwise be mistaken for the same out-of-scope case.
+
 ## [1.1.0] - 2026-09-18 (Multi-Round Support: Transcript Debrief, Named-Interviewer Research, Diagrams, Diligence Prep)
 
 Built after reviewing an actual multi-round interview-prep conversation

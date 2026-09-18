@@ -60,10 +60,15 @@ set, a risk register, a scoring matrix, an org chart) ahead of this stage:
 
 ## What this phase does NOT cover
 
-Building actual engagement deliverables — workshop decks, working
-prototypes, a 30/60/90 plan meant to be handed over, formal proposal
-documents — is a different job from interview prep and is out of scope
-for this skill. If the user needs one of those, that's a separate request
-best handled with the `pptx`/`docx`/`artifact-design` tooling directly,
-using this skill's dossier as input rather than continuing to expand this
+Building actual engagement deliverables **after the role/contract is
+secured** — a workshop deck for a paid advisory engagement, working
+prototypes, formal proposal documents — is a different job from interview
+prep and is out of scope for this skill. The line is whether the work is
+being produced to get the role or after getting it. A presentation the
+interview *process itself* requires (a case-study round, "bring your
+90-day plan") is still in scope — see `references/ip-presentation.md`
+(Phase 4.7) for that case specifically, which is not the same thing as
+this note. Once the engagement is real, that's a separate request best
+handled with the `pptx`/`docx`/`artifact-design` tooling directly, using
+this skill's dossier as input rather than continuing to expand this
 workflow to cover it.

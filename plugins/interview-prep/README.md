@@ -1,4 +1,4 @@
-# interview-prep (v1.1.0)
+# interview-prep (v1.2.0)
 
 Builds interview intel from a job description and company name — not CV
 tailoring, interview prep specifically.
@@ -17,14 +17,15 @@ interview-prep/                                  # this plugin
 ├── CHANGELOG.md                                  # full version history for this plugin
 └── skills/
     └── interview-prep/                          # the actual skill Claude loads
-        ├── SKILL.md                             # entrypoint — 11-phase orchestrator (3 conditional)
+        ├── SKILL.md                             # entrypoint — 12-phase orchestrator (4 conditional)
         └── references/                          # loaded on demand, not upfront
-            ├── ip-config.md                      # speed modes, interview stages, output conventions
-            ├── ip-research.md                    # company + named-interviewer research methodology
+            ├── ip-config.md                      # speed modes, interview stages, engagement types, output conventions
+            ├── ip-research.md                    # company + named-interviewer + filings/hiring-signal research methodology
             ├── ip-background.md                  # STAR story bank + confirmed career facts
-            ├── ip-question-bank.md                # likely-Q/STAR, smart-questions, HR-screen basics
+            ├── ip-question-bank.md                # likely-Q/STAR, smart-questions, stakeholder-alignment, HR-screen basics
             ├── ip-transcript-debrief.md           # Phase 1.5 — prior-round transcript reconciliation
             ├── ip-diagrams.md                     # Phase 4.5 — optional strategic diagram pack
+            ├── ip-presentation.md                 # Phase 4.7 — presentation-round prep (when the round requires it)
             ├── ip-diligence.md                    # Phase 6.5 — final-round/diligence-level prep
             └── ip-dossier-template.md             # Phase 7 output structure, append-only across rounds
 ```
@@ -33,8 +34,10 @@ interview-prep/                                  # this plugin
 
 1. Intake — speed mode, interview stage, JD, company, prior-round material (Phase 0)
 2. Researches the company and named interviewers: entity check, site
-   news + partnership cadence, internet news, revenue model, annual
-   reports/earnings calls (Phase 1)
+   news + partnership cadence, hiring signals, filings registries
+   (Companies House/SEC/OpenCorporates), internet news, revenue model,
+   annual reports/earnings calls, employer reputation + existing-team
+   research (Phase 1)
 3. **If a transcript/recording from a completed prior round exists:**
    reconciles prior assumptions into Confirmed / Corrected / Genuinely New,
    flags anything that changes next-round sequencing, and carries the
@@ -43,19 +46,27 @@ interview-prep/                                  # this plugin
 5. Generates likely interviewer questions with STAR-format answers, pulled
    from a real background story bank — never a fabricated metric (Phase 3)
 6. Generates smart questions to ask back, each tied to a specific fact
-   from the company research, annotated with what each tests, and
-   calibrated to the interview round — no generic questions (Phase 4)
+   from the company research, annotated with what each tests, calibrated
+   to the interview round, and including a stakeholder-alignment check
+   when 2+ senior stakeholders are in the process — no generic questions
+   (Phase 4)
 7. **If asked:** builds an editable strategic diagram pack (capability
    map, architecture, business model, revenue model, ecosystem — modeled
    figures always visibly disclaimed) (Phase 4.5, conditional)
-8. Builds a self-introduction, length scaled to speed mode (Phase 5)
-9. Preps HR-screen basics — motivation, salary, notice period,
-   visa/right-to-work — whenever the stage is an HR/recruiter screen
-   (Phase 6)
-10. **For final-round/diligence-level stages:** reframes into a formal
+8. **If the round requires presenting back** (a case-study round, "bring
+   your 90-day plan"): builds the actual presentation using the
+   appropriate tool for the format asked for, with a narrative arc and
+   posture matched to the round — still in scope because the interview
+   process itself requires it (Phase 4.7, conditional)
+9. Builds a self-introduction, length scaled to speed mode (Phase 5)
+10. Preps HR-screen basics — branched by engagement type: permanent
+    (salary, notice period, visa/right-to-work) or fractional/interim/
+    advisory (day rate/retainer, availability, engagement structure,
+    IR35) — whenever the stage is an HR/recruiter screen (Phase 6)
+11. **For final-round/diligence-level stages:** reframes into a formal
     document-request list and mines any shared company documents for
     internal contradictions (Phase 6.5, conditional)
-11. Writes (or updates, append-only) a dossier file for later reuse (e.g.
+12. Writes (or updates, append-only) a dossier file for later reuse (e.g.
     by the `pptx` skill), depending on speed mode (Phase 7)
 
 ## Speed modes
@@ -117,6 +128,15 @@ python3 scripts/check_release_consistency.py
 from the repo root.
 
 ## Recent Updates
+
+**v1.2.0** — Senior/exec-round gaps closed: research broadened to filings
+registries, hiring signals, employer-review sites, and existing-team
+research (not just site + news); a stakeholder-alignment question check
+for multi-senior-stakeholder processes; a genuine presentation-round
+capability (Phase 4.7) for when the interview itself requires presenting
+back, clearly distinguished from out-of-scope post-hire deliverables; and
+engagement-type-aware HR basics (fractional/interim/advisory vs.
+permanent).
 
 **v1.1.0** — Multi-round support: transcript debrief (Phase 1.5), named-
 interviewer research and entity disambiguation, round-posture-calibrated

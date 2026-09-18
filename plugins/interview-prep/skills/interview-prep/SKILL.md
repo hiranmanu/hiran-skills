@@ -2,15 +2,21 @@
 name: interview-prep
 description: >
   Builds interview intel from a job description and company name — company
-  and named-interviewer research (site news, internet news, revenue model,
-  annual reports, earnings calls), STAR-format answers to likely questions,
-  a genuine self-introduction, smart questions to ask that are baked with
-  real company knowledge (not generic), and HR-screen basics (motivation,
-  salary, notice period, logistics). Scales from a 10-minute rapid brief
-  before a call to a full dossier for later reuse. Multi-round aware: feed
-  it a transcript/recording from a completed round and it reconciles prior
-  assumptions against what was actually said, then carries the update into
-  the next round's prep. This is interview prep — it does not touch the CV.
+  and named-interviewer research (site news, hiring signals, filings
+  registries, revenue model, annual reports, earnings calls, employer
+  reputation, existing-team research), STAR-format answers to likely
+  questions, a genuine self-introduction, smart questions to ask that are
+  baked with real company knowledge (not generic, includes a stakeholder-
+  alignment check for multi-senior-stakeholder processes), and HR-screen
+  basics branched by engagement type (permanent salary/notice/visa, or
+  fractional/interim/advisory day-rate/retainer/IR35). Scales from a
+  10-minute rapid brief before a call to a full dossier for later reuse.
+  Multi-round aware: feed it a transcript/recording from a completed round
+  and it reconciles prior assumptions against what was actually said, then
+  carries the update into the next round's prep. Also builds the actual
+  presentation when a round explicitly requires presenting back (a
+  case-study/90-day-plan round). This is interview prep — it does not
+  touch the CV, and does not extend into post-hire engagement deliverables.
 ---
 
 # Interview Prep
@@ -39,6 +45,8 @@ pass unless asked.
 - "HR screen prep for [Company]"
 - "Here's the transcript/recording from the first/last call, help me prep
   for round 2" (or any similar reference to a prior round's material)
+- "I need to present my 90-day plan/point of view to the panel" / "they
+  want me to bring a deck"
 
 ## Workflow overview
 
@@ -51,6 +59,7 @@ pass unless asked.
 | 3 | Likely Questions + STAR Answers | `references/ip-question-bank.md` (Part A), `references/ip-background.md` |
 | 4 | Smart Questions to Ask | `references/ip-question-bank.md` (Part B) |
 | 4.5 | Strategic Diagram Pack (only if asked for) | `references/ip-diagrams.md` |
+| 4.7 | Presentation Round Prep (only if the round requires presenting back) | `references/ip-presentation.md` |
 | 5 | Self-Introduction | — |
 | 6 | HR Screen Basics (if applicable) | `references/ip-question-bank.md` (Part C) |
 | 6.5 | Late-Stage / Diligence Prep (final/exec rounds only) | `references/ip-diligence.md` |
@@ -59,8 +68,9 @@ pass unless asked.
 Speed mode and interview stage (set in Phase 0) determine what each later
 phase actually does — both tables live in `references/ip-config.md` and
 are the single source of truth; don't restate them here. Phases 1.5, 4.5,
-and 6.5 are conditional — most single-round Rapid/Standard sessions never
-touch them; they exist for the multi-round, higher-stakes case.
+4.7, and 6.5 are conditional — most single-round Rapid/Standard sessions
+never touch them; they exist for the multi-round, senior/exec, or
+higher-stakes case.
 
 ## Phase 0 — Intake
 
@@ -84,16 +94,28 @@ Need, in order of how fast they matter:
    stage. If yes, that's Phase 1.5. If a dossier already exists for this
    application, read it first — it carries the prior round's confirmed
    facts and posture forward; don't re-research from scratch.
+7. **Engagement type** — permanent, or fractional/interim/advisory. Ask if
+   ambiguous from the JD/recruiter brief; this changes Phase 6's HR-basics
+   content materially (day rate/retainer/IR35 vs. salary/notice — see
+   `references/ip-question-bank.md` Part C) and Phase 5's intro framing.
+8. **Presentation requirement** — ask if not already stated whether this
+   round requires presenting back (a case study, "bring your 90-day
+   plan," a formal panel slot) as opposed to a conversational round. If
+   yes, that's Phase 4.7.
 
 ## Phase 1 — Company Intel Research
 
 Full method and depth-by-mode in `references/ip-research.md`. In brief:
 entity check → site news (+ partnership-cadence timeline) → internet news
-→ named-interviewer research → revenue model → annual report/earnings
-call → (Deep only) competitive landscape + adjacent-industry playbook
-translation. Checkpoint with a 3-5 line summary **plus a "verify before
-you say this" list** before moving on, except in Rapid mode where there's
-no time for a checkpoint — proceed straight through.
+→ hiring signals → company filings/registries → named-interviewer
+research → revenue model → annual report/earnings call → employer
+reputation + existing-team research → (Deep only) competitive landscape +
+adjacent-industry playbook translation. **Don't stop at site + news** —
+filings registries and hiring signals in particular turn inference into
+sourced fact and are easy to skip if rushing. Checkpoint with a 3-5 line
+summary **plus a "verify before you say this" list** before moving on,
+except in Rapid mode where there's no time for a checkpoint — proceed
+straight through.
 
 ## Phase 1.5 — Prior-Stage Transcript Debrief (conditional)
 
@@ -129,16 +151,31 @@ Full method in `references/ip-question-bank.md` Part B. Every question in
 Standard/Deep mode must cite a specific Phase 1 fact, and should be
 annotated with what it tests. Tier by interview stage if known, and apply
 the round-posture calibration in that file — first-conversation questions
-are not the same set as final-round questions.
+are not the same set as final-round questions. **If 2+ senior stakeholders
+are in the process**, include that file's stakeholder-alignment check —
+this is easy to omit when generating questions one round at a time
+instead of holding the whole process in view.
 
 ## Phase 4.5 — Strategic Diagram Pack (conditional)
 
 Only if the user explicitly asks for a visual/diagram/north star/deck
-material — never by default. Full method in `references/ip-diagrams.md`:
-produced as a single editable `.drawio` file, build only the tab(s)
-asked for, and any modeled/assumed figure (e.g. a revenue projection)
-must carry a visible disclaimer in the diagram itself distinguishing it
-from a verified source figure.
+material as a thinking aid — never by default. Full method in
+`references/ip-diagrams.md`: produced as a single editable `.drawio`
+file, build only the tab(s) asked for, and any modeled/assumed figure
+(e.g. a revenue projection) must carry a visible disclaimer in the
+diagram itself distinguishing it from a verified source figure.
+
+## Phase 4.7 — Presentation Round Prep (conditional)
+
+Only when the interview process itself explicitly requires presenting
+back — a case-study round, "bring your first-90-days plan," a formal
+panel presentation slot — set in Phase 0. Distinct from Phase 4.5: this
+is a required deliverable for the round itself, built with the
+appropriate tool for the format asked for (`pptx`, `docx`, or a
+diagram-pack reuse), not just a personal prep aid. Full method,
+including the narrative-arc structure and posture calibration, in
+`references/ip-presentation.md` — including the explicit line it draws
+against building post-hire engagement deliverables.
 
 ## Phase 5 — Self-Introduction
 
@@ -152,9 +189,11 @@ keyword-matching — this is a spoken intro, not an ATS pass).
 
 Only when the interview stage is HR/recruiter screen (or defaulted to in
 Phase 0 for Rapid mode with unknown stage). Full checklist in
-`references/ip-question-bank.md` Part C — includes asking the user
-directly for salary expectations, notice period, and visa/right-to-work
-status rather than assuming any of them.
+`references/ip-question-bank.md` Part C, branched by the engagement type
+set in Phase 0 — permanent (salary, notice period, visa/right-to-work) or
+fractional/interim/advisory (day rate/retainer, availability, engagement
+structure, IR35) — always asking the user directly rather than assuming
+any figure or status.
 
 ## Phase 6.5 — Late-Stage / Diligence Prep (conditional)
 
@@ -194,12 +233,15 @@ new one.
    set but tier the smart-questions list (Phase 4) so the user can pick
    per-interviewer rather than asking a board-level question of an HR
    screener.
-5. **User wants an actual deliverable built for the company** (a workshop
-   deck, a working prototype, a formal proposal document): that's past
-   this skill's scope — see `references/ip-diligence.md`'s closing note.
-   Point to using the dossier this skill produced as input to the
+5. **User wants an actual deliverable built for the company after the
+   role/contract is secured** (a workshop deck, a working prototype, a
+   formal proposal document for a live engagement): that's past this
+   skill's scope — see `references/ip-diligence.md`'s closing note. Point
+   to using the dossier this skill produced as input to the
    `pptx`/`docx`/`artifact-design` tooling directly, rather than
-   expanding this workflow to cover it.
+   expanding this workflow to cover it. This is different from Phase 4.7
+   — a presentation the interview process itself requires, before the
+   role is secured, is in scope.
 6. **A transcript arrives with no prior dossier/context for this
    application:** still run Phase 1.5 (`ip-transcript-debrief.md`) — it
    can reconcile against this session's own fresh Phase 1 research

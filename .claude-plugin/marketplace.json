@@ -17,9 +17,9 @@
     {
       "name": "interview-prep",
       "source": "./plugins/interview-prep",
-      "description": "Builds interview intel from a JD and company name: company and named-interviewer research, STAR-format answers, smart questions baked with real company knowledge, an intro, and HR-screen basics. Multi-round aware via transcript debrief. Scales from a 10-minute rapid brief to a full dossier.",
+      "description": "Builds interview intel from a JD and company name: company and named-interviewer research (incl. filings registries, hiring signals), STAR-format answers, smart questions, an intro, and engagement-type-aware HR-screen basics. Multi-round aware via transcript debrief; builds the presentation itself when a round requires one. Scales from a 10-minute rapid brief to a full dossier.",
       "category": "productivity",
-      "version": "1.1.0"
+      "version": "1.2.0"
     }
   ]
 }

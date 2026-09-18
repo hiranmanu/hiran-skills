@@ -1,7 +1,7 @@
 {
   "name": "interview-prep",
-  "version": "1.1.0",
-  "description": "Builds interview intel fast: company and named-interviewer research (news, revenue model, annual reports, earnings calls), STAR-format answers, smart questions baked with real company knowledge, an intro, and HR-screen basics. Multi-round aware — feed it a prior round's transcript and it reconciles and carries prep forward. Scales from a 10-minute rapid brief to a full dossier.",
+  "version": "1.2.0",
+  "description": "Builds interview intel fast: company and named-interviewer research (site, news, filings registries, hiring signals, revenue model, annual reports, earnings calls, employer reputation), STAR-format answers, smart questions (incl. stakeholder-alignment checks), an intro, and engagement-type-aware HR-screen basics. Multi-round aware via transcript debrief, and builds the actual presentation when a round requires presenting back. Scales from a 10-minute rapid brief to a full dossier.",
   "author": {
     "name": "Hiran Patel"
   }

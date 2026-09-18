@@ -5,8 +5,17 @@ title: Company Research Methodology
 # Company Research Methodology
 
 Source order and what to extract at each depth. Depth is set by the speed
-mode in `ip-config.md` — Rapid stops after step 2, Standard covers 1-5,
-Deep covers all.
+mode in `ip-config.md` — Rapid stops after §2 (site + news only), Standard
+covers §§1-6 (site through employer/team research), Deep adds the
+adjacent-industry playbook translation in §5.
+
+**Don't stop at site + news.** The single most common research gap is
+treating the company's own site and a general news search as sufficient.
+For anything Standard or above, the highest-signal sources are often the
+ones a candidate doesn't think to check: filings registries (real
+financial/ownership fact vs. inference), what the company is actually
+hiring for right now, and what its own team's LinkedIn profiles say about
+its real maturity. See steps 2.7, 5.5, and 6 below.
 
 ## 0. Entity disambiguation (standing rule, every mode)
 
@@ -72,6 +81,38 @@ company-level research above:
   which questions/stories are likely to land with which person — see
   `ip-question-bank.md` for tiering smart questions by audience.
 
+## 2.6 Hiring signals (Standard + Deep)
+
+Check the company's live job postings (their own careers page and/or
+LinkedIn Jobs) — what a company is *actually* hiring for right now is a
+sharper, harder-to-fake signal of real priorities than any mission
+statement or press release. Look for: how many open roles sit in the same
+function as this one (a lone opening vs. a team being built out), what
+seniority is being hired around this role (a signal of whether it reports
+into a gap or into an already-staffed layer), and any pattern across
+functions (e.g. a wave of US-market roles alongside a UK-only product
+team) that corroborates or contradicts the partnership-cadence read above.
+
+## 2.7 Company filings / registries (Standard + Deep, especially for
+private/unlisted companies)
+
+Don't leave ownership, funding, and financials as inference from press
+coverage alone when a primary-source registry exists and is often free to
+check:
+- **UK:** Companies House — filed accounts, the Persons with Significant
+  Control (PSC) register (real ownership, not a guess), confirmation
+  statements, director appointment history, charges/mortgages (debt).
+- **US:** SEC EDGAR for public companies; state Secretary of State
+  filings for private ones (thinner, but confirms registered status/
+  officers).
+- **Other jurisdictions / cross-border:** OpenCorporates as a general
+  index; Crunchbase/PitchBook for funding history if accessible.
+
+This turns "no evidence of institutional funding found" (a web-search
+inference) into "confirmed founder-owned, no charges on record, PSC is
+[name]" (a sourced fact) — materially stronger for the dossier's company
+snapshot and for anything in the "verify before you say this" list.
+
 ## 3. How they make money (Standard + Deep)
 
 Identify: primary revenue model (subscription, transaction/take-rate,
@@ -121,6 +162,30 @@ market-penetration sequence I'd argue for" than positioning research
 alone, and it's a strong smart-question source (Phase 4): naming the
 playbook and asking whether they're consciously running it is a
 genuinely high-value question, not a generic one.
+
+## 6. Employer reputation & the existing team (Standard + Deep)
+
+Two checks that senior candidates especially shouldn't skip — the
+interview isn't only about the company assessing the candidate:
+- **Employer/review sites** (Glassdoor, Comparably, Indeed reviews):
+  patterns in why people leave, leadership reputation, anything that
+  contextualizes *why this role is actually open* (a genuinely new
+  function vs. backfilling a departure vs. a reorg). Treat individual
+  reviews with the same skepticism as any anonymous source — look for a
+  pattern across several, not one outlier — but a consistent theme is
+  real signal a JD will never volunteer.
+- **The existing team's LinkedIn profiles** (not just the named
+  interviewers — see §2.5): scan the function this role will lead or
+  join. Team size, seniority spread, tenure, and where people came from
+  tells you the function's actual maturity far better than a headcount
+  number in a recruiter brief — and shapes what "come in and build this"
+  really means in practice (a green team needs different leadership than
+  a seasoned one that's just missing a strategic head).
+
+**Conference talks, podcast appearances, and webinars (Deep, or Standard
+if quickly found)** — often more candid and detailed than press coverage,
+and a good source for both company strategy signal and named-interviewer
+research (§2.5) if a relevant exec has spoken publicly.
 
 ## Checkpoint
 

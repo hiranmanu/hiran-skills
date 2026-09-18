@@ -101,13 +101,38 @@ has clear signal the company wants their point of view fully formed —
 pressure-test it against what you're actually seeing day to day" invites
 correction rather than reading as "I've already solved your job."
 
+### Stakeholder-alignment check (Standard + Deep, whenever 2+ senior
+stakeholders are involved across the process)
+
+When multiple senior stakeholders sit across the process with plausibly
+different agendas (e.g. a commercial-led CEO and a product-led COO, or a
+board member alongside the hiring manager), include at least one question
+that explicitly tests for daylight between what they'd each say — this
+is one of the highest-value question types available and is easy to omit
+if generating questions per-round without holding the whole process in
+view:
+
+> "In your own words, what does success look like at the twelve-month
+> mark — and does that match what [other named stakeholder] would say?"
+
+Where the transcript debrief (`ip-transcript-debrief.md`) shows one
+stakeholder already answered a version of this, use their answer as the
+explicit comparison point with the next stakeholder rather than asking
+the same open question twice — sharper and shows continuity across
+rounds.
+
 ## Part C — HR Screen Basics
 
 **Mandatory whenever the interview stage is HR/recruiter screen**, in
 every speed mode (see `ip-config.md`'s stage table) — an HR screen fails
 on missed basics far more often than on strategic depth.
 
-Prep tight, direct answers (not scripts) for:
+**First confirm engagement type** — the basics differ materially between
+a permanent role and a fractional/interim/advisory one, and defaulting to
+permanent-employee framing for the latter misses what actually gets
+asked:
+
+**Permanent role:**
 - "Tell me about yourself" — 60-90 second version, pulled from Phase 5's
   intro.
 - "Why this role / why this company" — must reference Phase 1 research,
@@ -119,10 +144,33 @@ Prep tight, direct answers (not scripts) for:
 - "Notice period / availability" — ask the user; don't assume.
 - "Right to work / visa status" — ask the user if not already known; don't
   assume a status.
+
+**Fractional / interim / advisory role:**
+- "Tell me about yourself" — same as above, but the intro (Phase 5)
+  should foreground the pattern of *this specific kind of engagement*
+  across past roles, not a generic career summary.
+- "Day rate or retainer expectations" — ask the user directly; don't
+  invent a figure, and note whether they're anchoring to a day rate, a
+  monthly retainer, or an equity/carry component.
+- "Availability / days per week / other concurrent engagements" — ask the
+  user; a fractional candidate is very likely to have other commitments
+  and should be upfront about capacity, not vague.
+- "Engagement structure" — interim (full-time, fixed term) vs. fractional
+  (part-time, ongoing) vs. pure advisory (periodic input) are genuinely
+  different asks; confirm which one this actually is rather than
+  assuming from the JD title alone.
+- "IR35 / contractor status" (UK) or local equivalent — ask the user if
+  this hasn't already come up; it materially affects how compensation
+  should be framed in the conversation.
+- "Exit/notice terms for the engagement" — ask the user; interim/
+  fractional contracts often have shorter or different notice structures
+  than permanent employment.
+
+**Both:**
 - "Any questions for me?" — 1-2 of the lighter-tier smart questions from
   Part B, not the strategic ones (an HR screener usually can't answer
   those, which reads as a mismatch of question to audience).
 
-If the user hasn't given salary/notice/visa specifics and there's no time
-to ask (Rapid mode, interview imminent), flag it as "you'll need to have a
-number ready for this" rather than guessing one.
+If the user hasn't given the relevant specifics and there's no time to
+ask (Rapid mode, interview imminent), flag it as "you'll need to have a
+number/answer ready for this" rather than guessing one.
