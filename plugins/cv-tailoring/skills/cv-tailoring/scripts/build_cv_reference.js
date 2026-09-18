@@ -15,8 +15,11 @@
  * achievements (per SKILL.md's core principle).
  *
  * After running this (`node <file>.js`), always run
- * `python3 scripts/validate_cv.py <output>.docx --max-pages 2` before
- * calling it done — see cv-decision-gates.md §5.3.
+ * `python3 scripts/validate_cv.py <output>.docx` before calling it done —
+ * see cv-decision-gates.md §5.3. That script only covers what's checkable
+ * from the .docx XML directly (dashes, References ban, Author metadata);
+ * page count and bullet/role-page-splits still need a manual look at the
+ * rendered file.
  */
 const {
   Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType,

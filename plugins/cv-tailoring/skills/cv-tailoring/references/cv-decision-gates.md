@@ -90,30 +90,28 @@ Two independent lenses, both must pass: **Hiring Manager (HM)** and **Talent Acq
 
 ## Render
 
-Renders the DOCX from the text that just passed Phase 5.1 (plus an internal-only PDF for Phase 5.3's validation checks — never a shipped deliverable). See `SKILL.md` "Render" section for the mechanics (filenames, local output path, metadata).
+Renders the DOCX from the text that just passed Phase 5.1. No PDF is generated at
+any point, internally or otherwise. See `SKILL.md` "Render" section for the
+mechanics (filenames, local output path, metadata).
 
 ---
 
 ## Phase 5.3: Format Validation → Decision Gate (runs AFTER rendering)
 
-**Input:** Rendered PDF of the tailored CV.
+**Input:** The rendered `.docx`.
 
 **Run, in order, every time:**
-1. Render the DOCX using the `docx` skill's own build/verify pattern (soffice → PDF).
-2. Run the automated check: `python3 scripts/validate_cv.py <path-to.docx> --max-pages 2`
-   — this runs checks 2-4 below (em/en dashes, bullet-wrap detection, role-page-split
-   detection) plus the page-count cap in one pass and exits non-zero on any failure.
-   It replaces doing these by hand; still read the rendered page images for anything
-   it flags, since its wrap/split detection is a heuristic over `pdftotext -layout`
-   output, not a true layout engine (see the script's docstring for exact limits).
-3. `pdftoppm -jpeg -r 100 output.pdf page` and read the resulting page image(s) —
-   `validate_cv.py` doesn't replace looking at it; skills/layout issues outside its
-   four checks (colour, alignment, font substitution) still need eyes on it.
-4. `pdftotext -layout output.pdf -` → read it back; it should come back as
-   clean, ordered, readable text in the same sequence as the visual
-   document. Garbled, reordered, or dropped sections mean the layout (a
-   table, text box, multi-column section) will confuse a real ATS parser
-   too — fix the layout, don't just accept the garbled extraction.
+1. Run the automated check: `python3 scripts/validate_cv.py <path-to.docx>`
+   — this works directly off the `.docx`'s own XML, no external tools, no
+   PDF conversion. It checks em/en dashes, the References/Recommendations
+   ban, and authenticity metadata (Author fields), and exits non-zero on
+   any failure.
+2. Open the `.docx` itself (real Word if available) and eyeball: page
+   count (cap 2), no bullet wrapping to a second line, no role split
+   across a page boundary, colour/alignment/font look right. None of this
+   is automated — `validate_cv.py` explicitly doesn't attempt it (see its
+   docstring for why: pagination from any renderer other than real Word
+   isn't trustworthy enough to gate on).
 
 These are render-dependent by nature — they can't be checked on draft text,
 which is why they run after Render rather than folded into Phase 5.1.
@@ -127,11 +125,11 @@ which is why they run after Render rather than folded into Phase 5.1.
 2. Loop back to Phase 4.1 (profile rewrite) if em-dashes in profile
 3. Or loop back to Phase 4.3 (bullet matching) if em-dashes in bullets
 4. Replace em-dashes with commas, semicolons, or split into two sentences
-5. Re-render DOCX → PDF (no need to re-run Phase 5.1 for a punctuation-only fix)
+5. Re-render DOCX (no need to re-run Phase 5.1 for a punctuation-only fix)
 6. Re-validate (Phase 5.3)
 7. If pass, proceed to Phase 6
 
-### Check 2 Fails: Bullet Wraps to Second Line
+### Check 2 Fails: Bullet Wraps to Second Line (found on manual review)
 
 **Root cause:** Bullet text exceeds ~90 char budget (including spaces)
 
@@ -139,20 +137,17 @@ which is why they run after Render rather than folded into Phase 5.1.
 1. Identify which bullets wrap
 2. Loop back to Phase 4.4 (bullet reordering/shortening)
 3. Trim each over-budget bullet: cut adjectives, collapse phrases, or break into two separate points (only if justified)
-4. Re-render DOCX → PDF
+4. Re-render DOCX
 5. Re-validate (Phase 5.3) — and re-run Phase 5.1 only if the trim removed a keyword or metric, since that's a content change, not just a formatting one
 6. If pass, proceed to Phase 6
 
-### Check 3 Fails: pdftotext Unreadable
+### Check 3 Fails: Authenticity Metadata Wrong
 
-**Root cause:** Usually heading structure, embedded images, or PDF corruption
+**Root cause:** The render step didn't set `creator`/`lastModifiedBy` to `"Hiran Patel"` — usually a copy-paste from `build_cv_reference.js` that kept its placeholder values.
 
 **Action:**
-1. Re-generate DOCX from scratch (suspected rendering issue)
-2. Simplify formatting: remove tables, remove bold/italics if present, use plain Calibri Light only
-3. Re-render PDF
-4. Re-validate (Phase 5.3)
-5. If still fails, ask user: "PDF extraction failed. Suspect formatting issue. Should I regenerate with simpler structure?"
+1. Fix the document properties in the render step, re-render.
+2. Re-validate (Phase 5.3). This is a metadata-only fix — no need to re-run Phase 5.1.
 
 ### All Checks Pass
 

@@ -100,10 +100,9 @@ Light / US Letter / black-and-white guidance in this file's history:
 - **Sections order:** Profile Summary, Key Skills & Competencies, Career & Key Achievements, Qualifications/Certifications/Personal Details
 - **Document authenticity metadata:** every generated `.docx` must set
   `creator` and `lastModifiedBy` to `"Hiran Patel"` (plus a real `title`,
-  e.g. `"Hiran Patel - CV"`), not left as a generic tool/library default —
-  this carries through to the PDF's Author field on conversion (verified via
-  `pdfinfo`). `scripts/validate_cv.py` checks this automatically (see
-  Validation below).
+  e.g. `"Hiran Patel - CV"`), not left as a generic tool/library default.
+  `scripts/validate_cv.py` checks this automatically, directly off the
+  `.docx`'s own XML (see Validation below).
 - **Naming:** "dunnhumby" is always lowercase, in every position including
   at the start of a line/sentence.
 - **Vague filler:** avoid phrases like "details available on request" for
@@ -122,36 +121,30 @@ rather than re-deriving the styling from prose each time.
 
 ### Output Format
 
-- **DOCX is the deliverable; don't self-generate a PDF as the final
-  artifact.** `soffice`/LibreOffice substitutes Carlito for Calibri, which
-  is close but not metric-identical — it can under- or over-predict line
-  wraps and page breaks versus real Word. Presenting a LibreOffice-rendered
-  PDF as if its pagination is authoritative is how the 3-page/role-split
-  bug happened: the DOCX looked correct against one renderer and wrong
-  against the other. Ship the `.docx`; Hiran exports the PDF himself from
-  real Word/Calibri when he needs one, which is the only render that
-  actually reflects what a reader will see.
-- **Treat the `.docx` as the source of truth for pagination**, never a
-  LibreOffice-rendered PDF. Proof the final layout from a PDF exported by
-  real Word (real Calibri metrics), not `soffice`/LibreOffice (Carlito
-  substitution) — this is the same font-substitution issue as above,
-  called out separately because it's specifically the pagination-proofing
-  step that gets skipped, not just the final-deliverable choice.
-- **LibreOffice rendering is still fine as an internal structural
-  gut-check** (page count sanity, does the numbering config parse, is text
-  extractable) — just don't present that PDF to Hiran as a deliverable or
-  cite its exact page/line breaks as proof of anything. Treat its output
-  as "probably fine," not "verified."
-- **Filename format still applies to the DOCX:**
-  `{YYYY-MM-DD}_{Company}_{Role}.docx` (drop the `.pdf` half of the pair
-  described below unless a PDF is separately requested).
+- **DOCX is the deliverable — full stop, no PDF is ever generated,
+  internally or otherwise.** An earlier version of this workflow used
+  `soffice`/LibreOffice to render a PDF for internal validation checks.
+  That's gone: LibreOffice substitutes Carlito for Calibri (not
+  metric-identical to real Word), so its pagination was never trustworthy
+  in the first place — treating a LibreOffice-rendered PDF's pagination
+  as authoritative is literally how the 3-page/role-split bug happened.
+  It also isn't installed on Hiran's machine. `scripts/validate_cv.py` now
+  validates directly against the `.docx`'s own XML (no conversion, no
+  external tools) for everything that's reliably checkable that way — see
+  Validation below for what that covers and what it doesn't.
+- **Pagination (page count, bullet wraps, role-page-splits) needs a human,
+  not a script.** Open the `.docx` in real Word (the only render that
+  actually reflects what a reader will see) and eyeball it — that was
+  already true before, it's just explicit now that nothing automated
+  attempts this.
+- **Filename format:** `{YYYY-MM-DD}_{Company}_{Role}.docx`.
   - Example: `2026-09-14_TalentInternational_ProductDirector.docx`
   - Use ISO date format (YYYY-MM-DD) in filenames, folder-date format (YYYY.MM.DD) for local output subfolder names.
 
 ### ATS Parsing Rules
 
-- **pdftotext -layout must be readable.** This still needs *a* rendered PDF to check against (LibreOffice's is fine for this — text extraction and em-dash grepping don't depend on exact font metrics the way pagination does), just don't hand that PDF to Hiran as the deliverable. Spot-check 3-4 bullets parse as continuous text, not gibberish.
-- **No em dashes in PDF text output.** Grep the PDF text extract for "—". Must be zero.
+- **No em dashes anywhere in the document.** `scripts/validate_cv.py` greps every paragraph's text directly from the `.docx` XML for "—"/"–". Must be zero.
+- **Readable by ATS text extraction.** No automated check for this (it needs an actual parse by an ATS-like tool, which isn't available here) — spot-check 3-4 bullets read as sensible continuous text when the `.docx` is opened, not gibberish.
 
 ### Profile/Headline Rules
 
@@ -204,16 +197,19 @@ rather than re-deriving the styling from prose each time.
 
 ### Validation Before Output
 
-Run `python3 scripts/validate_cv.py <path> --max-pages 2` (see `cv-decision-gates.md`
-§5.3) — it automates the checks below marked ⚙ in one pass. The rest still need
-a human look at the rendered page images.
+Run `python3 scripts/validate_cv.py <path>` (see `cv-decision-gates.md`
+§5.3) — it works directly off the `.docx`'s own XML, no external tools, and
+automates the checks below marked ⚙ in one pass. The rest need a human look
+at the actual rendered `.docx` (real Word if available) — page count,
+bullet wraps, and role-page-splits deliberately aren't automated; see
+`cv-decision-gates.md`'s Render section for why.
 
-- [ ] ⚙ No em dashes or en dashes (grep on PDF text extraction)
-- [ ] ⚙ No bullet wraps to second line
-- [ ] ⚙ No role split across a page boundary
-- [ ] ⚙ Page count within cap (default 2)
-- [ ] ⚙ DOCX/PDF Author metadata is "Hiran Patel", not a generic tool default
-- [ ] pdftotext -layout is readable (spot-check 3-4 bullets) — not automated; garbled/reordered text needs a human read
+- [ ] ⚙ No em dashes or en dashes
+- [ ] No bullet wraps to second line (manual)
+- [ ] No role split across a page boundary (manual)
+- [ ] Page count within cap (default 2) (manual)
+- [ ] ⚙ DOCX Author metadata is "Hiran Patel", not a generic tool default
+- [ ] Readable as ATS text (spot-check 3-4 bullets in the `.docx`) — not automated; garbled/reordered text needs a human read
 - [ ] Filename format correct: `{YYYY-MM-DD}_{Company}_{Role}`
 - [ ] Blended titles used only when truthfully justified
 - [ ] Keywords from JD surfaced in profile, skills, and top bullets

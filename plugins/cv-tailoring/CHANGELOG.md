@@ -5,6 +5,31 @@ This file versions independently of other skills in this marketplace — see
 the repo root `CHANGELOG.md` for marketplace-level changes (new skills
 added, shared tooling, manifest schema).
 
+## [1.13.0] - 2026-09-18 (Validation No Longer Needs LibreOffice/Poppler)
+
+### Changed
+- `validate_cv.py` no longer shells out to `soffice`/`pdftotext`/`pdfinfo`
+  at all — none of those are installed on this machine, so every Phase
+  5.3 automated run would have hard-failed before it even got to a check.
+  Rewritten to work directly off the `.docx`'s own XML (pure Python
+  stdlib): still automates em/en dash detection, the
+  References/Recommendations ban, and authenticity metadata (Author
+  fields) — the checks that don't actually need a rendered page to
+  verify.
+- Page count, bullet-wrap-to-second-line, and role-split-across-a-page
+  are no longer automated at all (they were the ones actually needing
+  LibreOffice's PDF render). `cv-formatting.md` was already explicit that
+  a LibreOffice-rendered PDF's pagination isn't trustworthy (Carlito
+  substitutes for Calibri) — real Word is the only render that reflects
+  what a reader sees, so these three now say explicitly: open the
+  `.docx` and look. Not a loss of rigor, just no automation pretending to
+  cover something it couldn't reliably cover anyway.
+- Updated `cv-formatting.md`, `SKILL.md`, and `cv-decision-gates.md`'s
+  Phase 5.3 / Validation Checklist sections to match — no more
+  `--max-pages`, `pdftotext -layout`, `pdfinfo`, or `pdftoppm` references
+  in the live docs (historical CHANGELOG entries below are left as-is,
+  they're the log of what used to be true).
+
 ## [1.12.1] - 2026-09-18 (Stray Validation PDF Fixed, Stale Source-CV Paths Corrected)
 
 ### Fixed

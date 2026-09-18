@@ -1,4 +1,4 @@
-# cv-tailoring (v1.12.1)
+# cv-tailoring (v1.13.0)
 
 Tailors a CV to a job description for CPO/VP Product, Data Architect, Solution/Enterprise Architect, and related senior product/data roles.
 
@@ -93,6 +93,8 @@ python3 scripts/check_release_consistency.py
 from the repo root.
 
 ## Recent Updates
+
+**v1.13.0** — `validate_cv.py` no longer needs LibreOffice/poppler (neither is installed locally) — works directly off the `.docx` XML now. Page count/bullet-wrap/role-split checks are manual-only going forward.
 
 **v1.12.1** — Fixed `validate_cv.py` leaving a stray validation `.pdf` next to every shipped `.docx`; corrected source-CV paths to the real local files.
 

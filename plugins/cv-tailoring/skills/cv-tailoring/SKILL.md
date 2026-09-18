@@ -219,11 +219,10 @@ on. Skipped in Quick mode (see Phase 0's mode table).
 Once Phase 5.1 passes:
 1. Render DOCX (use the `docx` skill for the mechanics; this file only
    covers what's CV-specific).
-2. **DOCX is the only deliverable** — see `references/cv-formatting.md`
-   "Output Format" for why a self-generated PDF is never presented as the
-   final artifact (font-substitution/pagination bug). A LibreOffice PDF is
-   still produced internally for Phase 5.3's validation checks, but it is
-   not shipped or stored as output.
+2. **DOCX is the only deliverable — no PDF is ever generated, internally
+   or otherwise.** See `references/cv-formatting.md` "Output Format" for
+   why (font-substitution/pagination bug). Phase 5.3's validation runs
+   directly against the `.docx`, no conversion step.
 3. Filename: `{YYYY-MM-DD}_{Company}_{Role}.docx`.
 4. Output location: local folder `C:\Users\hiran\Downloads\CV Output\
    {YYYY.MM.DD}_{Company}_{Role}\` — example:
@@ -234,13 +233,16 @@ Once Phase 5.1 passes:
 
 ## Phase 5.3 — Format Validation (on the render)
 
-Checks that only make sense once a real file exists: no em dashes, no
-bullet wraps, `pdftotext -layout` reads clean. Full command sequence and
-loop-back targets in `references/cv-decision-gates.md` §5.3. On failure, fix the
-specific 4.x sub-step it points to, then **re-render only** (5.1 already
-passed on this text — no need to re-run the content review unless the fix
-changes wording meaningfully, e.g. trimming a bullet to fit the character
-budget).
+Checks that only make sense once a real file exists. `scripts/validate_cv.py`
+runs directly against the `.docx` (no external tools, no PDF conversion) for
+em dashes, the References/Recommendations ban, and authenticity metadata.
+Page count, bullet wraps, and role-page-splits aren't automated — eyeball
+the rendered `.docx` for those (see `references/cv-decision-gates.md` §5.3 for
+why). Full loop-back targets in `references/cv-decision-gates.md` §5.3. On
+failure, fix the specific 4.x sub-step it points to, then **re-render only**
+(5.1 already passed on this text — no need to re-run the content review
+unless the fix changes wording meaningfully, e.g. trimming a bullet to fit
+the character budget).
 
 **Max iterations:** 2 full loops through 5.1 and 5.3 combined. If still
 failing after 2, ship with notes and offer a follow-up session.
@@ -310,9 +312,10 @@ doesn't maintain an applications tracker.
 ## Validation Checklist
 
 Before handing off:
-- [ ] No em dashes (grep + visual)
-- [ ] No bullet wraps (visual PDF check)
-- [ ] pdftotext readable (spot-check 3-4 bullets)
+- [ ] `python3 scripts/validate_cv.py <path>` passes (em dashes, References ban, authenticity metadata)
+- [ ] No bullet wraps (manual check, open the `.docx`)
+- [ ] Page count within cap of 2, no role split across a page boundary (manual check)
+- [ ] Readable as ATS text (spot-check 3-4 bullets in the `.docx`)
 - [ ] Filename: `{YYYY-MM-DD}_{Company}_{Role}`
 - [ ] Output folder correct (see `references/cv-config.md`)
 - [ ] Summary report generated
