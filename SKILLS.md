@@ -4,7 +4,7 @@ Catalog of every skill in this marketplace. Each skill versions independently �
 
 | Skill | Version | Description | Docs |
 |---|---|---|---|
-| `cv-tailoring` | 1.14.0 | Tailors a CV to a job description using an 8-phase workflow: intake → research → gap assessment → discovery → ATS scoring → generation → validation/QA → summary. Saves DOCX to a local output folder; no cloud sync. | [README](plugins/cv-tailoring/README.md) · [CHANGELOG](plugins/cv-tailoring/CHANGELOG.md) |
+| `cv-tailoring` | 1.14.1 | Tailors a CV to a job description using an 8-phase workflow: intake → research → gap assessment → discovery → ATS scoring → generation → validation/QA → summary. Saves DOCX to a local output folder; no cloud sync. | [README](plugins/cv-tailoring/README.md) · [CHANGELOG](plugins/cv-tailoring/CHANGELOG.md) |
 | `interview-prep` | 1.2.0 | Builds interview intel from a JD + company: research (incl. named interviewers, filings, hiring signals), STAR answers, smart questions, intro, engagement-type-aware HR-screen basics. Multi-round aware; builds the presentation itself when a round requires one. Scales from a 10-minute rapid brief to a full dossier. | [README](plugins/interview-prep/README.md) · [CHANGELOG](plugins/interview-prep/CHANGELOG.md) |
 
 ## Installation

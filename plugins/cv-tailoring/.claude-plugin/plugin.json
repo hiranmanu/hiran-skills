@@ -1,6 +1,6 @@
 {
   "name": "cv-tailoring",
-  "version": "1.14.0",
+  "version": "1.14.1",
   "description": "Tailors a CV to a job description, scores ATS keyword coverage via semantic clustering, and generates a timestamped DOCX saved to a local output folder.",
   "author": {
     "name": "Hiran Patel"

@@ -5,6 +5,19 @@ This file versions independently of other skills in this marketplace — see
 the repo root `CHANGELOG.md` for marketplace-level changes (new skills
 added, shared tooling, manifest schema).
 
+## [1.14.1] - 2026-09-19 (Revert Aviva "Concurrent Contract" Clarifier)
+
+### Fixed
+- v1.14.0's Aviva date-overlap rule told sessions to add a "concurrent
+  contract portfolio" clarifier whenever Aviva overlaps OneAdvanced/
+  dunnhumby on a PRODUCT_CV. The user doesn't want that: the overlap is
+  fine as-is, and every contract role already carries a plain `(contract)`
+  suffix on its title, which is enough — no need to single Aviva out with
+  extra bracketed wording. `cv-background.md`'s Aviva entry now says so
+  explicitly instead of instructing the opposite. Confirmed this never
+  spread into `cv-formatting.md`, `cv-config.md`, or `SKILL.md` — it only
+  ever lived in this one `cv-background.md` note, now corrected.
+
 ## [1.14.0] - 2026-09-19 (Aviva Date-Overlap Fix, Filename Convention, Background Merge)
 
 ### Added
