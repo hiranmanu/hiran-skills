@@ -223,7 +223,11 @@ Once Phase 5.1 passes:
    or otherwise.** See `references/cv-formatting.md` "Output Format" for
    why (font-substitution/pagination bug). Phase 5.3's validation runs
    directly against the `.docx`, no conversion step.
-3. Filename: `{YYYY-MM-DD}_{Company}_{Role}.docx`.
+3. Filename: `Hiran_CV_{YYYY.MM.DD}_{Company}_{BriefRole}.docx` — current
+   date (dots, not dashes), company always included, role kept to a
+   short 1-3 word slug, not the full job title concatenated. See
+   `references/cv-formatting.md` "Output Format" for the full rules and
+   examples.
 4. Output location: local folder `C:\Users\hiran\Downloads\CV Output\
    {YYYY.MM.DD}_{Company}_{Role}\` — example:
    `2026.09.14_Monzo_ChiefOfStaff\` containing the `.docx`. See
@@ -316,6 +320,6 @@ Before handing off:
 - [ ] No bullet wraps (manual check, open the `.docx`)
 - [ ] Page count within cap of 2, no role split across a page boundary (manual check)
 - [ ] Readable as ATS text (spot-check 3-4 bullets in the `.docx`)
-- [ ] Filename: `{YYYY-MM-DD}_{Company}_{Role}`
+- [ ] Filename: `Hiran_CV_{YYYY.MM.DD}_{Company}_{BriefRole}`
 - [ ] Output folder correct (see `references/cv-config.md`)
 - [ ] Summary report generated

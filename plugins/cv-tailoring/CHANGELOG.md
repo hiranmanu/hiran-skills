@@ -5,6 +5,55 @@ This file versions independently of other skills in this marketplace — see
 the repo root `CHANGELOG.md` for marketplace-level changes (new skills
 added, shared tooling, manifest schema).
 
+## [1.14.0] - 2026-09-19 (Aviva Date-Overlap Fix, Filename Convention, Background Merge)
+
+### Added
+- `cv-background.md` §2 now carries every fact confirmed across the ~20
+  parallel tailoring sessions run yesterday and today (commercial
+  ownership/pricing/proposals/P&L, industry thought leadership, PM
+  operating cadence, pricing & packaging, Jira/Confluence governance
+  tooling, full-funnel conversion optimisation, personalisation/A/B
+  testing). These write live during each session per the existing Phase
+  2.5 rule, so this release just documents that the merge was verified
+  complete against every live and closed session from the batch — no
+  facts were sitting un-persisted anywhere.
+- `cv-background.md`'s Aviva entry now carries an explicit date-overlap
+  warning: Aviva (Aug 2024 - Jul 2026) overlaps OneAdvanced (Jul 2024 -
+  Jan 2025) by ~6 months and dunnhumby (Jan 2026 - Sep 2026) by ~7 months.
+  Found in the Citi, Visa, and British Airways CVs, where Aviva was
+  correctly pulled in per the existing FinTech rule but the resulting
+  3-way concurrent-contract overlap was never flagged, so it shipped
+  looking like a dates error. Going forward, any CV combining Aviva with
+  OneAdvanced and/or dunnhumby must add a concurrent-contract clarifier
+  or explicitly ask the user how to frame it.
+- Root `.gitignore` now excludes `scripts/build_*.js` (except the
+  tracked, redacted `build_cv_reference.js`) — a per-JD build script like
+  `build_citi_cv.js` carries real personal/employer data and was found
+  sitting untracked in this exact folder during this release, one `git
+  add -A` away from repeating the v1.12.0 data-exposure incident.
+
+### Changed
+- Filename convention for the deliverable `.docx` changed to
+  `Hiran_CV_{YYYY.MM.DD}_{Company}_{BriefRole}.docx` (dots in the date,
+  name and company always present, role kept to a short 1-3 word slug
+  rather than the full job title concatenated) — supersedes the older
+  `{YYYY-MM-DD}_{Company}_{Role}.docx` pattern in `cv-formatting.md`,
+  `cv-config.md`, and `SKILL.md`.
+- `cv-formatting.md`'s single-line-bullet rule now calls out the
+  Qualifications/Certifications block by name as the most common
+  violator across this session batch (certification/tool lists ran
+  105-112 characters, at or past the wrap ceiling, and wrapped in
+  practice) — cap those lines to the 4-5 most JD-relevant items instead
+  of listing everything.
+- Career & Key Achievements bullets are now explicitly told to use the
+  full 105-108 character budget rather than being trimmed conservatively
+  short, as long as they still don't wrap.
+- Strengthened the Profile Summary and Key Skills orphan/widow-line rules
+  with an explicit mandatory-recheck instruction: several CVs shipped
+  with a 1-2 word orphan line that a rerun fixed immediately once
+  actually checked, meaning the miss was a skipped post-render read, not
+  a hard-to-fix issue.
+
 ## [1.13.0] - 2026-09-18 (Validation No Longer Needs LibreOffice/Poppler)
 
 ### Changed

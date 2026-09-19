@@ -44,7 +44,7 @@ location per session.
 |---------|-------|-------|
 | Output Base Path | `C:\Users\hiran\Downloads\CV Output\` | Parent folder for all tailored CV outputs. Outside the git repo — never commit generated CVs. |
 | Folder Naming | `{YYYY.MM.DD}_{Company}_{Role}\` | Example: `2026.09.14_TalentInternational_ProductDirector\` |
-| File Naming (DOCX only) | `{YYYY-MM-DD}_{Company}_{Role}.docx` | Example: `2026-09-14_TalentInternational_ProductDirector.docx` — DOCX is the only deliverable, see `cv-formatting.md` "Output Format" |
+| File Naming (DOCX only) | `Hiran_CV_{YYYY.MM.DD}_{Company}_{BriefRole}.docx` | Example: `Hiran_CV_2026.09.19_Citi_PMGenAI.docx` (confirmed 2026-09-19) — DOCX is the only deliverable, see `cv-formatting.md` "Output Format" for the full naming rules (current date, company always present, short role slug) |
 
 There is no applications tracker — the skill does not log applications
 anywhere. Track applications however you already do outside this skill.
@@ -109,7 +109,7 @@ What is the target role type?
 
 ## File Modification Notes
 
-- This file was last updated: 2026-09-18
+- This file was last updated: 2026-09-19
 - When adding new templates (e.g., Solution Architect), update this config first before creating new files
 - When changing the local output path, update both this config and the orchestrator (`SKILL.md` Phase 0 and the Render section)
 - When adding new semantic clusters, update cv-semantic-clusters.md and the term-to-cluster mappings

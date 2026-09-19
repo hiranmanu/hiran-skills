@@ -25,6 +25,25 @@ Hard constraints and voice patterns for all CV tailoring. This covers both forma
   budget, not a guarantee: still run `scripts/validate_cv.py` (§Validation
   below), since actual rendering also depends on kerning and any bold runs
   (company names, metrics), which render wider than plain text.
+  - **Use the budget, don't undershoot it.** This applies to Career &
+    Key Achievements bullets too: they can run right up toward the
+    105-108 character ceiling (as close to the right margin as a
+    role-header date line sits) rather than being trimmed conservatively
+    short. Cutting a bullet well under budget loses detail for no layout
+    benefit — the only reason to cut is to avoid a wrap, not to leave
+    whitespace.
+  - **The most common violator is the Qualifications/Certifications
+    block, not the career bullets** (confirmed 2026-09-19 — certification
+    and tooling-list bullets wrapped to a second line in most CVs
+    generated across two days of sessions). Lines like "Selected
+    Certifications: Agile, Scrum Master, International Product Owner,
+    Six Sigma, Snowflake, Marketing" and "Amazon: Web Services Cloud
+    Practitioner. Advertising: Campaign Planning, DSP Campaigns,
+    Sponsored Ads, Retail" both sit at 105-112 characters — right at or
+    over the ceiling — and wrapped in practice. Don't list every
+    certification/tool; cap each of these lines to the 4-5 most
+    JD-relevant items and count characters before finalizing, exactly as
+    for any other bullet.
 - **Career-history bullet marker is a small square (▪), not round.** Applies
   to primary bullets throughout the Career & Key Achievements section.
 - **Blended titles (when appropriate).** Full rules, examples, and the
@@ -137,9 +156,27 @@ rather than re-deriving the styling from prose each time.
   actually reflects what a reader will see) and eyeball it — that was
   already true before, it's just explicit now that nothing automated
   attempts this.
-- **Filename format:** `{YYYY-MM-DD}_{Company}_{Role}.docx`.
-  - Example: `2026-09-14_TalentInternational_ProductDirector.docx`
-  - Use ISO date format (YYYY-MM-DD) in filenames, folder-date format (YYYY.MM.DD) for local output subfolder names.
+- **Filename format:** `Hiran_CV_{YYYY.MM.DD}_{Company}_{BriefRole}.docx`
+  (confirmed 2026-09-19, supersedes the earlier `{YYYY-MM-DD}_{Company}_
+  {Role}.docx` pattern below — that one dropped the name entirely and
+  used a bare ISO date, which the earlier convention got wrong on both
+  counts).
+  - Example: `Hiran_CV_2026.09.19_Citi_PMGenAI.docx`
+  - **Always include the name and company** — never drop either, even
+    on a rerun/regenerate where it's tempting to reuse a shortened name
+    from earlier in the same session.
+  - **Dots, not dashes, in the date** (`2026.09.19`, matching the folder
+    date format below) — and it must be the actual current date, checked
+    fresh, never copied from an earlier example in this file or from a
+    prior session's filename.
+  - **Keep `{BriefRole}` short** — 1-3 words, abbreviate recognizably
+    (Product Manager → PM, Director → Dir, Manager → Mgr) rather than
+    concatenating the full job title. A slug like `ProductManagerGenAI`
+    or `DigitalTechnologyPortfolioManager` is too long and reads as
+    machine-generated; `PMGenAI` or `DigitalPortfolioMgr` is the target
+    length.
+  - Folder-date format stays `YYYY.MM.DD` for local output subfolder
+    names (unchanged, see Output Configuration below).
 
 ### ATS Parsing Rules
 
@@ -157,6 +194,15 @@ rather than re-deriving the styling from prose each time.
   extend the sentence so the last line carries a reasonable fraction of
   the line width. This applies to every paragraph in Profile Summary, not
   just the last one in the section.
+  - **This check is not optional and must happen after every render, not
+    just the first one.** Confirmed 2026-09-19: several CVs shipped with a
+    1-2 word orphan line in the Profile Summary; re-rendering after being
+    told to fix it produced a clean wrap immediately, meaning the fix was
+    trivial once actually checked — the failure was skipping the
+    post-render read, not an inability to fix it. Treat "re-open the
+    rendered file and read the actual wrap points" as a mandatory step
+    before presenting any CV as final, every single time, not just when
+    something looks off.
 - **Reflect hands-on IC positioning if the role requires it.** "Comfortable operating as a hands-on individual contributor" should appear if the JD emphasizes this.
 - **Include integration/collaboration language.** "Working directly with Engineering," "GTM collaboration," "Sales partnership" — these are keywords worth surfacing early.
 
@@ -194,6 +240,9 @@ rather than re-deriving the styling from prose each time.
   a short spill). Balance by rendering and checking the actual wrap point
   after adding/removing an item, not by eyeballing source-string length —
   bold runs, punctuation density, and kerning all shift where it breaks.
+  If a row's second line is thin, don't leave it — add another genuinely
+  true, relevant keyword so the second line reads as a real second
+  clause, not a leftover spill.
 
 ### Validation Before Output
 
@@ -210,7 +259,9 @@ bullet wraps, and role-page-splits deliberately aren't automated; see
 - [ ] Page count within cap (default 2) (manual)
 - [ ] ⚙ DOCX Author metadata is "Hiran Patel", not a generic tool default
 - [ ] Readable as ATS text (spot-check 3-4 bullets in the `.docx`) — not automated; garbled/reordered text needs a human read
-- [ ] Filename format correct: `{YYYY-MM-DD}_{Company}_{Role}`
+- [ ] Filename format correct: `Hiran_CV_{YYYY.MM.DD}_{Company}_{BriefRole}`,
+      current date, company and a short (not full-title) role slug all
+      present
 - [ ] Blended titles used only when truthfully justified
 - [ ] Keywords from JD surfaced in profile, skills, and top bullets
 - [ ] No keywords forced into bullets where they don't truthfully belong

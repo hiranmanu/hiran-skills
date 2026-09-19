@@ -1,2 +1,9 @@
 __pycache__/
 *.pyc
+
+# Per-JD CV build scripts contain real personal/employer data and must
+# never be committed (this is exactly what v1.12.0 had to clean up after).
+# build_cv_reference.js is the one tracked exception: a generic,
+# redacted reference implementation with no real personal data in it.
+plugins/cv-tailoring/skills/cv-tailoring/scripts/build_*.js
+!plugins/cv-tailoring/skills/cv-tailoring/scripts/build_cv_reference.js

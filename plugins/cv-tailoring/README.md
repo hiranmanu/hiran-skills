@@ -1,4 +1,4 @@
-# cv-tailoring (v1.13.0)
+# cv-tailoring (v1.14.0)
 
 Tailors a CV to a job description for CPO/VP Product, Data Architect, Solution/Enterprise Architect, and related senior product/data roles.
 
@@ -93,6 +93,8 @@ python3 scripts/check_release_consistency.py
 from the repo root.
 
 ## Recent Updates
+
+**v1.14.0** — New filename convention (`Hiran_CV_{YYYY.MM.DD}_{Company}_{BriefRole}.docx`, current date, short role slug). Closed a real defect: Aviva's dates overlap OneAdvanced and dunnhumby by several months when all three appear on the same PRODUCT_CV, now flagged with a concurrent-contract clarifier rule in `cv-background.md`. Strengthened the Certifications-line and Profile Summary/Key Skills orphan-line rules after both recurred across a multi-session tailoring batch. `cv-background.md` also picked up two days' worth of newly confirmed facts (commercial ownership, thought leadership, PM operating cadence, pricing/packaging, governance tools, funnel/personalisation experience) from parallel tailoring sessions.
 
 **v1.13.0** — `validate_cv.py` no longer needs LibreOffice/poppler (neither is installed locally) — works directly off the `.docx` XML now. Page count/bullet-wrap/role-split checks are manual-only going forward.
 
