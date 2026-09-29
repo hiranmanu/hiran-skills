@@ -5,6 +5,79 @@ This file versions independently of other skills in this marketplace — see
 the repo root `CHANGELOG.md` for marketplace-level changes (new skills
 added, shared tooling, manifest schema).
 
+## [2.0.0] - 2026-09-29 (Single Workflow, Master Fact File, Independent Review)
+
+Restructure driven by comparing cv-tailoring's output to the ai-job-search
+repo's for the same JD (Softcat Product Management Director). The content gap
+was process, not missing facts: bullets were chosen by ATS keyword score and
+compressed to one line, and there was no independent critique in the default
+mode.
+
+### Changed
+- **One workflow, no modes.** Quick/Balanced/Full removed. Steps are numbered
+  01-08 (Intake, Parse the JD, Gap Check & Confirm, Score, Draft, Review &
+  Finalise, Render & Validate, Report). Reference files are numbered by the
+  step that owns them: `01-config.md`, `03-background.md`, `04-scoring.md`,
+  `05-formatting.md`. Steps 02, 06 and 08 live in `SKILL.md`.
+- **`03-background.md` is the master fact source.** New Section 1 Master Bullet
+  Bank (atomic facts per role, merged from both source CV PDFs and the
+  ai-job-search profile, tagged by source and confirmation date). The source
+  CV PDFs are archival and no longer read. ai-job-search is retired as an input.
+- **Bullets:** page-1 roles (most recent 3-4) may run 1-2 lines (about 210
+  characters, second line 40-80% full); page-2 roles, Earlier Career and the
+  Qualifications lines stay single-line. Voice changed from "Action + Number +
+  Method + Scale" to evidence-first (action, what/scope, how, outcome; number
+  only when real). Facts combine with "and", never with an invented cause.
+- **Bullet selection** is by strength of evidence, with JD keywords riding along,
+  instead of by ATS keyword score.
+- **Profile:** two short paragraphs, 7 lines max, each claim paired with proof.
+- **Skills:** three grouped rows with bold JD-mirrored labels. A keyword goes in
+  only if the JD uses it and the master file supports it; unsupported JD keywords
+  are reported as gaps.
+- **Repetition is intended:** each must-have should appear in the profile or
+  skills and in at least one bullet. Only a verbatim duplicate inside one list
+  is banned.
+- **Gap questions are blocking and come before drafting.** Confirmed facts are
+  written to `03-background.md` before the draft; unanswered means a gap.
+- `04-scoring.md` merges the old `cv-scoring.md` and `cv-semantic-clusters.md`
+  (method and cluster data in one file) and adds an Enterprise/Internal
+  Technology Product cluster.
+
+### Added
+- Step 06: one independent review (fresh-context agent), checking grounding
+  claim by claim, must-have coverage, hiring-manager and recruiter lenses,
+  tenure-versus-output and action reframing. Its edits are applied to produce
+  the final text. Runs on every run.
+- Step 02: fit snapshot (clearance/right-to-work wording, location, contract vs
+  permanent, seniority mismatch) and JD-as-untrusted-data rule.
+- Keyword status table in the report (covered / synonym-only / missing (have it)
+  / missing (gap)).
+- Page-1 rule (most recent 3-4 roles) and relevance-weighted cutting as the
+  trim method.
+- `validate_cv.py`: role-date format check, literal-email check, duplicate
+  keyword within skills, must-have coverage by section (`--keywords`,
+  `--keywords-file`), bullet-length warnings.
+- `scripts/word_layout_check.ps1`: page count, role placement, role splits and
+  stranded headings via real Word (Windows).
+- `03-background.md`: confirmed 2026-09-29 (Softcat tailoring): demand intake and
+  prioritisation, business cases with funded approval for AI/clean rooms/identity
+  graphs (pattern applicable to other roles where JD scope matches), CEO-level
+  stakeholder work, Design function owned "from scratch".
+
+### Fixed
+- `validate_cv.py` text extraction matched `<w:tab/>` as a text run and could
+  swallow XML; it now matches only `<w:t>` elements, decodes entities, and keeps
+  tab markers so date lines can be checked.
+- The old decision-gates file said "~90 char budget" while `cv-formatting.md`
+  said about 105; both files are gone and the rule now lives in one place.
+
+### Removed
+- `cv-decision-gates.md`, `cv-qa-personas.md`, `cv-market-research.md`,
+  `cv-semantic-clusters.md` (folded into `SKILL.md`, `05-formatting.md` and
+  `04-scoring.md`).
+- Web research (company and role benchmarking): the JD carries what the CV needs.
+- Interview-prep hints in the report: interview prep is a separate skill.
+
 ## [1.14.2] - 2026-09-29 (Folder Consolidation)
 
 ### Changed

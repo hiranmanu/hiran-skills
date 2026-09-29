@@ -1,6 +1,6 @@
 # hiran-skills
 
-Personal Claude Skills marketplace for CV tailoring, interview prep, and job search workflows. Each skill is a separate plugin with its own independent version, README, and changelog — see [`CLAUDE.md`](CLAUDE.md) for the conventions this repo follows as it grows.
+Personal Claude Skills marketplace for CV tailoring and job search workflows. Each skill is a separate plugin with its own independent version, README, and changelog — see [`CLAUDE.md`](CLAUDE.md) for the conventions this repo follows as it grows.
 
 ## Structure
 

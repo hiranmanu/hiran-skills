@@ -1,23 +1,138 @@
-# Background & Context Reference
+# 03 - Background: Master Fact Source
 
-Confirmed facts and undocumented context about Hiran's background, organized by capability. Use this file in Phase 0 and Phase 2 — it often pre-closes gaps before you ever need to ask.
+**This is the single source of truth for every claim on a tailored CV** (from
+v2.0.0; it replaces the two source-CV PDFs and the old ai-job-search profile,
+both now retired as inputs). Owned by **step 03 (Gap Check)** in `SKILL.md`,
+and read at step 01 (Intake) and step 05 (Draft).
 
-**This file is also the write target for Phase 2.5 (Experience Discovery).** When a discovery interview confirms new experience, append it to §2 under the relevant role, in the same "fact + hint for JD matching" format as the existing entries. This is the only place confirmed-but-undocumented facts persist between sessions — there is no separate supplement file.
+How to use it:
+- **Section 1 (Master Bullet Bank)** is what bullets are drawn from. Each line is one atomic fact.
+- **Section 3 (Confirmed Facts by Capability)** is what closes gaps and supplies JD-matching hints.
+- If a claim isn't in this file, it isn't a fact yet: ask the user (step 03), and write the answer back here before drafting. A fact that only lives in chat will be treated as unsupported next session.
 
----
-
-## Section 1: Template Selection
-
-**Which CV to use as the voice/formatting reference:**
-
-- **PRODUCT_CV** (Hiran_Patel_CV_2Page.pdf): Use for Product Director, VP of Product, CPO, Senior Product Manager, Head of Product roles. Includes LinkedIn URL. Voice is metrics-first with product/commercial focus.
-- **DATA_ARCHITECT_CV** (Hiran_Patel_CV_2Page_Data_Architect.pdf): Use for Data Architect, Data Engineer, Analytics Engineer, Data Science roles. No LinkedIn URL. Voice is metrics-first with data/architecture focus.
-
-Both templates share the same formatting rules (plain Calibri 10.5pt, A4, navy/grey colour, square bullets, no em-dashes or en-dashes — see `cv-formatting.md`) and the same voice pattern (Action + Number + Method + Scale).
+**Tags on bank lines:** `(P)` product source CV, `(DA)` data-architect source CV, `(C date)` confirmed with the user in a session on that date. Compose bullets by combining lines with "and". Never turn two facts into a cause-and-effect claim ("by", "through", "resulting in") unless a line here says so.
 
 ---
 
-## Section 2: Confirmed Facts by Role
+## Section 1: Master Bullet Bank
+
+Titles below are the titles actually held. The Data Architect template (Section 2) uses the alternate title shown as `DA title`.
+
+### dunnhumby/Tesco - Interim Director of Product, Data & Technology (contract), Jan 2026 - Sep 2026
+London, UK: Retail Media SaaS Data Science AI/Agentic
+- Defined the £200M+ multi-year product strategy and vision for a retail media aggregator solving advertiser outcomes (P)
+- Secured £10M+ investment (P)
+- Built the multi-partner operating model of a 20+ person product, engineering and data science org (P)
+- Drove discovery with CPG advertisers, agency holdcos and retail partners to validate the GTM proposition and shape live pilots (P). Related workstream to the £10M raise: may be joined to it with "and" or kept separate (C 2026-09-29)
+- Owned the strategic roadmap (P)
+- Led 4x vendor selections spanning data clean rooms, ad-serving, external engineering (P)
+- Architected the UK's largest first-party data strategy and measurement framework across 10+ media networks and channels (P)
+- Owned the dunnhumby Network Alliance (multi-retailer network product), including onboarding Kingfisher Group as a retailer partner (C 2026-09-24)
+- Ran the PM operating cadence (quarterly/roadmap reviews) and structured PM growth paths (C 2026-09-19)
+- Ran demand intake and prioritisation of engineering work, aligned to revenue and business-capability outcomes (C 2026-09-29)
+- Wrote business cases and secured funded approval for AI, data clean rooms and identity graphs, among other investments (C 2026-09-29)
+- Owned the business capability model and value-stream alignment (C 2026-09-28)
+- Managed CIO/CTO-level stakeholder relationships and deputised for them (C 2026-09-28)
+- Board-level product strategy presentations and investor roadshows (C)
+- Owned the AI tooling and agentic product roadmap at strategy level, incl. build-vs-buy evaluation for AI infrastructure (C)
+- Drove adoption of internal AI tooling across the product, engineering and data science org (C)
+
+### OneAdvanced - VP of Product (contract), Jul 2024 - Jan 2025
+London & Birmingham, UK: SaaS Leader PE-backed
+- Spearheaded the £100M ARR B2B SaaS portfolio in workforce management & financial solutions, integrating AI capabilities (P)
+- Drove a 25% uplift in customer satisfaction and retention through new product OKRs and a performance framework (P)
+- Led the market-driven product roadmap, GTM sales strategy and M&A target evaluation across 3 vertical SaaS categories (P)
+- Defined the AI and data strategy for the product organisation, shaping investment priorities and build-vs-buy decisions (P)
+- Pricing and packaging work on the portfolio (C)
+- Regular board-level updates to PE investors on roadmap and P&L (C)
+- Drove internal AI tooling adoption across the SaaS portfolio (C)
+
+### Aviva - Enterprise Data Architect (contract), Aug 2024 - Jul 2026
+UK: Global, Corporate, Specialty Insurance. Appears on the DATA_ARCHITECT template by default; on a Product CV only as profile proof or, when the JD stresses regulated/financial services, as a title-blended extra role (Section 4).
+- Owned vendor relationships and the technical roadmap for a £90M programme (Guidewire, AWS, Snowflake, Collibra) (P/DA)
+- Built delivery blueprints and RACI governance, accelerating delivery 30% (DA)
+- Led data mesh architecture delivering £10M savings across Guidewire, SEND, hx pricing, AWS, Snowflake and Collibra (DA)
+- Built AWS EventBridge/MSK event patterns, creating analytics products that improved underwriting accuracy 25% (DA)
+- Moved SEND from daily batches to 15-minute micro-batches, enabling real-time decisioning for underwriting workflows (DA)
+- Regulated insurance environment; GDPR/data-privacy exposure on first-party data work (C)
+
+### Amazon - Head of Product, Principal AdTech Consultant, Dec 2021 - Nov 2023
+London, UK. DA title: Data Solutions Architect
+- Won $28M in professional services and drove $138M in incremental media spend through AI-enhanced AdTech solutions (P/DA)
+- Built a global team co-building 3-year AdTech strategy and AI-innovation roadmaps with 82 enterprise clients (P/DA)
+- Directed the CMO/CTO advisory board to drive investments via proof-of-value projects with P&G, Mars, HP, LG and Sony (P/DA)
+- Drove a 45% win rate across measurement, attribution and clean room consulting engagements, lead to closed-won (P)
+- Personally owned pricing and proposal writing for the engagements; negotiated scope and terms directly with enterprise clients (C)
+- Owned solution architecture and build-vs-buy analysis of data platform layers, aligning migration to enterprise standards (DA)
+- Led development of data measurement solutions using Amazon's AdTech, APIs, data clean rooms and AWS technologies (DA)
+
+### Hybrid Theory (acquired by Azerion) - Chief Product Officer, Apr 2019 - Aug 2021
+London, UK: Digital Marketing Agency. DA title: Data Product Architect
+- Drove 40% annual revenue growth, 85% client retention and 9.3 NPS, and won 3 AdTech awards for AI products (P)
+- Launched AI-powered contextual and first-party data advertising products generating £1M in new revenue (P/DA)
+- Led M&A investment strategy, secured £3M for a social AI acquisition and oversaw the Azerion merger, leading squads of 20+ (P)
+- Engineered a cultural and operational turnaround, transforming Hybrid Theory into a market leader, acquired by Azerion (P)
+- Owned the Design function from scratch and hired and led the Head of Design (C 2026-09-29)
+- Presented to the board pre-acquisition; investor updates (C)
+- Spoke at IAB UK's Digital Trust Forum (2021) on "trust by design" and privacy-by-design (C)
+- Owned solution architecture across engineering for B2B data products, partnerships and privacy requirements (DA)
+- Assessed a data estate of 10M events per day; led data architecture and technology-acquisition due diligence with risk assessments and integration plans (DA)
+- Developed a leading position on data protection, ensuring security for 1B+ users per month (DA)
+
+### Dentsu - Senior Product Director (contract), Mar 2018 - Apr 2019
+London, UK: Global Marketing Agency. DA title: Solutions Architect
+- Contracted to develop and launch a B2B SaaS media hub product for clients to analyse marketing effectiveness (P)
+- Managed on-shore and off-shore teams of 30 specialists, including data scientists, across multiple international locations (P)
+- Directed strategy, roadmaps, resources and revenues, liaising with major data stakeholders such as Intel and Microsoft (P)
+- Delivered to specification and deadline, retaining £3M in billings and saving £1M in resources (P)
+- Led the architecture of the data ETL, governance and data visualisation components into BI reporting; aligned data solutions to enterprise data roadmaps (DA)
+
+### Patel Hospitality Group - Managing Partner, Feb 2017 - Feb 2018
+Alabama, USA: Hotel Hospitality
+- Managed a $15M hotel portfolio and an 80-strong team across 4 locations, with full P&L accountability (P/DA)
+- Negotiated stringent renovation contracts and timeframes to reduce costs 25% ($500K saved) (P/DA)
+- Introduced a hotel standard operating model that lifted profits 20% in 3 months, with a 4.2 TripAdvisor rating (P/DA)
+
+### Sage - Product Director (contract), Jan 2016 - Feb 2017
+London, UK: Multinational Enterprise Software Company. DA title: Data Solution Architect
+- Integrated diverse data and technology in C-level reports for sales, HR, marketing & finance, saving £10M CapEx & OpEx (P/DA)
+- Led the £3M business case for an agile product strategy and a centre of excellence delivering data architecture insights (P/DA)
+- Defined data solution architecture, enterprise data standards and data roadmaps across functions (DA)
+
+### dunnhumby - Senior Product Manager, Senior Consultant & Senior Data Analyst, Jun 2010 - Dec 2015
+London UK, Chicago USA & Cincinnati USA: Marketing Data Science AI/ML. DA title: Sr. Data Manager, Data Consultant & Data Analyst
+- Senior Product Manager for a 2-year £1M agile proof-of-concept for Tesco, Coca-Cola, Facebook, P&G and Twitter; led a 10-strong team building the first go-to-market product measuring digital ad impact through retail sales; roadmap delivered a £5M sales growth opportunity (P)
+- Manager for a 10-month £7M B2C portfolio of data products across digital, legal, marketing, partnerships and stores; built the business roadmap and led retail media teams on offline & online measurement using Tesco customer data (P)
+- Senior Product Manager for a 10-month £10M B2C big-data price & promotions optimisation tool for Tesco internationally: cut customer deployment time 40% through a common architecture approach and delivered £52M (520% ROI) (P/DA)
+- Senior Consultant for Macy's overseeing a $3M data solution and $5M sales pipeline for retail & QSR; delivered a $2M sales pipeline of RFPs in 14 months (P/DA)
+- Senior Data Analyst managing Kroger's $15M delivery of omnichannel campaigns across 65M US households; standardised direct mail across 14 retail subsidiaries, saving $2M (P/DA)
+
+### Earlier Career, Feb 2002 - Jun 2010
+- Senior Consultant, Accenture, Atlanta: saved $13M costs per year via a governance framework (Jan-Jun 2010)
+- Product Analyst, information security upgrades to 8K Walmart stores, 1.8M employees, 21 countries (2009-10)
+- Product Manager, University of Alabama: led $100K revenue and teams deploying public Wi-Fi to 15K users (Jan-May 2009)
+- MD, Editor and Partner for three websites serving thousands of football fan forums and millions of video downloads (2002-09)
+
+### Education, certifications, awards, languages
+- Executive MBA, Quantic School of Business and Technology, Washington DC, USA. BSc Management Information Systems & Computer Science, The University of Alabama, USA
+- Certifications: Agile, Scrum Master, International Product Owner, Six Sigma, Snowflake, UCloud, Marketing, Trading; AWS Cloud Practitioner; Amazon Advertising (Campaign Planning, DSP Campaigns, Sponsored Ads, Retail)
+- Awards: 3 AdTech awards for AI products (Hybrid Theory, 2019-2021); Speaker, IAB UK Digital Trust Forum (2021)
+- Languages: fluent English and Gujarati. Joint nationality: British & American
+
+---
+
+## Section 2: Template Selection
+
+Pick by target role type. Both templates draw every fact from Section 1; the template only changes emphasis, ordering and titles.
+
+- **PRODUCT_CV:** Product Director, VP of Product, CPO, Senior Product Manager, Head of Product. Uses the titles actually held. Includes the LinkedIn URL. Leads with product/commercial evidence.
+- **DATA_ARCHITECT_CV:** Data Architect, Data Engineer, Analytics Engineer, Data Science. Uses the `DA title` shown in Section 1 and the `(DA)`-tagged lines first. No LinkedIn URL. Leads with data/architecture evidence.
+
+Both templates share the same layout and voice rules in `05-formatting.md`. The two original source-CV PDFs in `Source CVs/` are archival only: the workflow no longer reads them, and Section 1 above is their content plus everything confirmed since.
+
+---
+
+## Section 3: Confirmed Facts by Capability
 
 Check this section first when assessing gaps. These are facts directly confirmed by the user that supplement the base CV.
 
@@ -39,7 +154,7 @@ Excel, Power BI, Tableau, Looker, MicroStrategy, QuickSight, Google Data Studio.
 
 ### Design Function Ownership/Partnership
 
-- **Hybrid Theory (Chief Product Officer):** Owned Design team. Hired and led Head of Design. Design-to-product integration on all product initiatives.
+- **Hybrid Theory (Chief Product Officer):** Owned the Design function from scratch. Hired and led Head of Design. Design-to-product integration on all product initiatives. "From scratch" confirmed 2026-09-29.
 - **dunnhumby (current):** Partnered with Design on retail media UX. Product-market research synthesis with design insights.
 - **OneAdvanced:** Worked across Design for SaaS product portfolio redesign and design system alignment.
 - **Amazon:** Directed design partnerships with enterprise clients. Helped structure design review boards.
@@ -151,6 +266,19 @@ Excel, Power BI, Tableau, Looker, MicroStrategy, QuickSight, Google Data Studio.
 
 **Hint for JD matching:** If the role mentions "reports to the CIO," "senior technology leadership team," or "deputise for the CIO," this is a legitimate, truthful match, not a gap. Frame as managing/acting for that relationship across roles, not a single named direct-reporting line unless a specific one is confirmed further.
 
+### Demand Management, Business Cases & Funded Approvals
+
+- **dunnhumby (Interim Director of Product, Data & Technology, Jan 2026 - Sep 2026):** Ran demand intake and prioritisation of engineering work, aligned to revenue and business-capability outcomes. Wrote business cases and secured funded approval for AI, data clean rooms and identity graphs, among other investments. Confirmed 2026-09-29 (Softcat Product Management Director tailoring).
+- **Pattern applies beyond dunnhumby:** the user confirmed (2026-09-29) that business-case authoring and funded-approval work is not specific to one role, and may be applied to other roles where the JD's scope calls for it. Sage's £3M business case is the documented anchor elsewhere. The named programmes (AI, clean rooms, identity graphs) belong to dunnhumby only; don't attach them to another employer.
+
+**Hint for JD matching:** If the role mentions "demand management," "prioritisation methodology," "investment cases," "business case," "funding approval," "intake process," or "technology investment priorities," this is a direct, truthful match. Don't flag as a gap.
+
+### CEO-Level Stakeholder Engagement
+
+- **Confirmed 2026-09-29:** has worked directly with CEO-level stakeholders (not only CIO/CTO/CMO). Employer(s) not specified, so keep it generic ("Board & C-suite stakeholders incl. CEO") and don't attribute it to a specific role.
+
+**Hint for JD matching:** If the role mentions "CEO," "executive leadership team" or "engage stakeholders at all levels," this is a legitimate match at the generic level above.
+
 ### Notable Absences (Genuinely Not in Background)
 
 - No C-level title held (CPO is the closest; chief-of-staff is a different role type — support vs. decision-maker).
@@ -163,10 +291,10 @@ These stay flagged as gaps if the JD emphasizes them.
 
 ---
 
-## Section 3: Title Blending Strategy (When Tailoring for Specific JDs)
+## Section 4: Title Blending Strategy (When Tailoring for Specific JDs)
 
 **This section is the single source of truth for title-blending rules.**
-`cv-formatting.md` only points here — don't duplicate the rules or examples
+`05-formatting.md` only points here — don't duplicate the rules or examples
 back into that file.
 
 When a JD calls for a specific role title (e.g., "Product Director," "Senior Product Manager," "Solution Architect"), and prior experience includes related but differently-titled roles, use title blending in the "Career & Key Achievements" section.
