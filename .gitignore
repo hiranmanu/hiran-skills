@@ -7,3 +7,7 @@ __pycache__/
 # redacted reference implementation with no real personal data in it.
 plugins/cv-tailoring/skills/cv-tailoring/scripts/build_*.js
 !plugins/cv-tailoring/skills/cv-tailoring/scripts/build_cv_reference.js
+
+# Generated tailored CVs (personal data)
+CV Output/
+Source CVs/

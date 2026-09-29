@@ -77,8 +77,8 @@ re-rendering a PDF just to fix a missing keyword.
 
 **Resume content.** In priority order:
 1. The fixed source CVs in `references/cv-config.md` ("Source CVs (Local)")
-   — `C:\Users\hiran\Downloads\Hiran_Patel_CV_2Page.pdf` (PRODUCT_CV) or
-   `C:\Users\hiran\Downloads\Hiran_Patel_CV_2Page_Data_Architect.pdf`
+   — `C:\Users\hiran\Downloads\claude code\cv-tailoring\Source CVs\Hiran_Patel_CV_2Page.pdf` (PRODUCT_CV) or
+   `C:\Users\hiran\Downloads\claude code\cv-tailoring\Source CVs\Hiran_Patel_CV_2Page_Data_Architect.pdf`
    (DATA_ARCHITECT_CV), picked per the template selection rules there.
 2. Attached CV file (PDF/DOCX), if the user provides one instead.
 3. Pasted CV text or LinkedIn profile.
@@ -228,7 +228,7 @@ Once Phase 5.1 passes:
    short 1-3 word slug, not the full job title concatenated. See
    `references/cv-formatting.md` "Output Format" for the full rules and
    examples.
-4. Output location: local folder `C:\Users\hiran\Downloads\CV Output\
+4. Output location: local folder `C:\Users\hiran\Downloads\claude code\cv-tailoring\CV Output\
    {YYYY.MM.DD}_{Company}_{Role}\` — example:
    `2026.09.14_Monzo_ChiefOfStaff\` containing the `.docx`. See
    `references/cv-config.md` for the fixed base path — always the same

@@ -124,6 +124,33 @@ Excel, Power BI, Tableau, Looker, MicroStrategy, QuickSight, Google Data Studio.
 
 **Hint for JD matching:** If the role mentions "personalisation," "A/B testing," "experimentation capability," or "recommendations engine," this is a direct, truthful match at the campaign/product level. No named enterprise experimentation platform (e.g. Optimizely, VWO) was confirmed, so don't invent a specific tool name, just "A/B testing" / "experimentation."
 
+### Retail Media Network Alliance / Retailer Onboarding (dunnhumby)
+
+- **dunnhumby (Interim Director of Product, Data & Technology, Jan 2026 - Sep 2026):** Worked on the dunnhumby Network Alliance — the retail media aggregator's multi-retailer network product — including onboarding Kingfisher Group as a retailer partner into the Alliance, and product/platform work on Network Alliance capability that Kingfisher used. Confirmed 2026-09-24.
+
+**Hint for JD matching:** If the role mentions "retail media network," "retailer onboarding," "network alliance," "multi-retailer platform," or names Kingfisher Group specifically, this is a direct, truthful match at dunnhumby. Frame as retailer onboarding plus product/platform ownership within the Alliance, not a standalone commercial-negotiation claim unless that gets confirmed further.
+
+### Two-Sided Marketplace / Platform Dynamics (Supply-Demand, Network Effects)
+
+- **Amazon (Head of Product, Principal AdTech Consultant, 2021-2023):** Amazon's advertising business is itself a two-sided marketplace — balancing media/publisher supply against brand/advertiser demand. Owned demand-side client relationships (82 enterprise clients, $28M services, $138M incremental spend) within that marketplace structure.
+- **Hybrid Theory / programmatic AdTech generally:** Programmatic advertising is structurally a two-sided marketplace — publisher/inventory supply vs. advertiser/brand demand, with real network effects (more advertiser demand improves yield and attracts more supply, and vice versa).
+- **dunnhumby retail media aggregator (2026):** Explicitly multi-sided — retailers (supply/audience), advertisers (demand), and agency holdcos, all balanced on one platform.
+- **Confirmed 2026-09-21 (Checkatrade VP Product tailoring):** Primary hands-on ownership across these roles was demand-side (advertiser/brand relationships, client-facing), operating within marketplace structures where supply-side dynamics (publisher/inventory/retailer onboarding) were understood and factored into strategy, not directly owned end-to-end. Frame as "deep marketplace/platform experience, supply-demand balancing, network effects" — genuine and accurate — without implying personal ownership of supply-side acquisition/onboarding operations unless that gets confirmed for a specific role later.
+
+**Hint for JD matching:** If the role mentions "two-sided marketplace," "platform business," "supply-demand dynamics," or "network effects," this is a direct, truthful match via AdTech/retail media — not a gap. Don't assume marketplace experience needs discovery before checking here.
+
+### Business Capability Model / Value-Stream Mapping / Enterprise Architecture Alignment
+
+- **Confirmed across roles (Hybrid Theory CPO, Amazon Head of Product, OneAdvanced VP Product, dunnhumby Director, Sage Product Director):** capability-model and value-stream alignment work, connecting business capabilities and process/technology/data components to product roadmaps. Sage's £3M business case for an agile product strategy and centre of excellence delivering data architecture insights is the clearest documented anchor in the base CV; the same capability-alignment approach was applied across the other roles even where the base CV bullets don't spell it out explicitly. Confirmed 2026-09-28 (Softcat Product Management Director tailoring).
+
+**Hint for JD matching:** If the role mentions "business capability model," "value stream," "capability vision and roadmap," or "enterprise architecture alignment," this is a direct, truthful match across all five roles above. Don't flag as a gap or limit it to Sage alone.
+
+### CIO/CTO Reporting Relationships & Deputising
+
+- **Confirmed across roles (Hybrid Theory, Amazon, OneAdvanced, dunnhumby, Sage):** has directly managed senior technology stakeholder (CIO/CTO-level) relationships, and has acted as deputy/proxy for that function when needed, not only reported upward into one. Confirmed 2026-09-28 (Softcat Product Management Director tailoring).
+
+**Hint for JD matching:** If the role mentions "reports to the CIO," "senior technology leadership team," or "deputise for the CIO," this is a legitimate, truthful match, not a gap. Frame as managing/acting for that relationship across roles, not a single named direct-reporting line unless a specific one is confirmed further.
+
 ### Notable Absences (Genuinely Not in Background)
 
 - No C-level title held (CPO is the closest; chief-of-staff is a different role type — support vs. decision-maker).

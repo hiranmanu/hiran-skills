@@ -5,6 +5,21 @@ This file versions independently of other skills in this marketplace — see
 the repo root `CHANGELOG.md` for marketplace-level changes (new skills
 added, shared tooling, manifest schema).
 
+## [1.14.2] - 2026-09-29 (Folder Consolidation)
+
+### Changed
+- Repo moved to `C:\Users\hiran\Downloads\claude code\cv-tailoring\` so
+  `claude code\` is the master folder for all projects. Output base path is
+  now `...\cv-tailoring\CV Output\` and the two fixed source CV PDFs moved
+  to `...\cv-tailoring\Source CVs\`; `cv-config.md` and `SKILL.md` updated,
+  both folders gitignored. No workflow change; no new folders created per run.
+- Removed the stale `/home/claude/cv-work/` portability note from `CLAUDE.md`.
+
+### Added
+- `cv-background.md`: facts confirmed 2026-09-24/28 (dunnhumby Network
+  Alliance/Kingfisher onboarding, two-sided marketplace dynamics, capability
+  model/value-stream, CIO/CTO deputising).
+
 ## [1.14.1] - 2026-09-19 (Revert Aviva "Concurrent Contract" Clarifier)
 
 ### Fixed
