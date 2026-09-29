@@ -1,4 +1,4 @@
-# cv-tailoring (v1.14.1)
+# cv-tailoring (v1.14.2)
 
 Tailors a CV to a job description for CPO/VP Product, Data Architect, Solution/Enterprise Architect, and related senior product/data roles.
 
@@ -93,6 +93,8 @@ python3 scripts/check_release_consistency.py
 from the repo root.
 
 ## Recent Updates
+
+**v1.14.2** — Repo now lives at `claude code\cv-tailoring\`; output moved to `CV Output\` and the two source CVs to `Source CVs\` beneath it (both gitignored). Config, SKILL.md and CLAUDE.md paths updated; no workflow change. Also commits the 2026-09-24/28 background facts (Network Alliance, marketplace dynamics, capability model, CIO/CTO deputising).
 
 **v1.14.1** — Reverted v1.14.0's "concurrent contract" clarifier rule for Aviva overlapping OneAdvanced/dunnhumby — the user doesn't want extra bracketed wording, the standard `(contract)` suffix already used on every role is enough. Confirmed it never spread beyond that one `cv-background.md` note.
 

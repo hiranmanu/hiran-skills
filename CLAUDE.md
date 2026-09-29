@@ -106,7 +106,8 @@ order of preference:
   states the same rule elsewhere — that's exactly how the DOCX+PDF drift
   and title-blending duplication (fixed in cv-tailoring v1.11.1) happened.
 - Watch for hardcoded, environment-specific absolute paths in a skill's
-  config file (e.g. `cv-config.md`'s `/home/claude/cv-work/...`) — flagged
-  once as a portability risk, not yet resolved. Don't introduce the same
-  pattern in a new skill's config without at least documenting the
-  assumption explicitly.
+  config file. `cv-config.md` uses fixed local Windows paths on purpose
+  (output under `...\claude code\cv-tailoring\CV Output\`, source CVs in
+  `...\cv-tailoring\Source CVs\`); the old `/home/claude/cv-work/...` path is
+  gone. Don't introduce a new environment-specific path in a skill's
+  config without documenting the assumption explicitly.

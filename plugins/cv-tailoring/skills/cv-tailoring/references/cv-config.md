@@ -10,8 +10,8 @@ All skill-file paths are relative to `plugins/cv-tailoring/skills/cv-tailoring/`
 
 | File | Path | Purpose |
 |------|------|---------|
-| CV Library (Product Template) | `C:\Users\hiran\Downloads\Hiran_Patel_CV_2Page.pdf` | Source content for all Product Director/VP/CPO roles |
-| CV Library (Data Architect Template) | `C:\Users\hiran\Downloads\Hiran_Patel_CV_2Page_Data_Architect.pdf` | Source content for all Data Architect/Engineer roles |
+| CV Library (Product Template) | `C:\Users\hiran\Downloads\claude code\cv-tailoring\Source CVs\Hiran_Patel_CV_2Page.pdf` | Source content for all Product Director/VP/CPO roles |
+| CV Library (Data Architect Template) | `C:\Users\hiran\Downloads\claude code\cv-tailoring\Source CVs\Hiran_Patel_CV_2Page_Data_Architect.pdf` | Source content for all Data Architect/Engineer roles |
 | Formatting Rules | `cv-formatting.md` | Hard constraints: font, layout, voice patterns, validation |
 | Background Context | `cv-background.md` | Confirmed facts, template selection, title blending rules |
 | Semantic Clusters | `cv-semantic-clusters.md` | ATS scoring methodology and role-type clusters |
@@ -29,8 +29,8 @@ All skill-file paths are relative to `plugins/cv-tailoring/skills/cv-tailoring/`
 | PRODUCT_CV | Hiran_Patel_CV_2Page.pdf | Use for Product Director, VP of Product, CPO, Senior PM roles | Yes: `linkedin.com/in/hiran-patel/` |
 | DATA_ARCHITECT_CV | Hiran_Patel_CV_2Page_Data_Architect.pdf | Use for Data Architect, Data Engineer, Analytics Engineer roles | No |
 
-Source CVs live directly in `C:\Users\hiran\Downloads\` (not a subfolder,
-not GDrive) — that's where the two PDFs above always are.
+Source CVs live in `C:\Users\hiran\Downloads\claude code\cv-tailoring\Source CVs\`
+(gitignored, not GDrive) — that's where the two PDFs above always are.
 
 ---
 
@@ -42,7 +42,7 @@ location per session.
 
 | Setting | Value | Notes |
 |---------|-------|-------|
-| Output Base Path | `C:\Users\hiran\Downloads\CV Output\` | Parent folder for all tailored CV outputs. Outside the git repo — never commit generated CVs. |
+| Output Base Path | `C:\Users\hiran\Downloads\claude code\cv-tailoring\CV Output\` | Parent folder for all tailored CV outputs. Inside the repo folder but gitignored — never commit generated CVs. |
 | Folder Naming | `{YYYY.MM.DD}_{Company}_{Role}\` | Example: `2026.09.14_TalentInternational_ProductDirector\` |
 | File Naming (DOCX only) | `Hiran_CV_{YYYY.MM.DD}_{Company}_{BriefRole}.docx` | Example: `Hiran_CV_2026.09.19_Citi_PMGenAI.docx` (confirmed 2026-09-19) — DOCX is the only deliverable, see `cv-formatting.md` "Output Format" for the full naming rules (current date, company always present, short role slug) |
 
