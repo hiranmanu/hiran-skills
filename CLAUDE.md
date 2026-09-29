@@ -84,12 +84,12 @@ skill.
 
 If two skills genuinely need the same underlying facts (e.g. the separate
 `interview-prep` repo wanting the same confirmed-role facts
-`cv-tailoring`'s `03-background.md` already has), the options are, in
+`cv-tailoring`'s `02-background.md` already has), the options are, in
 order of preference:
 1. **Duplicate deliberately**, with an explicit note in both files saying
    where the other copy lives and that they need to be kept in sync by
    hand (same pattern already used for cross-references within
-   cv-tailoring; see how `04-scoring.md` keeps its method and cluster data in one file).
+   cv-tailoring; see how the reference files are merged rather than cross-referenced).
 2. Don't build a shared/common `plugins/_shared/` folder and reference it
    from multiple plugins' `SKILL.md` — it'll work for you locally (mounted
    as one repo) but silently break for anyone who installs only one of the
@@ -99,10 +99,9 @@ order of preference:
 
 - Cross-reference, don't duplicate within a single skill: a rule lives in one
   file only. cv-tailoring's reference files are numbered by the workflow step
-  that owns them (`01-config.md`, `03-background.md`, `04-scoring.md`,
-  `05-formatting.md`); when logic would otherwise be described in two places,
-  merge the files (as `04-scoring.md` did with the old scoring and cluster
-  files) rather than cross-referencing them.
+  that owns them (`01-config.md`, `02-background.md`, `03-formatting.md`); when logic would
+  otherwise be described in two places, merge the files (as cv-tailoring 2.1.0
+  did with the old scoring and cluster files) rather than cross-referencing them.
 - When a rule changes in one reference file, check whether a sibling file
   states the same rule elsewhere — that's exactly how the DOCX+PDF drift
   and title-blending duplication (fixed in cv-tailoring v1.11.1) happened.

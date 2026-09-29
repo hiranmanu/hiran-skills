@@ -1,84 +1,68 @@
 # 01 - Configuration
 
-Owned by **step 01 (Intake)** in `SKILL.md`. Paths and fixed defaults only; workflow
-logic lives in `SKILL.md`, formatting rules in `05-formatting.md`. Update this file
-once and reference it everywhere.
+Owned by **step 01 (Intake & Parse)** in `SKILL.md`. Paths, requirements and fixed
+defaults only; workflow logic lives in `SKILL.md`, format rules in `03-formatting.md`.
 
-## File numbering
+## Files
 
-Reference files are numbered by the workflow step that owns them. Steps 02, 06
-and 08 live entirely in `SKILL.md`, so there is no `02-`, `06-` or `08-` file.
+Reference files are numbered by the workflow step that owns them; steps 04-06 need no
+reference file beyond `03-formatting.md`.
 
 | File | Owning step | Purpose |
 |---|---|---|
-| `01-config.md` | 01 Intake | Paths, output folder, defaults (this file) |
-| `03-background.md` | 03 Gap Check | **Master fact source**: bullet bank, confirmed facts, template selection, title blending. Write target for confirmed facts |
-| `04-scoring.md` | 04 Score | ATS method plus cluster data |
-| `05-formatting.md` | 05 Draft, 07 Validate | Layout, voice, profile/skills/bullet rules, validation checklist |
+| `01-config.md` | 01 | Paths, requirements, defaults (this file) |
+| `02-background.md` | 02 | **Master fact file**: bullet bank, cross-role facts and guardrails, absences, template selection, title blending. Read-only during a run; updated through the inbox |
+| `03-formatting.md` | 03, 05 | Layout, voice, profile/skills/bullet rules, validation checklist |
 
-Scripts (`scripts/`, step 07): `build_cv_reference.js` (render), `validate_cv.py`
-(automated checks), `word_layout_check.ps1` (page count, role splits, via Word).
+Scripts (`scripts/`): `build_cv.js` (render from JSON), `validate_cv.py`,
+`word_layout_check.ps1`, `background_inbox.py`; `example_content.json` (the content
+shape), `identity.json` (your details, gitignored) and `identity.example.json`.
+`inbox/` holds facts confirmed by runs that haven't been merged yet (gitignored).
 
-## Output configuration
+## Output
 
-All generated CVs are saved locally. Nothing is uploaded anywhere. Fixed folder;
-don't pick a different location per session.
+All CVs are saved locally; nothing is uploaded. The folder and filename are derived by
+`build_cv.js` from `content.meta` and `identity.json`:
 
-| Setting | Value | Notes |
-|---|---|---|
-| Output base path | `C:\Users\hiran\Downloads\claude code\cv-tailoring\CV Output\` | Inside the repo folder but gitignored: never commit generated CVs |
-| Folder naming | `{YYYY.MM.DD}_{Company}_{Role}\` | Example: `2026.09.14_TalentInternational_ProductDirector\` |
-| File naming (DOCX only) | `Hiran_CV_{YYYY.MM.DD}_{Company}_{BriefRole}.docx` | Example: `Hiran_CV_2026.09.19_Citi_PMGenAI.docx`. Full rules in `05-formatting.md` "Output Format" |
+| Setting | Value |
+|---|---|
+| Output base | `identity.json` `output_base`: `C:/Users/hiran/Downloads/claude code/cv-tailoring/CV Output` (gitignored) |
+| Folder | `{YYYY.MM.DD}_{Company}_{Role}\` |
+| File (DOCX only) | `Hiran_CV_{YYYY.MM.DD}_{Company}_{BriefRole}.docx` |
 
-There is no applications tracker. Track applications outside this skill.
+There is no applications tracker: track applications outside this skill.
 
-## Archived source CVs
+## Identity
 
-`C:\Users\hiran\Downloads\claude code\cv-tailoring\Source CVs\` holds
-`Hiran_Patel_CV_2Page.pdf` and `Hiran_Patel_CV_2Page_Data_Architect.pdf`
-(gitignored). **The workflow no longer reads them**: their content lives in
-`03-background.md` Section 1. Keep them as an archive; if one and the bank ever
-disagree, the bank wins.
+Name, contact details, LinkedIn URL, languages, nationality and the output base live in
+`scripts/identity.json` (local, gitignored). Copy `identity.example.json` to create it on
+a new machine. LinkedIn URL for Product roles: `https://www.linkedin.com/in/hiran-patel/`
+(this is the source of truth; the DATA_ARCHITECT template omits it).
 
 ## Requirements
 
 | Needed for | What |
 |---|---|
-| Render (step 07) | Node.js and the `docx` npm package. Copy `scripts/build_cv_reference.js` (and `scripts/package.json`) into a **scratch folder**, not the plugin folder, run `npm install` there once, then `node build_<company>.js` |
-| `validate_cv.py` | Python 3, standard library only |
-| `word_layout_check.ps1` | Windows and Microsoft Word (installed on this machine). Measures wraps and pagination; exit code 2 = Word unavailable, check by eye |
-| Review (step 06) | An Agent tool for the fresh-context reviewer; without one, run the rubric as a separate pass yourself |
+| Render (step 05) | Node.js and the `docx` package: run `npm install` once in `scripts/` |
+| Validation | Python 3, standard library only |
+| Layout check | Windows and Microsoft Word (installed on this machine). Exit code 2 = Word unavailable, check by eye |
+| Review (step 04) | An Agent tool for the fresh-context reviewer; without one, run the rubric as a separate pass |
 
-## Template selection
+## Archived source CVs
 
-```
-What is the target role type?
-├─ Product Director, VP of Product, CPO, Head of Product, Senior Product Manager
-│  └─ PRODUCT_CV
-├─ Data Architect, Data Engineer, Analytics Engineer, Data Scientist, ML Engineer
-│  └─ DATA_ARCHITECT_CV
-├─ Solution Architect, Enterprise Architect
-│  └─ Not yet templated: ask whether to build the variant now or hold off
-└─ Other
-   └─ Ask which template to use
-```
-
-Details (titles, emphasis, LinkedIn rule) are in `03-background.md` Section 2.
+`Source CVs\` (gitignored) holds the two original PDFs. The workflow no longer reads
+them: their content lives in `02-background.md` Section 1, which wins if they disagree.
 
 ## Defaults
 
 | Parameter | Default |
 |---|---|
-| ATS target score | 85%+ (aim 90%+ for complex JDs) |
 | Review loops | 2 max, then ship with notes |
 | Recommendations / References section | Never included |
-| Blended titles | Max 1-2 per CV (rules in `03-background.md` Section 4) |
-| LinkedIn URL | Product roles only: `https://www.linkedin.com/in/hiran-patel/` (this file is the source of truth for the URL) |
+| Blended titles | Max 1-2 per CV (rules in `02-background.md` Section 5) |
+| LinkedIn URL | Product roles only |
 | Pages | Hard cap 2; most recent 3-4 roles on page 1 |
 
-## File modification notes
+## Modification notes
 
-- Last updated: 2026-09-29 (v2.0.0).
-- When adding a template, update this file first.
-- When changing the output path, update this file and `SKILL.md` step 07.
-- When adding a cluster, update `04-scoring.md` Part 2.
+Last updated 2026-09-29 (v2.1.0). Changing the output path means editing `identity.json`.

@@ -5,50 +5,74 @@ This file versions independently of other skills in this marketplace — see
 the repo root `CHANGELOG.md` for marketplace-level changes (new skills
 added, shared tooling, manifest schema).
 
-## [2.0.1] - 2026-09-29 (Code Review Fixes)
+## [2.1.0] - 2026-09-29 (Six Steps, JSON Builder, Parallel-Safe Master File, Measured Layout)
 
-Full review of the v2.0.0 skill: plugin/marketplace structure (valid), cross-file
-references, and script behaviour tested with probes rather than read only.
-
-### Fixed
-- **Wrap rules are now measured, not guessed.** `word_layout_check.ps1` asks Word
-  for each paragraph's line count and how full its last line is, and enforces:
-  page-1 bullets 1-2 lines with the second line at least 40% full (fuller is
-  fine); page-2 bullets, Earlier Career and Qualifications lines on one line;
-  skills rows 1-2 lines with the second line at least 40% full; profile
-  paragraphs not ending on a short last line. It caught two sample bullets at
-  31% and 39% that a character-count heuristic and a visual check had passed.
-  `validate_cv.py` no longer guesses wraps from character counts (its 215-char
-  warning produced false alarms).
-- `validate_cv.py` keyword matching was substring-based: "AI" matched inside
-  "retail" and "maintain" (15 hits where 9 were real), so a genuinely missing
-  keyword could pass the gate. Now whole-word, case-insensitive, plural-tolerant,
-  hyphen/space-interchangeable, and each occurrence is counted once when
-  synonyms overlap.
-- `validate_cv.py` crashed (`KeyError`) on a DOCX without `docProps/core.xml`;
-  it now reports the missing metadata as a failure. Bullet detection also
-  accepts `<w:numPr/>` written as a self-closing tag.
-- `word_layout_check.ps1` reports "Word unavailable" with exit code 2 instead of
-  a raw COM error.
-- `01-config.md` was named as the authority for the LinkedIn URL but did not
-  contain it; it now does, and `05-formatting.md` points to it.
-- `03-background.md` said "No C-level title held" (CPO is C-level); now "above CPO".
+Follow-up to 2.0.0 after a full code review and an objective look at what could be
+cut and what was weak. (An unreleased 2.0.1 of code-review fixes is folded in here.)
 
 ### Changed
-- Step 06 reviewer is told to read `03-background.md` (it could not ground
-  claims without it) and is given a starting prompt that treats the JD as
-  untrusted.
-- Step 04's "before" score is defined (default `(P)` or `(DA)` lines for the
-  template, no tailoring).
-- Skill description gains explicit "use when" triggers.
-- Render instructions: copy the builder into a scratch folder and `npm install`
-  there; the "use the docx skill" line is gone (not guaranteed to exist).
+- **Six steps, not eight.** 01 Intake & Parse, 02 Gap Check & Confirm, 03 Draft,
+  04 Review & Finalise, 05 Render & Validate, 06 Report. The separate "before" ATS
+  score step is gone: the number was an estimate of a CV nobody sends and changed no
+  decision. Coverage is now mechanical: must-haves evidenced / total, printed by the
+  validator. The fit snapshot is removed.
+- **Reference files renumbered by owning step:** `01-config.md`, `02-background.md`
+  (was `03-background.md`), `03-formatting.md` (was `05-formatting.md`).
+  `04-scoring.md` is deleted; its method is now `SKILL.md` step 04 plus a short JD
+  synonym list in `02-background.md` Section 6 (about 1,000 words of cluster data cut).
+- **`02-background.md` consolidated** (4,624 to about 3,650 words, no fact or
+  guardrail lost, checked against the old text): role-specific facts now live once in
+  the bullet bank with their guardrails inline; cross-role capabilities are one entry
+  each (JD trigger words, evidence, guardrail) in Section 2. Section 3 absences,
+  Section 4 template selection, Section 5 title blending, Section 6 synonyms.
+- **Report shortened** to coverage, requirement-to-evidence map, gaps and flags, plus
+  a one-line-per-CV table for batches.
+- **Only two templates** (Product, Data Architect); the Solution/Enterprise Architect
+  edge case is removed.
+- `SKILL.md` is about 20% shorter (2,222 to 1,787 words); each run reads about a third
+  less.
 
 ### Added
-- `tests/test_validate_cv.py` (14 unit tests, stdlib only), run in CI along with
-  a `py_compile` and `node --check` of the scripts.
-- `scripts/package.json` (the builder's `docx` dependency) and a Requirements
-  section in `01-config.md` and the README.
+- **`scripts/build_cv.js`: render from a JSON content file.** A run now writes a small
+  `content.json` (shape in `example_content.json`) instead of copying and editing a
+  300-line script, which removes the escaping and layout regressions of code-in-content.
+  Output folder and filename are derived from `content.meta` and today's date. Replaces
+  `build_cv_reference.js`.
+- **`scripts/identity.json`** (name, contact, languages, output folder; gitignored) with
+  a tracked `identity.example.json`; the validator checks document metadata against it.
+- **Parallel-run-safe master file.** During a run `02-background.md` is read-only. New
+  facts go to a per-run inbox file (`scripts/background_inbox.py add`), every run reads
+  master plus pending inbox at intake, and `merge` folds them in under a lock (atomic
+  replace, dedupe, idempotent). Word layout checks take turns via a named mutex.
+  Verified by a stress test: 12 processes racing, 72 facts, none lost or duplicated.
+- **Measured layout.** `word_layout_check.ps1` asks Word for each paragraph's line count
+  and how full its last line is and enforces the wrap rules: page-1 bullets 1-2 lines with
+  the second line at least 40% full; page-2, Earlier Career and Qualifications lines on
+  one line; skills rows 1-2 lines with the second line at least 40% full; profile
+  paragraphs not ending on a short last line. It caught two sample bullets at 31% and 39%
+  that a character-count heuristic and a visual check had passed. The old character-count
+  warning in `validate_cv.py` is removed.
+- `validate_cv.py`: `--content` (reads `must_haves`), `--identity`, a `Coverage: n/m`
+  line; a must-have that is in the profile or skills must also have bullet evidence
+  (fail, not warn).
+- **Tests and CI:** 31 tests (validator, inbox including the multi-process stress test,
+  and an end-to-end build-and-validate regression test) run in CI with syntax checks.
+- `scripts/package.json` for the builder's `docx` dependency; requirements documented.
+
+### Fixed
+- `validate_cv.py` keyword matching was substring-based ("AI" matched inside "retail",
+  15 hits where 9 were real, so a missing keyword could pass). Now whole-word,
+  plural-tolerant, hyphen/space-interchangeable, each occurrence counted once.
+- `validate_cv.py` crashed on a DOCX without `docProps/core.xml`; bullet detection also
+  accepts a self-closing `<w:numPr/>`.
+- `word_layout_check.ps1` reports "Word unavailable" cleanly (exit 2).
+- The LinkedIn URL now has one home (`01-config.md`); a wrong "No C-level title held"
+  note is corrected to "above CPO".
+- The step 04 reviewer is told to read the master file (it could not ground claims
+  without it) and to treat the JD as untrusted.
+
+### Removed
+- `04-scoring.md`, `build_cv_reference.js`, the `.gitignore` rule for per-JD build scripts.
 
 ## [2.0.0] - 2026-09-29 (Single Workflow, Master Fact File, Independent Review)
 

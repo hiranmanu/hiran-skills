@@ -1,0 +1,65 @@
+{
+  "_comment": "Placeholder content documenting every field build_cv.js reads. Fields starting with _ are ignored. Copy this file, replace the content with real facts from references/02-background.md, and never invent a fact.",
+  "template": "product",
+  "meta": {
+    "company": "ExampleCo",
+    "role_folder": "DirectorOfProduct",
+    "brief_role": "DirProduct",
+    "date": "2026.01.01"
+  },
+  "must_haves": ["product strategy", "roadmap", "OKR", "vendor selection", "stakeholder", "P&L"],
+  "profile": {
+    "lead": "Director of Product ",
+    "paragraphs": [
+      "with a proven record of building and leading product functions from zero, most recently defining the product strategy and roadmap for a £100M+ platform, leading a 20+ person product, engineering and data organisation. Combines product strategy, OKR discipline and vendor selection rigour.",
+      "Operates at board and C-suite level, with full P&L accountability, and has won $XXM in services and scaled a £XXM ARR SaaS portfolio."
+    ]
+  },
+  "skills": [
+    { "label": "Product & Portfolio Leadership", "items": ["Product Strategy", "Multi-Year Roadmaps", "OKRs & Performance Frameworks", "P&L Management"] },
+    { "label": "Data, Architecture & Vendors", "items": ["Enterprise Data Architecture", "Vendor Selection & Governance", "Build-vs-Buy"] },
+    { "label": "Leadership & Change", "items": ["Board & C-Suite Stakeholders", "Change Management", "Team Building"] }
+  ],
+  "roles": [
+    {
+      "title": "Director of Product (contract)",
+      "dates": "Jan 2025 - Dec 2025",
+      "company": "Example Retail Co, London, UK: Retail Media SaaS",
+      "bullets": [
+        "Defined the multi-year product strategy and roadmap for a platform and built the operating model for a 20+ person product, engineering and data org",
+        "Led 4x vendor selections and set OKRs, with regular updates to the executive board and CIO/CTO stakeholders"
+      ]
+    },
+    {
+      "title": "VP of Product (contract)",
+      "dates": "Jan 2024 - Dec 2024",
+      "company": "Example SaaS Co, London, UK: PE-backed SaaS",
+      "bullets": [
+        "Spearheaded the £XXM ARR B2B SaaS portfolio with full P&L accountability and a new product performance framework",
+        "Led the roadmap and GTM strategy across 3 vertical SaaS categories"
+      ]
+    },
+    {
+      "title": "Product Manager",
+      "dates": "Jan 2020 - Dec 2023",
+      "company": "Example Global Tech Co, London, UK",
+      "bullets": [
+        "Won $XXM in professional services through AI-enhanced products with enterprise clients"
+      ]
+    }
+  ],
+  "earlier_career": {
+    "dates": "Feb 2002 - Jun 2010",
+    "bullets": [
+      "Senior Consultant for Example Consulting Co, saving $XXM in costs per year via a governance framework",
+      "Product Analyst for security upgrades across 8K stores"
+    ]
+  },
+  "qualifications": {
+    "lines": [
+      "Executive MBA, Example Business School",
+      "BSc Management Information Systems, Example University",
+      "Selected Certifications: Agile, Scrum Master, Six Sigma"
+    ]
+  }
+}

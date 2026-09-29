@@ -19,9 +19,13 @@ jobs:
           node-version: "20"
       - name: Check every plugin's version is consistent
         run: python3 scripts/check_release_consistency.py
-      - name: Unit-test the CV validator
-        run: python3 -m unittest discover -s tests -v
+      - name: Install the builder's dependency
+        run: npm install --no-audit --no-fund
+        working-directory: plugins/cv-tailoring/skills/cv-tailoring/scripts
       - name: Syntax-check the scripts
         run: |
           python3 -m py_compile plugins/cv-tailoring/skills/cv-tailoring/scripts/validate_cv.py
-          node --check plugins/cv-tailoring/skills/cv-tailoring/scripts/build_cv_reference.js
+          python3 -m py_compile plugins/cv-tailoring/skills/cv-tailoring/scripts/background_inbox.py
+          node --check plugins/cv-tailoring/skills/cv-tailoring/scripts/build_cv.js
+      - name: Tests (validator, parallel-safe fact inbox, end-to-end build + validate)
+        run: python3 -m unittest discover -s tests -v
