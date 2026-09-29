@@ -1,0 +1,8 @@
+{
+  "name": "cv-tailoring-scripts",
+  "private": true,
+  "description": "Dependency for build_cv_reference.js. Run `npm install` once in the scratch folder you copy the builder into.",
+  "dependencies": {
+    "docx": "^9.8.1"
+  }
+}

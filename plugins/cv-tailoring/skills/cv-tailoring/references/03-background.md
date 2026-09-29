@@ -281,7 +281,7 @@ Excel, Power BI, Tableau, Looker, MicroStrategy, QuickSight, Google Data Studio.
 
 ### Notable Absences (Genuinely Not in Background)
 
-- No C-level title held (CPO is the closest; chief-of-staff is a different role type — support vs. decision-maker).
+- No C-level title held above CPO (CPO is the highest; chief-of-staff is a different role type — support vs. decision-maker).
 - No CFO/finance operations experience (P&L management yes, financial operations no).
 - No sales leadership (enterprise sales strategy yes, quota-carrying teams no).
 - No HR/talent operations (team building yes, structured HR systems no).

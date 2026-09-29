@@ -40,6 +40,15 @@ There is no applications tracker. Track applications outside this skill.
 `03-background.md` Section 1. Keep them as an archive; if one and the bank ever
 disagree, the bank wins.
 
+## Requirements
+
+| Needed for | What |
+|---|---|
+| Render (step 07) | Node.js and the `docx` npm package. Copy `scripts/build_cv_reference.js` (and `scripts/package.json`) into a **scratch folder**, not the plugin folder, run `npm install` there once, then `node build_<company>.js` |
+| `validate_cv.py` | Python 3, standard library only |
+| `word_layout_check.ps1` | Windows and Microsoft Word (exit code 2 = Word unavailable, check by eye) |
+| Review (step 06) | An Agent tool for the fresh-context reviewer; without one, run the rubric as a separate pass yourself |
+
 ## Template selection
 
 ```
@@ -64,7 +73,7 @@ Details (titles, emphasis, LinkedIn rule) are in `03-background.md` Section 2.
 | Review loops | 2 max, then ship with notes |
 | Recommendations / References section | Never included |
 | Blended titles | Max 1-2 per CV (rules in `03-background.md` Section 4) |
-| LinkedIn URL | Product roles only |
+| LinkedIn URL | Product roles only: `https://www.linkedin.com/in/hiran-patel/` (this file is the source of truth for the URL) |
 | Pages | Hard cap 2; most recent 3-4 roles on page 1 |
 
 ## File modification notes

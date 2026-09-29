@@ -13,6 +13,8 @@
   Requires Windows and Microsoft Word. Without Word, open the DOCX and check
   by eye.
 
+  Exit codes: 0 pass, 1 fail, 2 Word unavailable (not a verdict).
+
   FAIL when: pages > MaxPages, any role is split across pages, any section
   heading is stranded, or fewer than MinPage1Roles roles sit fully on page 1.
 
@@ -32,7 +34,14 @@ $headings = @("Profile Summary", "Key Skills & Competencies", "Career & Key Achi
 $word = $null
 $doc = $null
 try {
-    $word = New-Object -ComObject Word.Application
+    try {
+        $word = New-Object -ComObject Word.Application
+    }
+    catch {
+        Write-Output "SKIP  Microsoft Word is not available via COM on this machine. Open the DOCX and check page count, roles on page 1 and role splits by eye."
+        $global:LASTEXITCODE = 2
+        exit 2
+    }
     $word.Visible = $false
     $doc = $word.Documents.Open($full, $false, $true)   # ConfirmConversions=false, ReadOnly=true
     $pages = $doc.ComputeStatistics(2)                  # wdStatisticPages

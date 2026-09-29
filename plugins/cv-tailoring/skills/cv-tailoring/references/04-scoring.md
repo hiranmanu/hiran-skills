@@ -43,7 +43,7 @@ Engineering partnership, GTM, Sales]. CV contains all 15, so 15/15 = 100%.
 
 ### Before / after
 
-- **Before (step 04):** the master bank's default for this role type, as-is.
+- **Before (step 04):** coverage of an untailored CV built from the bank's default lines for this template: the `(P)`-tagged lines for PRODUCT_CV, the `(DA)`-tagged lines for DATA_ARCHITECT_CV, no JD-driven profile or skills.
 - **After (step 06, once the review edits are applied):** the final tailored
   text. Report both; target 85%+.
 
