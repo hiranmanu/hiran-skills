@@ -1,0 +1,12 @@
+{
+  "name": "Jordan Smith",
+  "credentials": "BSc, MBA",
+  "location": "London, UK",
+  "phone": "+44 0000 000000",
+  "email": "jordan.smith@example.com",
+  "linkedin": "https://www.linkedin.com/in/jordan-smith-example/",
+  "languages": "Fluent English & [Language]",
+  "nationality": "[Nationality]",
+  "file_prefix": "Jordan_CV",
+  "output_base": "C:/Users/you/Documents/CV Output"
+}

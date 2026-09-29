@@ -4,7 +4,7 @@ Catalog of every skill in this marketplace. Each skill versions independently �
 
 | Skill | Version | Description | Docs |
 |---|---|---|---|
-| `cv-tailoring` | 2.0.1 | Tailors a CV to a job description in one 8-step workflow: intake, parse the JD, gap check (asks about anything addressable), ATS score, draft, independent review, render and validate, report. Master fact file, no modes, DOCX to a local output folder. | [README](plugins/cv-tailoring/README.md) · [CHANGELOG](plugins/cv-tailoring/CHANGELOG.md) |
+| `cv-tailoring` | 2.1.0 | Tailors a CV to a job description in six steps: intake and parse, gap check (asks about anything addressable), draft as a content file, independent review, render and validate, report. Master fact file that is safe for parallel runs, JSON builder, DOCX to a local output folder. | [README](plugins/cv-tailoring/README.md) · [CHANGELOG](plugins/cv-tailoring/CHANGELOG.md) |
 
 > `interview-prep` moved to its own repository, [`hiranmanu/interview-prep`](https://github.com/hiranmanu/interview-prep), on 2026-09-29: it and CV tailoring are distinct jobs at different points in time.
 

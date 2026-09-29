@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 """
-validate_cv.py - automated step 07 validation for the cv-tailoring skill.
+validate_cv.py - automated step 05 validation for the cv-tailoring skill.
 
 Works directly against the rendered .docx's XML: no external tools, pure Python
-stdlib. Runs every DOCX-checkable constraint from references/05-formatting.md
+stdlib. Runs every DOCX-checkable constraint from references/03-formatting.md
 and prints one PASS/WARN/FAIL report.
 
 Usage:
     python3 validate_cv.py <path-to.docx>
     python3 validate_cv.py <path-to.docx> --keywords "a;b|c;d"
     python3 validate_cv.py <path-to.docx> --keywords-file must-haves.txt
+    python3 validate_cv.py <path-to.docx> --content content.json   (reads "must_haves")
 
---keywords / --keywords-file give the JD must-haves the master file SUPPORTS
+--keywords / --keywords-file / --content give the JD must-haves the master file SUPPORTS
 (never gap keywords). Separate keywords with ";" (or one per line in the file);
 use "|" for synonyms inside one keyword ("first-party data|1st party data").
 Matching is whole-word and case-insensitive; a trailing plural is allowed and
@@ -39,12 +40,30 @@ on page 1, role split across a page break, bullet wraps.
 
 import argparse
 import html
+import json
 import re
 import sys
 import zipfile
 from pathlib import Path
 
-EXPECTED_AUTHOR = "Hiran Patel"
+HERE = Path(__file__).resolve().parent
+
+
+def load_expected_author(identity_path=None) -> str:
+    """The name the DOCX metadata must carry: --identity if given, else
+    identity.json (local, gitignored), else identity.example.json, else the
+    historical default."""
+    candidates = [Path(identity_path)] if identity_path else [HERE / "identity.json", HERE / "identity.example.json"]
+    for f in candidates:
+        if f.exists():
+            try:
+                return json.loads(f.read_text(encoding="utf-8-sig"))["name"]
+            except (ValueError, KeyError):
+                pass
+    return "Hiran Patel"
+
+
+EXPECTED_AUTHOR = load_expected_author()
 GENERIC_AUTHOR_DEFAULTS = {"", "python-docx", "docx-js", "unknown", "libreoffice", "microsoft office user"}
 
 DASH_CHARS = {"—": "em dash", "–": "en dash"}
@@ -212,14 +231,19 @@ def load_keywords(args):
         for line in Path(args.keywords_file).read_text(encoding="utf-8-sig").splitlines():
             if line.strip() and not line.strip().startswith("#"):
                 kws.append(line.strip())
+    if args.content:
+        data = json.loads(Path(args.content).read_text(encoding="utf-8-sig"))
+        kws += [k.strip() for k in data.get("must_haves", []) if k.strip()]
     return kws
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Validate a tailored CV .docx against 05-formatting.md.")
+    ap = argparse.ArgumentParser(description="Validate a tailored CV .docx against 03-formatting.md.")
     ap.add_argument("path", type=Path, help="Path to the .docx to validate")
     ap.add_argument("--keywords", help='JD must-haves the master file supports, ";"-separated ("|" for synonyms)')
     ap.add_argument("--keywords-file", help="Text file, one must-have per line (# comments allowed)")
+    ap.add_argument("--identity", help="identity.json whose name the DOCX metadata must match (default: local identity.json)")
+    ap.add_argument("--content", help='The content.json the CV was built from: its "must_haves" list is used')
     args = ap.parse_args()
 
     if not args.path.exists():
@@ -228,6 +252,10 @@ def main():
     if args.path.suffix.lower() != ".docx":
         print(f"FAIL: expected a .docx, got: {args.path.suffix}")
         sys.exit(1)
+
+    global EXPECTED_AUTHOR
+    if args.identity:
+        EXPECTED_AUTHOR = load_expected_author(args.identity)
 
     paras = extract_paragraphs(args.path)
     report, ok = [], True
@@ -260,10 +288,13 @@ def main():
 
     keywords = load_keywords(args)
     table = []
+    coverage_line = None
     if keywords:
         kfails, kwarns, table = check_keywords(paras, keywords)
         gate("must-have coverage", kfails, f"all {len(keywords)} must-haves appear")
         warns += kwarns
+        covered = len(keywords) - len(kfails)
+        coverage_line = f"Coverage: {covered}/{len(keywords)} must-haves evidenced ({round(100 * covered / len(keywords))}%)"
     else:
         report.append("SKIP  must-have coverage: no --keywords / --keywords-file given")
 
@@ -273,6 +304,8 @@ def main():
     if table:
         print("\nMust-have counts (profile / skills / bullets):")
         print("\n".join(table))
+    if coverage_line:
+        print("\n" + coverage_line)
     if warns:
         print("\nWARN:")
         for w in warns:

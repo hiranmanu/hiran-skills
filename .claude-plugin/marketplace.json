@@ -12,7 +12,7 @@
       "source": "./plugins/cv-tailoring",
       "description": "Tailors a CV to a job description: parses the JD, checks gaps against a master fact file (asking about anything addressable), scores ATS keyword coverage, drafts profile/skills/bullets, runs an independent review, and generates a DOCX saved to a local output folder.",
       "category": "productivity",
-      "version": "2.0.1"
+      "version": "2.1.0"
     }
   ]
 }

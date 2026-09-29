@@ -1,9 +1,9 @@
-# 05 - Formatting, Voice & Validation
+# 03 - Formatting, Voice & Validation
 
-Owned by **step 05 (Draft)** and **step 07 (Render & Validate)** in `SKILL.md`.
+Owned by **step 03 (Draft)** and **step 05 (Render & Validate)** in `SKILL.md`.
 Hard constraints and voice for every tailored CV. This is the single home for
-format rules: the old decision-gates and QA-persona files were folded in here
-and into `SKILL.md` in v2.0.0, so a rule should exist in one place only.
+format rules: a rule lives in one place only. The layout itself is implemented once,
+in `scripts/build_cv.js`, which renders the content file exactly as specified here.
 
 ---
 
@@ -15,9 +15,9 @@ and into `SKILL.md` in v2.0.0, so a rule should exist in one place only.
 - **No personality-trait filler** ("passionate about", "excited by"). Facts only.
 - **"dunnhumby" is always lowercase**, including at the start of a line.
 - **No vague filler** ("details on request") for early-career entries: write the actual substance, however brief.
-- **Blended titles:** rules and examples live in `03-background.md` Section 4 (single source of truth). Format `{Functional Title}, {Actual Title}`, max 1-2 per CV, never a title never held.
+- **Blended titles:** rules and examples live in `02-background.md` Section 4 (single source of truth). Format `{Functional Title}, {Actual Title}`, max 1-2 per CV, never a title never held.
 - **Recommendations / References section: removed entirely**, including an "available on request" line.
-- **Every claim traces to `03-background.md`.** Combine facts with "and"; never turn two facts into cause-and-effect ("by", "through", "resulting in") unless the bank line says so.
+- **Every claim traces to `02-background.md`.** Combine facts with "and"; never turn two facts into cause-and-effect ("by", "through", "resulting in") unless the bank line says so.
 
 ### Bullets
 
@@ -49,10 +49,10 @@ The rule depends on where the role sits:
 
 - **Exactly 3 rows**, each with a **bold, JD-mirrored label** followed by keywords separated by a middle dot (`·`). Example labels: "Product & Portfolio Leadership", "Data, Architecture & Vendors", "Leadership & Change".
 - Each row wraps to about **1.4-1.8 lines**: never a third line, never a second line of 1-3 orphan words (add another true, relevant keyword instead of leaving a spill). Check by rendering.
-- **What may appear:** a keyword goes in only if (a) the JD uses it or it is a close synonym, and (b) `03-background.md` supports it. A JD keyword with no evidence is **not added**: it is reported as a gap in step 08.
+- **What may appear:** a keyword goes in only if (a) the JD uses it or it is a close synonym, and (b) `02-background.md` supports it. A JD keyword with no evidence is **not added**: it is reported as a gap in step 06.
 - **Repetition is intended, and skills need proof.** Each must-have JD keyword appears in the profile or skills **and** in at least one bullet as evidence; the top 3-5 appear in all three. **A keyword in the skills rows must also be evidenced in a bullet:** if the master file has no bullet evidence for it, it doesn't go in skills. ATS and human readers both look for the repeat. The only ban is a verbatim duplicate **inside one list** (for example "OKRs" twice in the skills rows).
 - No speculative tech: don't name a tool the JD doesn't mention unless it is a truthful differentiator. Don't include irrelevant domains.
-- **Signature breadth** (optional, max 1-2 items, always last): a real skill the JD doesn't cover that is genuinely differentiating. It never precedes a JD keyword, never counts toward the ATS score, and must already be in `03-background.md`. Cut it before cutting a JD keyword.
+- **Signature breadth** (optional, max 1-2 items, always last): a real skill the JD doesn't cover that is genuinely differentiating. It never precedes a JD keyword, never counts toward the ATS score, and must already be in `02-background.md`. Cut it before cutting a JD keyword.
 
 ### Page rules
 
@@ -74,15 +74,15 @@ The rule depends on where the role sits:
 
 - Name: left-aligned, bold, large, navy. Contact line: `London, UK | Phone | Email | LinkedIn`, pipe dividers, no parenthetical asides. Email and LinkedIn are live hyperlinks (`mailto:` for email), and the **email is also printed as literal text** so an ATS can read it.
 - Company/descriptor line uses a colon: `London, UK: Global media technology consultancy`, not a dash.
-- **Role dates:** right-aligned via a tab stop, not bold, same size, flush on the true page margin. Compute the tab position from this template's real page width minus margins. Do **not** use docx-js `TabStopPosition.MAX` (9026 twips, undershoots here) or `PositionalTab` (breaks in LibreOffice). Copy `roleHeader()` from `scripts/build_cv_reference.js`.
+- **Role dates:** right-aligned via a tab stop, not bold, same size, flush on the true page margin. Compute the tab position from this template's real page width minus margins. Do **not** use docx-js `TabStopPosition.MAX` (9026 twips, undershoots here) or `PositionalTab` (breaks in LibreOffice). The tab position is implemented once in `scripts/build_cv.js`; don't reimplement it.
 - **Dual nationality:** once only, at the bottom under Personal Details, right-aligned to the same tab stop as role dates (`Languages: ... [tab] Joint Nationality: British & American`).
 - **LinkedIn URL:** Product roles only, hyperlinked, exactly as given in `01-config.md` (the single source of truth for the URL).
-- **Document metadata:** `creator` and `lastModifiedBy` = `"Hiran Patel"`, real `title` (`"Hiran Patel - CV"`).
+- **Document metadata:** `creator` and `lastModifiedBy` = the name in `scripts/identity.json`, real `title` (`"<name> - CV"`). The builder sets it and the validator checks it.
 
 ### Output format
 
 - **DOCX is the only deliverable.** No PDF is ever shipped. The page-fit check may export a temporary PDF from **real Word** to read pagination, then discards it. Never trust a LibreOffice/Carlito render: it substitutes for Calibri and paginates differently, which is how the 3-page/role-split bug happened.
-- **Filename:** `Hiran_CV_{YYYY.MM.DD}_{Company}_{BriefRole}.docx`, dots not dashes in the date, the actual current date checked fresh, company always included, role as a 1-3 word slug (`PMGenAI`, not `ProductManagerGenAI`). Folder date format is the same `YYYY.MM.DD`.
+- **Filename:** `Hiran_CV_{YYYY.MM.DD}_{Company}_{BriefRole}.docx`, dots not dashes in the date, the actual current date, company always included, role as a 1-3 word slug (`PMGenAI`, not `ProductManagerGenAI`). Folder: `{YYYY.MM.DD}_{Company}_{Role}\`. `build_cv.js` derives both from `content.meta` (`company`, `role_folder`, `brief_role`) and today's date, so they can't drift.
 
 ### ATS parsing rules
 
@@ -113,16 +113,16 @@ Metric-driven, evidence-first, execution-focused. Every bullet should answer "wh
 
 ---
 
-## Part 3: Validation checklist (step 07)
+## Part 3: Validation checklist (step 05)
 
-Automated (`python3 scripts/validate_cv.py <docx> --keywords-file <must-haves.txt>`):
+Automated (`python scripts/validate_cv.py <docx> --content <content.json>`):
 - [ ] No em/en dashes
 - [ ] No References/Recommendations heading or placeholder
-- [ ] Author metadata is "Hiran Patel"
+- [ ] Author metadata matches `identity.json`
 - [ ] Every role date is an ASCII-hyphen range with start and end
 - [ ] Email present as literal text
 - [ ] No verbatim duplicate keyword within the skills rows
-- [ ] Every must-have appears, and each one in the profile or skills is also evidenced in a bullet (fails if not; warns if it is only in bullets)
+- [ ] Every must-have appears, and each one in the profile or skills is also evidenced in a bullet (fails if not; warns if it is only in bullets); prints `Coverage: n/m`
 
 Word check (`scripts/word_layout_check.ps1 <docx>`, Windows + Word). It **measures** the real wrap of every paragraph:
 - [ ] 2 pages; most recent 3-4 roles fully on page 1; no role split across a page break; no stranded section heading
@@ -132,7 +132,6 @@ Word check (`scripts/word_layout_check.ps1 <docx>`, Windows + Word). It **measur
 - [ ] Profile paragraphs: last line at least 30% full (no 1-2 word orphan); 7 lines or fewer in total
 
 Manual (open the rendered DOCX):
-- [ ] Filename and output folder correct
-- [ ] Square bullets; company lines use a colon; LinkedIn only on Product roles
+- [ ] Filename and output folder correct; it reads well
 
-On any failure, `SKILL.md` "Loops" says which step to return to.
+On any failure, `SKILL.md` step 05 says which step to return to.

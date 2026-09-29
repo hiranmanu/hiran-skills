@@ -1,19 +1,22 @@
 <#
 .SYNOPSIS
-  word_layout_check.ps1 - step 07 layout check for the cv-tailoring skill.
+  word_layout_check.ps1 - step 05 layout check for the cv-tailoring skill.
 
 .DESCRIPTION
   Opens the DOCX read-only in real Word (via COM) and measures what
   validate_cv.py cannot: page count, where each role sits, and how every
   paragraph actually wraps (line count and how full its last line is).
-  Real Word is the only render 05-formatting.md treats as authoritative
+  Real Word is the only render 03-formatting.md treats as authoritative
   (LibreOffice substitutes Carlito for Calibri and wraps differently).
   Nothing is saved and no PDF is written.
 
   Requires Windows and Microsoft Word. Exit codes: 0 pass, 1 fail,
   2 Word unavailable (not a verdict).
 
-  Rules enforced (05-formatting.md):
+  Safe for parallel runs: checks take turns via a named mutex (Local\cv-tailoring-word-check),
+  so several CV runs can call it at once without fighting over Word.
+
+  Rules enforced (03-formatting.md):
     - Pages <= MaxPages; at least MinPage1Roles roles fully on page 1; no role
       split across pages; no section heading stranded at a page bottom.
     - Page-1 role bullets: 1 or 2 lines. A 2-line bullet's second line must be
@@ -47,11 +50,19 @@ $headingSet = @($H.Values)
 
 $word = $null
 $doc = $null
+$mutex = New-Object System.Threading.Mutex($false, "Local\cv-tailoring-word-check")
+$haveMutex = $false
 $failures = New-Object System.Collections.Generic.List[string]
 $warnings = New-Object System.Collections.Generic.List[string]
 $rows = New-Object System.Collections.Generic.List[object]
 
 try {
+    try { $haveMutex = $mutex.WaitOne(300000) } catch [System.Threading.AbandonedMutexException] { $haveMutex = $true }
+    if (-not $haveMutex) {
+        Write-Output "SKIP  another layout check has held Word for over 5 minutes; try again."
+        $global:LASTEXITCODE = 2
+        exit 2
+    }
     try {
         $word = New-Object -ComObject Word.Application
     }
@@ -189,5 +200,6 @@ finally {
     if ($doc) { $doc.Close($false); [void][Runtime.InteropServices.Marshal]::ReleaseComObject($doc) }
     if ($word) { $word.Quit(); [void][Runtime.InteropServices.Marshal]::ReleaseComObject($word) }
     [GC]::Collect(); [GC]::WaitForPendingFinalizers()
+    if ($haveMutex) { $mutex.ReleaseMutex() }
 }
 exit $global:LASTEXITCODE
