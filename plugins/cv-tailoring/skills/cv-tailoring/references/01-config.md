@@ -46,7 +46,7 @@ disagree, the bank wins.
 |---|---|
 | Render (step 07) | Node.js and the `docx` npm package. Copy `scripts/build_cv_reference.js` (and `scripts/package.json`) into a **scratch folder**, not the plugin folder, run `npm install` there once, then `node build_<company>.js` |
 | `validate_cv.py` | Python 3, standard library only |
-| `word_layout_check.ps1` | Windows and Microsoft Word (exit code 2 = Word unavailable, check by eye) |
+| `word_layout_check.ps1` | Windows and Microsoft Word (installed on this machine). Measures wraps and pagination; exit code 2 = Word unavailable, check by eye |
 | Review (step 06) | An Agent tool for the fresh-context reviewer; without one, run the rubric as a separate pass yourself |
 
 ## Template selection

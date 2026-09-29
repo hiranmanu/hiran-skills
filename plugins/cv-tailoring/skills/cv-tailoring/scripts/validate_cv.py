@@ -25,8 +25,10 @@ Checks:
                 evidence (if it is in the profile/skills it must also be in a
                 bullet).
   WARN-only   : a must-have found only in bullets (add it to profile/skills for
-                ATS visibility), bullets long enough to wrap to a third line,
-                over-long Qualifications lines.
+                ATS visibility).
+
+Bullet/profile/skills wraps are NOT guessed from character counts here: they
+are measured in real Word by scripts/word_layout_check.ps1.
 
 Exit code: 0 if no FAIL, 1 otherwise (WARNs never fail the run).
 
@@ -67,9 +69,6 @@ DATE_RANGE_RE = re.compile(
 )
 YEAR_RE = re.compile(r"\b(19|20)\d{2}\b")
 EMAIL_RE = re.compile(r"[\w.+-]+@[\w-]+\.[\w.-]+")
-
-BULLET_WARN_CHARS = 215   # about 2 full lines; beyond this a third line is likely
-QUALS_WARN_CHARS = 108    # single-line ceiling for Qualifications lines
 
 
 def extract_paragraphs(docx_path: Path):
@@ -205,19 +204,6 @@ def check_keywords(paras, keywords):
     return fails, warns, table
 
 
-def check_lengths(paras):
-    warns = []
-    for p in paras:
-        if not p["bullet"]:
-            continue
-        n = len(p["text"].strip())
-        if p["section"] == "career" and n > BULLET_WARN_CHARS:
-            warns.append(f"{n} chars, may wrap to a third line: {p['text'].strip()[:70]}...")
-        if p["section"] == "quals" and n > QUALS_WARN_CHARS:
-            warns.append(f"{n} chars, Qualifications line may wrap: {p['text'].strip()[:70]}...")
-    return warns
-
-
 def load_keywords(args):
     kws = []
     if args.keywords:
@@ -270,7 +256,7 @@ def main():
     gate("email check", check_email(paras), "email present as literal text")
     gate("skills-duplicate check", check_skills_duplicates(paras), "no verbatim duplicate inside the skills rows")
 
-    warns = check_lengths(paras)
+    warns = []
 
     keywords = load_keywords(args)
     table = []
@@ -294,7 +280,7 @@ def main():
     print("=" * 60)
     print("Not checked here (use scripts/word_layout_check.ps1 or open the DOCX):")
     print("  - page count (cap 2), roles on page 1, role split across a page")
-    print("  - bullet wraps, skills row balance, profile orphans")
+    print("  - how every bullet, skills row and profile paragraph wraps (word_layout_check.ps1 measures it)")
     print("=" * 60)
     print("OVERALL: " + ("PASS" if ok else "FAIL") + (f" ({len(warns)} warning(s))" if warns else ""))
     sys.exit(0 if ok else 1)

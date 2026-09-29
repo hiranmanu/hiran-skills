@@ -11,6 +11,15 @@ Full review of the v2.0.0 skill: plugin/marketplace structure (valid), cross-fil
 references, and script behaviour tested with probes rather than read only.
 
 ### Fixed
+- **Wrap rules are now measured, not guessed.** `word_layout_check.ps1` asks Word
+  for each paragraph's line count and how full its last line is, and enforces:
+  page-1 bullets 1-2 lines with the second line at least 40% full (fuller is
+  fine); page-2 bullets, Earlier Career and Qualifications lines on one line;
+  skills rows 1-2 lines with the second line at least 40% full; profile
+  paragraphs not ending on a short last line. It caught two sample bullets at
+  31% and 39% that a character-count heuristic and a visual check had passed.
+  `validate_cv.py` no longer guesses wraps from character counts (its 215-char
+  warning produced false alarms).
 - `validate_cv.py` keyword matching was substring-based: "AI" matched inside
   "retail" and "maintain" (15 hits where 9 were real), so a genuinely missing
   keyword could pass the gate. Now whole-word, case-insensitive, plural-tolerant,
