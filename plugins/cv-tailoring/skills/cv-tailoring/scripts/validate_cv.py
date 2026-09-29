@@ -14,6 +14,8 @@ Usage:
 --keywords / --keywords-file give the JD must-haves the master file SUPPORTS
 (never gap keywords). Separate keywords with ";" (or one per line in the file);
 use "|" for synonyms inside one keyword ("first-party data|1st party data").
+Matching is whole-word and case-insensitive; a trailing plural is allowed and
+hyphen/space are interchangeable.
 
 Checks:
   FAIL-gating : em/en dashes, References/Recommendations section, Author
@@ -78,7 +80,7 @@ def extract_paragraphs(docx_path: Path):
     section = None
     for p_match in W_P_RE.finditer(xml):
         p_xml = p_match.group(0)
-        bullet = "<w:numPr>" in p_xml
+        bullet = "<w:numPr" in p_xml
         p_xml = W_TAB_RE.sub("<w:t>\t</w:t>", p_xml)
         text = html.unescape("".join(W_T_RE.findall(p_xml)))
         norm = text.strip().lower()
@@ -91,6 +93,8 @@ def extract_paragraphs(docx_path: Path):
 
 def check_docx_author(docx_path: Path):
     with zipfile.ZipFile(docx_path) as z:
+        if "docProps/core.xml" not in z.namelist():
+            return None, None
         core_xml = z.read("docProps/core.xml").decode("utf-8")
     creator_m = re.search(r"<dc:creator>(.*?)</dc:creator>", core_xml)
     lmb_m = re.search(r"<cp:lastModifiedBy>(.*?)</cp:lastModifiedBy>", core_xml)
@@ -162,6 +166,18 @@ def section_text(paras, key):
     return "\n".join(p["text"] for p in paras if p["section"] == key).lower()
 
 
+def kw_pattern(alts):
+    """Whole-word match (so "AI" does not match "retail" or "maintain"), allowing
+    a plural "s"/"es" on the end ("OKR" matches "OKRs"). Hyphens/spaces inside a
+    keyword are treated as interchangeable ("value stream" ~ "value-stream")."""
+    bodies = []
+    for alt in alts:
+        parts = [re.escape(w) for w in re.split(r"[\s-]+", alt.strip()) if w]
+        if parts:
+            bodies.append(r"[\s-]+".join(parts))
+    return re.compile(r"(?<![a-z0-9])(?:" + "|".join(bodies) + r")(?:s|es)?(?![a-z0-9])", re.IGNORECASE)
+
+
 def check_keywords(paras, keywords):
     """Returns (fails, warns, table_lines)."""
     fails, warns, table = [], [], []
@@ -171,8 +187,10 @@ def check_keywords(paras, keywords):
     for kw in keywords:
         alts = [a.strip().lower() for a in kw.split("|") if a.strip()]
 
+        pat = kw_pattern(alts)
+
         def count(blob):
-            return sum(len(re.findall(re.escape(a), blob)) for a in alts)
+            return len(pat.findall(blob))
 
         counts = {"profile": count(profile), "skills": count(skills), "bullets": count(career)}
         where = [k for k, v in counts.items() if v]

@@ -5,6 +5,42 @@ This file versions independently of other skills in this marketplace — see
 the repo root `CHANGELOG.md` for marketplace-level changes (new skills
 added, shared tooling, manifest schema).
 
+## [2.0.1] - 2026-09-29 (Code Review Fixes)
+
+Full review of the v2.0.0 skill: plugin/marketplace structure (valid), cross-file
+references, and script behaviour tested with probes rather than read only.
+
+### Fixed
+- `validate_cv.py` keyword matching was substring-based: "AI" matched inside
+  "retail" and "maintain" (15 hits where 9 were real), so a genuinely missing
+  keyword could pass the gate. Now whole-word, case-insensitive, plural-tolerant,
+  hyphen/space-interchangeable, and each occurrence is counted once when
+  synonyms overlap.
+- `validate_cv.py` crashed (`KeyError`) on a DOCX without `docProps/core.xml`;
+  it now reports the missing metadata as a failure. Bullet detection also
+  accepts `<w:numPr/>` written as a self-closing tag.
+- `word_layout_check.ps1` reports "Word unavailable" with exit code 2 instead of
+  a raw COM error.
+- `01-config.md` was named as the authority for the LinkedIn URL but did not
+  contain it; it now does, and `05-formatting.md` points to it.
+- `03-background.md` said "No C-level title held" (CPO is C-level); now "above CPO".
+
+### Changed
+- Step 06 reviewer is told to read `03-background.md` (it could not ground
+  claims without it) and is given a starting prompt that treats the JD as
+  untrusted.
+- Step 04's "before" score is defined (default `(P)` or `(DA)` lines for the
+  template, no tailoring).
+- Skill description gains explicit "use when" triggers.
+- Render instructions: copy the builder into a scratch folder and `npm install`
+  there; the "use the docx skill" line is gone (not guaranteed to exist).
+
+### Added
+- `tests/test_validate_cv.py` (14 unit tests, stdlib only), run in CI along with
+  a `py_compile` and `node --check` of the scripts.
+- `scripts/package.json` (the builder's `docx` dependency) and a Requirements
+  section in `01-config.md` and the README.
+
 ## [2.0.0] - 2026-09-29 (Single Workflow, Master Fact File, Independent Review)
 
 Restructure driven by comparing cv-tailoring's output to the ai-job-search

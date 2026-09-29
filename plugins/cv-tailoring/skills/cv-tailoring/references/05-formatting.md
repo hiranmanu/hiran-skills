@@ -76,7 +76,7 @@ The rule depends on where the role sits:
 - Company/descriptor line uses a colon: `London, UK: Global media technology consultancy`, not a dash.
 - **Role dates:** right-aligned via a tab stop, not bold, same size, flush on the true page margin. Compute the tab position from this template's real page width minus margins. Do **not** use docx-js `TabStopPosition.MAX` (9026 twips, undershoots here) or `PositionalTab` (breaks in LibreOffice). Copy `roleHeader()` from `scripts/build_cv_reference.js`.
 - **Dual nationality:** once only, at the bottom under Personal Details, right-aligned to the same tab stop as role dates (`Languages: ... [tab] Joint Nationality: British & American`).
-- **LinkedIn URL:** Product roles only, `https://www.linkedin.com/in/hiran-patel/` exactly. `01-config.md` is authoritative if they ever differ.
+- **LinkedIn URL:** Product roles only, hyperlinked, exactly as given in `01-config.md` (the single source of truth for the URL).
 - **Document metadata:** `creator` and `lastModifiedBy` = `"Hiran Patel"`, real `title` (`"Hiran Patel - CV"`).
 
 ### Output format

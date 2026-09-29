@@ -1,4 +1,4 @@
-# cv-tailoring (v2.0.0)
+# cv-tailoring (v2.0.1)
 
 Tailors a CV to a job description for CPO/VP Product, Data Architect, Solution/Enterprise Architect, and related senior product/data roles.
 
@@ -47,6 +47,10 @@ There is no application tracker and no interview-prep output: this skill produce
 - LinkedIn URL for Product roles only (see `01-config.md`)
 - No em/en dashes anywhere
 
+## Requirements
+
+Node.js and the `docx` npm package (render), Python 3 (validation), and, optionally, Windows with Microsoft Word (`word_layout_check.ps1`). Details in `skills/cv-tailoring/references/01-config.md`. Copy the builder into a scratch folder to run it; don't write into the plugin folder.
+
 ## Using this from a plain claude.ai chat (no Claude Code)
 
 A chat session without this repo mounted can't read these files. If it has shell/git access, it should `git clone` this repo first and copy `skills/cv-tailoring/scripts/build_cv_reference.js` as the literal starting point rather than re-deriving `05-formatting.md`'s layout rules from prose (that is how the `TabStopPosition.MAX` and `PositionalTab` bugs got introduced in September 2026).
@@ -69,6 +73,8 @@ python3 scripts/check_release_consistency.py
 from the repo root.
 
 ## Recent Updates
+
+**v2.0.1** - Code-review fixes. `validate_cv.py` matched keywords as substrings ("AI" matched "retail", so a missing keyword could pass); it is now whole-word, no longer crashes on a DOCX without `core.xml`, and has 14 unit tests run in CI. `word_layout_check.ps1` reports "Word unavailable" cleanly (exit 2). Closed doc gaps: the reviewer now reads `03-background.md` to check grounding, the skill description carries explicit "use when" triggers, "before" ATS score is defined, the LinkedIn URL has one home (`01-config.md`), requirements and the builder's `package.json` are documented, and a wrong "no C-level title held" note is corrected.
 
 **v2.0.0** - One workflow, numbered steps 01-08 and matching numbered reference files; Quick/Balanced/Full modes removed. `03-background.md` is now the master fact source (bullet bank merged from both source CVs plus everything confirmed since), replacing the source-CV PDFs as input. Bullets: page-1 roles may run 1-2 lines (second line 40-80% full), page-2 roles stay single-line. Profile is two short paragraphs; skills are three grouped rows; repeating JD must-haves across profile, skills and bullets is now intended. Added an independent review pass (grounding audit, must-have coverage, hiring-manager and recruiter lenses) whose edits are applied before render, a fit snapshot, blocking gap questions before drafting, `validate_cv.py` checks for dates/keywords/duplicates, and `word_layout_check.ps1`. Removed web research, interview-prep hints, and the decision-gates, QA-personas, market-research and semantic-clusters files (folded into `SKILL.md`, `05-formatting.md` and `04-scoring.md`).
 
