@@ -223,6 +223,31 @@ def check_keywords(paras, keywords):
     return fails, warns, table
 
 
+STRETCH_RE = re.compile(
+    r"\b(including|through|by|resulting in|leading to|deep|extensive|proven|significant|expert)\b",
+    re.IGNORECASE)
+IRREGULAR_VERBS = {"led", "built", "won", "ran", "drove", "wrote", "set", "held", "made", "spearheaded"}
+
+
+def lint_wording(paras):
+    """WARN-only checks for the 'Attribution & wording' rules in 03-formatting.md."""
+    warns = []
+    for p in paras:
+        text = p["text"].strip()
+        if not text or p["section"] not in ("profile", "career"):
+            continue
+        if p["section"] == "career" and not p["bullet"]:
+            continue
+        for m in STRETCH_RE.finditer(text):
+            lo = max(0, m.start() - 25)
+            warns.append(f'stretch word "{m.group(1)}": check the bank line says so: "...{text[lo:m.end() + 25]}..."')
+        if p["bullet"]:
+            first = re.split(r"\W+", text, maxsplit=1)[0].lower()
+            if not (first.endswith("ed") or first in IRREGULAR_VERBS):
+                warns.append(f'bullet may not start with a verb: "{text[:60]}"')
+    return warns
+
+
 def load_keywords(args):
     kws = []
     if args.keywords:
@@ -284,7 +309,7 @@ def main():
     gate("email check", check_email(paras), "email present as literal text")
     gate("skills-duplicate check", check_skills_duplicates(paras), "no verbatim duplicate inside the skills rows")
 
-    warns = []
+    warns = lint_wording(paras)
 
     keywords = load_keywords(args)
     table = []

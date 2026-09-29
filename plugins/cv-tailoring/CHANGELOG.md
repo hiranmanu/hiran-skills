@@ -5,6 +5,17 @@ This file versions independently of other skills in this marketplace — see
 the repo root `CHANGELOG.md` for marketplace-level changes (new skills
 added, shared tooling, manifest schema).
 
+## [2.2.0] - 2026-09-29 (Single-Block Profile, Profile-Career Consistency, Source-CV Facts)
+
+### Changed
+- **Profile Summary is one block, up to 7 lines** (opening with JD keywords, proof from listed roles, fit statement and markets), replacing the two-paragraph rule that wasted partial last lines and pushed proof out. `03-formatting.md` and `SKILL.md` updated together.
+- **Profile-to-career rule:** every employer, programme or client named in the profile must be a role listed in the career history. Removed the specific Aviva programme example from `03-formatting.md`; facts live only in `02-background.md`.
+
+### Added
+- **Wording lint in `validate_cv.py`** (WARN only): stretch words and career bullets that don't start with a verb, per the "Attribution & wording" rules.
+- **Step 04 review is a self-review by default;** the independent reviewer agent is optional (`SKILL.md`, `01-config.md`).
+- **Master file:** facts from both source CV PDFs merged in (confirmed by the user 2026-09-29): markets UK/EU, USA & APAC, 0-to-1 to £50M+ scale, two successful exits, 30+ organisations, interim/FTE, domain and skills keywords, TOGAF/DAMA and data platform credentials, and extra per-role lines. The Azure/Databricks evaluation-only guardrail is kept.
+
 ## [2.1.0] - 2026-09-29 (Six Steps, JSON Builder, Parallel-Safe Master File, Measured Layout)
 
 Follow-up to 2.0.0 after a full code review and an objective look at what could be

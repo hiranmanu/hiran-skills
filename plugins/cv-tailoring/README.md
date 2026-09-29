@@ -1,4 +1,4 @@
-# cv-tailoring (v2.1.0)
+# cv-tailoring (v2.2.0)
 
 Tailors a CV to a job description for CPO/VP Product, Data Architect and related senior product/data roles.
 
@@ -81,6 +81,8 @@ python3 scripts/check_release_consistency.py
 from the repo root.
 
 ## Recent Updates
+
+**v2.2.0** - Profile Summary is now one block of up to 7 lines instead of two short paragraphs, and every employer named in the profile must be a listed role. The master file gained the facts from both source CV PDFs (markets UK/EU, USA & APAC, scale, exits, team size, architecture credentials, extra role lines). The stray Aviva example is gone from the formatting rules.
 
 **v2.1.0** - Six steps instead of eight (the separate "before" ATS score and the fit snapshot are gone; coverage is now mechanical), reference files renumbered (`01-config`, `02-background`, `03-formatting`) with the master file consolidated by about a fifth and no fact lost, and a shorter report. New: `build_cv.js` renders from a JSON content file instead of copied code; the master file is safe for parallel runs (per-run inbox, locked merge, Word checks take turns); `word_layout_check.ps1` measures real wraps in Word (page-1 second lines at least 40% full); `validate_cv.py` fixes substring keyword matching and a crash, and fails a skills keyword with no bullet evidence; 31 tests run in CI including a multi-process stress test and an end-to-end build-and-validate check.
 

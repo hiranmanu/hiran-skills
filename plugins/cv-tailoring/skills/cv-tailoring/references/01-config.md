@@ -46,7 +46,7 @@ a new machine. LinkedIn URL for Product roles: `https://www.linkedin.com/in/hira
 | Render (step 05) | Node.js and the `docx` package: run `npm install` once in `scripts/` |
 | Validation | Python 3, standard library only |
 | Layout check | Windows and Microsoft Word (installed on this machine). Exit code 2 = Word unavailable, check by eye |
-| Review (step 04) | An Agent tool for the fresh-context reviewer; without one, run the rubric as a separate pass |
+| Review (step 04) | Self-review by default; an Agent tool only for the optional independent reviewer |
 
 ## Archived source CVs
 
@@ -65,4 +65,4 @@ them: their content lives in `02-background.md` Section 1, which wins if they di
 
 ## Modification notes
 
-Last updated 2026-09-29 (v2.1.0). Changing the output path means editing `identity.json`.
+Last updated 2026-09-29 (v2.2.0). Changing the output path means editing `identity.json`.

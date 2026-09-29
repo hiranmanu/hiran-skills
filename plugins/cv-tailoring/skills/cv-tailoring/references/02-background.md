@@ -45,6 +45,8 @@ London, UK: Retail Media SaaS Data Science AI/Agentic
 - Drove adoption of internal AI tooling across the product, engineering and data science org (C)
 - Direct exposure to venture, strategic investors and corporate venture capital during the £10M+ raise (C)
 - Partnered with Design on retail media UX and synthesised product-market research with design insights (C)
+- Ecommerce and omnichannel exposure in the Interim Director role (C 2026-09-29)
+- Data monetisation: identity graph work for data monetisation (recent); revenue share with publishers/retailers for measurement and first-party data (C 2026-09-29). No numbers recorded (C 2026-09-29)
 
 ### OneAdvanced - VP of Product (contract), Jul 2024 - Jan 2025
 London & Birmingham, UK: SaaS Leader PE-backed
@@ -68,6 +70,7 @@ UK: Global, Corporate, Specialty Insurance. Appears on the DATA_ARCHITECT templa
 - Regulated insurance environment; GDPR/data-privacy exposure on first-party data work (C)
 - On a Product CV keep the plain (contract) suffix: the dates overlap OneAdvanced (~6 months) and dunnhumby (~7 months), confirmed fine 2026-09-19, so add no 'concurrent contract' clarifier (C 2026-09-19)
 - On a Product CV pull it in as an extra title-blended role (e.g. Technical Product Owner, Enterprise Data Architect) only when the JD stresses FinTech/financial services/regulated environments, reframed toward delivery, roadmap and vendor management (C)
+- Established architectural blueprints and RACI governance, accelerating delivery 30% and reducing integration costs for engineering (DA) (C 2026-09-29)
 
 ### Amazon - Head of Product, Principal AdTech Consultant, Dec 2021 - Nov 2023
 London, UK. DA title: Data Solutions Architect
@@ -80,6 +83,10 @@ London, UK. DA title: Data Solutions Architect
 - Led development of data measurement solutions using Amazon's AdTech, APIs, data clean rooms and AWS technologies (DA)
 - Directed design partnerships with enterprise clients and helped structure design review boards (C)
 - Pricing and packaging on the AdTech consulting engagements (C 2026-09-19)
+- Ecommerce and omnichannel work through Amazon Ads enterprise retail/brand engagements (C 2026-09-29)
+- Revenue share with publishers/retailers for measurement and first-party data (C 2026-09-29). No numbers recorded (C 2026-09-29)
+- Amazon Ads: 0-to-1 experience building the AdTech consulting/AI solutions practice from scratch (built a global team, 3-year strategy with 82 clients); usable as 0-1 evidence (C 2026-09-29)
+- Created and led a global team partnering with 82 corporate customers, increasing sales through advanced data solutions (DA) (C 2026-09-29)
 
 ### Hybrid Theory (acquired by Azerion) - Chief Product Officer, Apr 2019 - Aug 2021
 London, UK: Digital Marketing Agency. DA title: Data Product Architect
@@ -95,6 +102,10 @@ London, UK: Digital Marketing Agency. DA title: Data Product Architect
 - Developed a leading position on data protection, ensuring security for 1B+ users per month (DA)
 - Investor updates and M&A negotiations with Azerion; led M&A due diligence and investment strategy for the £3M social AI acquisition (C)
 - Pricing and packaging on the AI-powered contextual and first-party data advertising products (C 2026-09-19)
+- Omnichannel work at Hybrid Theory (C 2026-09-29)
+- Data monetisation: identity graph work for data monetisation; data-as-a-service, licensing an audience solution to agencies (C 2026-09-29). No revenue numbers recorded (C 2026-09-29)
+- Hybrid Theory was early-stage/founder-led when joined; worked directly with the founders/CEO as CPO (C 2026-09-29). Pixels on 4M publisher sites seeing 1B users (consumer reach, B2B2C data products) (C 2026-09-29)
+- Devised strategy for growth, predicted future developments and planned roadmaps for the creation of B2B data solutions (DA) (C 2026-09-29)
 
 ### Dentsu - Senior Product Director (contract), Mar 2018 - Apr 2019
 London, UK: Global Marketing Agency. DA title: Solutions Architect
@@ -104,12 +115,14 @@ London, UK: Global Marketing Agency. DA title: Solutions Architect
 - Delivered to specification and deadline, retaining £3M in billings and saving £1M in resources (P)
 - Led the architecture of the data ETL, governance and data visualisation components into BI reporting; aligned data solutions to enterprise data roadmaps (DA)
 - Managed international design teams on-shore and off-shore for the media hub product (C)
+- Managed on-shore and off-shore engineers and architects, delivering the solution to specification and deadline, and presented solution architecture to stakeholders (DA) (C 2026-09-29)
 
 ### Patel Hospitality Group - Managing Partner, Feb 2017 - Feb 2018
 Alabama, USA: Hotel Hospitality
 - Managed a $15M hotel portfolio and an 80-strong team across 4 locations, with full P&L accountability (P/DA)
 - Negotiated stringent renovation contracts and timeframes to reduce costs 25% ($500K saved) (P/DA)
 - Introduced a hotel standard operating model that lifted profits 20% in 3 months, with a 4.2 TripAdvisor rating (P/DA)
+- Founder-level/owner-operator context: the group was the family's own business; worked directly with the owners (C 2026-09-29). Consumer-facing hotel business (C 2026-09-29)
 
 ### Sage - Product Director (contract), Jan 2016 - Feb 2017
 London, UK: Multinational Enterprise Software Company. DA title: Data Solution Architect
@@ -117,6 +130,7 @@ London, UK: Multinational Enterprise Software Company. DA title: Data Solution A
 - Led the £3M business case for an agile product strategy and a centre of excellence delivering data architecture insights (P/DA)
 - Defined data solution architecture, enterprise data standards and data roadmaps across functions (DA)
 - Design-product integration for the C-suite reporting and data architecture work (C)
+- Managed the delivery team while integrating data and technology into C-level reports (DA) (C 2026-09-29)
 
 ### dunnhumby - Senior Product Manager, Senior Consultant & Senior Data Analyst, Jun 2010 - Dec 2015
 London UK, Chicago USA & Cincinnati USA: Marketing Data Science AI/ML. DA title: Sr. Data Manager, Data Consultant & Data Analyst
@@ -125,12 +139,16 @@ London UK, Chicago USA & Cincinnati USA: Marketing Data Science AI/ML. DA title:
 - Senior Product Manager for a 10-month £10M B2C big-data price & promotions optimisation tool for Tesco internationally: cut customer deployment time 40% through a common architecture approach and delivered £52M (520% ROI) (P/DA)
 - Senior Consultant for Macy's overseeing a $3M data solution and $5M sales pipeline for retail & QSR; delivered a $2M sales pipeline of RFPs in 14 months (P/DA)
 - Senior Data Analyst managing Kroger's $15M delivery of omnichannel campaigns across 65M US households; standardised direct mail across 14 retail subsidiaries, saving $2M (P/DA)
+- Worked on Order Management (OMS) and POS retail systems during the first dunnhumby round (2010-2015) on the Macy's, Tesco and Kroger accounts; ecommerce and omnichannel work at Macy's (C 2026-09-29). No metrics recorded; keep to 'worked on', not platform ownership (C 2026-09-29)
+- Lead PM on the Tesco price & promotions optimisation tool (promotions/merchandising-adjacent work). Category management, range and assortment scope beyond promotions not confirmed (C 2026-09-29)
+- Chaired data cases and led retail media teams on offline & online measurement using Tesco customer data; developed the product strategy and roadmap that resulted in a £5M sales growth opportunity (P/DA) (C 2026-09-29)
 
 ### Earlier Career, Feb 2002 - Jun 2010
 - Senior Consultant, Accenture, Atlanta: saved $13M costs per year via a governance framework (Jan-Jun 2010)
 - Product Analyst, information security upgrades to 8K Walmart stores, 1.8M employees, 21 countries (2009-10)
 - Product Manager, University of Alabama: led $100K revenue and teams deploying public Wi-Fi to 15K users (Jan-May 2009)
 - MD, Editor and Partner for three websites serving thousands of football fan forums and millions of video downloads (2002-09)
+- Founded/co-founded the three football fan websites (MD, Editor and Partner); these were consumer (B2C) products serving thousands of fan forums and millions of video downloads (C 2026-09-29)
 
 ### Education, certifications, awards, languages
 - Executive MBA, Quantic School of Business and Technology, Washington DC, USA. BSc Management Information Systems & Computer Science, The University of Alabama, USA
@@ -161,6 +179,25 @@ Each entry: the JD words that trigger it, where the evidence sits, and the limit
 - **CIO/CTO relationships and deputising** (JD: reports to the CIO, senior technology leadership team, deputise for the CIO). Across Hybrid Theory, Amazon, OneAdvanced, dunnhumby and Sage: managed CIO/CTO-level relationships and acted as deputy/proxy for that function (C 2026-09-28). **Guardrail:** not a single named direct-reporting line unless one is confirmed.
 - **Demand management, business cases, funded approvals** (JD: demand management, prioritisation methodology, investment cases, business case, funding approval, intake process, technology investment priorities). dunnhumby (Section 1). Confirmed 2026-09-29 as a pattern not specific to one role: apply it where the JD's scope calls for it, with Sage's £3M business case as the anchor elsewhere. **Guardrail:** the named programmes (AI, data clean rooms, identity graphs) belong to dunnhumby only.
 - **CEO-level stakeholders** (JD: CEO, executive leadership team, engage stakeholders at all levels). Confirmed 2026-09-29; employer(s) not specified. **Guardrail:** keep it generic ("Board & C-suite stakeholders incl. CEO") and don't attribute it to a role.
+- **Requirements, specs, release and production support:** Across all roles: wrote user stories, acceptance criteria and technical specifications; owned release planning, testing, deployment and production support/troubleshooting (C 2026-09-29). Also ran product demonstrations and technical discussions with enterprise retail customers. Guardrail: no role-specific metrics; keep generic (C 2026-09-29)
+- **SQL:** SQL used hands-on as a data analyst in early roles (C 2026-09-29). Past tense only; Python/R not confirmed (C 2026-09-29)
+- **Private data networks / privacy-preserving data collaboration:** User confirmed 2026-09-29 experience with private data network / Open Intelligence-style data collaboration; scope not detailed. Frame as experience/exposure alongside clean rooms and identity graphs, not platform ownership (C 2026-09-29)
+- **Data partnerships:** Structured data partnerships at Amazon, dunnhumby (twice, both rounds) and Hybrid Theory (C 2026-09-29). Outcomes/metrics not recorded; keep generic, no invented deal sizes (C 2026-09-29)
+- **Verifying data models against functional and non-functional requirements:** Verified data models/designs against functional and non-functional requirements (C 2026-09-29). Employer not specified; keep generic, no metrics (C 2026-09-29)
+- **Azure / Databricks / lakehouse evaluation:** Evaluated Azure and Databricks (lakehouse) against Snowflake/AWS in platform comparison work (C 2026-09-29). Evaluation/comparison level only; employer not specified; not hands-on delivery. Never write 'built/delivered on Azure or Databricks' (C 2026-09-29)
+- **Central architecture governance and documentation approval:** Took architecture designs and documentation through central architecture team / review-board approval (C 2026-09-29). Employer not specified; keep generic (C 2026-09-29)
+- **Conceptual, logical and physical data modelling; data dictionaries:** Produced conceptual, logical and physical data models and data dictionaries as an architect (C 2026-09-29). Employer/tools not specified; keep generic, no tool names, no metrics (C 2026-09-29)
+- **Communities of practice, architecture forums and ceremonies:** Participated in communities of practice, architecture forums and agile ceremonies as an architect (C 2026-09-29). Employer not specified; keep generic (C 2026-09-29)
+- **UK Public Sector / Government Digital Standards (absence):** No UK public sector or GDS experience (C 2026-09-29). Genuine gap: never claim (C 2026-09-29)
+- **Service measures and pipeline support measures:** Established service measures (SLA/SLO-style) and pipeline support measures (C 2026-09-29). Employer not specified; no numbers recorded; keep generic (C 2026-09-29)
+- **B2C vs B2B2C consumer scope:** B2C (direct consumer) products: the football fan websites only. Everything else is B2B or B2B2C (consumer reach through clients/publishers, e.g. Hybrid Theory pixels on 4M publisher sites seeing 1B users). Frame consumer claims accordingly; never call the B2B2C work direct-to-consumer apps (C 2026-09-29)
+- **Markets covered:** Experienced across markets in the UK/EU, USA & APAC (C 2026-09-29). Usable in a profile 'markets covered' phrase. (C 2026-09-29)
+- **Interim and FTE, high-pressure situations:** Experienced as interim or FTE in high-pressure, high-stakes situations (C 2026-09-29).
+- **Scale of products built:** Built and scaled products from 0-to-1 through to £50M+, spanning platform strategy, first-party data, advanced measurement and commercial monetisation (C 2026-09-29). Also platform build (0-to-1) and product-led growth as skills keywords. (C 2026-09-29)
+- **Exits and M&A integration:** Led two successful exits, including M&A integration (Hybrid Theory acquired by Azerion is one; the second is not specified, so keep generic: 'two successful exits') (C 2026-09-29).
+- **Organisation size 30+:** Led organisations of 30+ across product, engineering and data science at Amazon, dunnhumby/Tesco and PE-backed SaaS businesses (C 2026-09-29). Keep the employer list as given. (C 2026-09-29)
+- **Enterprise architecture credentials and data platforms:** 15+ years of experience; governance grounded in TOGAF and DAMA principles; enterprise reference architecture, solution architecture, blueprints and standards; data mesh, data lakes and lakehouse (ETL/ELT); Kafka/MSK, EventBridge, DBT; data governance, quality and privacy; machine learning and AI for analytics; translating architecture for engineering teams and the C-suite; took data platforms from proof-of-concept to production at Tesco, Amazon and Aviva scale (C 2026-09-29). Guardrail: Azure and Databricks stay evaluation-level per the Azure/Databricks entry; the DA source CV's 'spanning AWS, Azure, GCP, Snowflake, Databricks' must not become build/delivery claims on Azure or Databricks. (C 2026-09-29)
+- **Sector and domain keywords:** Domains: B2B SaaS, B2B2C, retail media, AdTech, AI/ML-driven SaaS platforms, CPG, FMCG, insurance, retail. Skills keywords confirmed from the source CV: identity resolution, privacy & consent, revenue growth, API & integration architecture, cloud (AWS and GCP), M&A due diligence, enterprise sales at strategy level only (no quota-carrying teams; see Section 3) (C 2026-09-29).
 
 ---
 

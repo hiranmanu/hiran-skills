@@ -1,6 +1,6 @@
 {
   "name": "cv-tailoring",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Tailors a CV to a job description: parses the JD, checks gaps against a master fact file (asking about anything addressable), scores ATS keyword coverage, drafts profile/skills/bullets, runs an independent review, and generates a DOCX saved to a local output folder.",
   "author": {
     "name": "Hiran Patel"

@@ -34,16 +34,29 @@ The rule depends on where the role sits:
 - Bullet marker is a small square (▪).
 - Lead with the JD's keyword where it is truthfully there; reorder to surface JD-relevant work first; never rewrite a bullet to force a keyword that isn't there.
 
+### Attribution & wording (grounding rules)
+
+The single home for the rules a review used to catch after the fact. Apply them while drafting; `validate_cv.py` lints the stretch words and reports them as WARNs.
+
+- **Every bullet starts with a verb.** A bank line's limit word is part of the fact: "worked on", "exposure to", "evaluated" keep that verb. Never upgrade it to "led", "owned" or "drove"; use "owned"/"led" only where the bank line says it.
+- **Attribute a capability only to the clients, roles and employers the bank line names.** A capability confirmed at Macy's is not written as "for Macy's, Tesco and Kroger".
+- **No "including", "through", "by", "resulting in", "leading to" between two facts** unless the bank line itself says so. Join independent facts with "and" (or a semicolon on one-line bullets).
+- **No unearned intensifiers:** "deep", "extensive", "proven", "significant", "expert", unless the bank line says so.
+- **A cross-role fact (Section 2) is written generically** ("across the portfolio", not a named client) and carries its guardrail wording.
+- **Every finding from any review gets a disposition** (applied, rejected with a reason, asked to the user, or listed as a gap in the step 06 report). A finding that changes nothing and isn't reported is a defect in the run.
+
 ### Profile Summary
 
-- **Two short paragraphs, 7 lines maximum in total.** Heading is "Profile Summary".
-  - **Paragraph 1:** who you are, mirroring the JD's title language, with the headline proof. The first two sentences carry 3-4 of the JD's top keywords.
-  - **Paragraph 2:** governance, board/C-suite, commercial or adjacent-role proof (for example the £90M Aviva programme as evidence of vendor-governance rigour), then the fit statement.
-- **Every claim is paired with its proof.** A claim with no evidence in the same paragraph gets cut or backed.
-- **Role outside your home domain:** open paragraph 1 with the domain-transfer argument, the one sentence connecting your background to their problem.
+- **One block, 7 lines maximum.** Heading is "Profile Summary". Use the full 7 lines with real proof; don't cut the profile to make room. One block wastes no partial last lines, unlike two paragraphs. Order it as:
+  - **Opening:** who you are, mirroring the JD's title language. The first two sentences carry 3-4 of the JD's top keywords.
+  - **Middle:** the headline proof, drawn from the roles listed in Career & Key Achievements (scale, revenue, team size, exits, board/C-suite, AI), each claim paired with its numbers. Pull confirmed cross-role facts from `02-background.md` Section 2.
+  - **Close:** the fit statement, then the markets phrase where it helps.
+- **Every employer, programme or client named in the profile must be a role listed in the career history.** If a role is left off the CV (for example Aviva on a Product CV), don't cite it in the profile; use proof from listed roles instead. No specific programme or employer is named in this file: facts live in `02-background.md`.
+- **Every claim is paired with its proof.** A claim with no evidence in the same block gets cut or backed.
+- **Role outside your home domain:** open with the domain-transfer argument, the one sentence connecting your background to their problem.
 - Include hands-on IC positioning and Engineering/GTM collaboration language only if the JD emphasises them.
-- **No orphan lines:** no paragraph may wrap so its last line holds only 1-2 words. Read the actual wrap points after every render, not just the first.
-- Dual nationality never appears in the profile (see Header layout). A short "markets covered" phrase may close paragraph 2, in normal (non-italic, non-grey) formatting.
+- **No orphan lines:** the block may not wrap so its last line holds only 1-2 words. Read the actual wrap points after every render, not just the first.
+- Dual nationality never appears in the profile (see Header layout). A short "markets covered" phrase may close the block, in normal (non-italic, non-grey) formatting.
 
 ### Key Skills & Competencies
 
@@ -123,6 +136,7 @@ Automated (`python scripts/validate_cv.py <docx> --content <content.json>`):
 - [ ] Email present as literal text
 - [ ] No verbatim duplicate keyword within the skills rows
 - [ ] Every must-have appears, and each one in the profile or skills is also evidenced in a bullet (fails if not; warns if it is only in bullets); prints `Coverage: n/m`
+- [ ] Wording lint (WARN only): stretch words ("including", "through", "by", "resulting in", "leading to", "deep", "extensive", "proven", "significant", "expert") and career bullets that don't start with a verb. Each warning is resolved or justified before shipping (see Attribution & wording)
 
 Word check (`scripts/word_layout_check.ps1 <docx>`, Windows + Word). It **measures** the real wrap of every paragraph:
 - [ ] 2 pages; most recent 3-4 roles fully on page 1; no role split across a page break; no stranded section heading
