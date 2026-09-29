@@ -12,6 +12,19 @@ version independently. `marketplace.json`'s top-level `version` bumps on
 structural changes only (a new skill added, schema change), not on every
 skill release.
 
+## 2026-09-29 - Removed `interview-prep` (moved to its own repository)
+
+`interview-prep` (v1.2.0) left this marketplace and now lives in
+[`hiranmanu/interview-prep`](https://github.com/hiranmanu/interview-prep)
+(v1.2.1). It and CV tailoring are distinct jobs at different points in
+time, so they no longer share a repo.
+
+- Removed `plugins/interview-prep/`, its `marketplace.json` entry and its
+  `SKILLS.md` row; bumped the marketplace's top-level `version` to `1.14.0`
+  (structural change, a skill removed).
+- Earlier tags (`interview-prep-v1.0.0` onward) remain in this repo's history.
+- `cv-tailoring` shipped v2.0.0 in the same change (see its own CHANGELOG).
+
 ## 2026-09-18 — Added `interview-prep` skill
 
 New plugin under `plugins/interview-prep/` (v1.0.0), same shape as

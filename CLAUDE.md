@@ -21,7 +21,7 @@ don't bump `marketplace.json`'s top-level version for this (see below).
 | git tag | `git tag -a <skill>-vX.Y.Z -m "..."` and `git push origin <skill>-vX.Y.Z` |
 | GitHub Release | one release per tag (`gh release create <skill>-vX.Y.Z` or the web UI) |
 
-Skill-internal reference files (e.g. `cv-config.md`'s "last updated" date)
+Skill-internal reference files (e.g. `01-config.md`'s "last updated" date)
 are that skill's own concern — check its own `SKILL.md`/references for
 anything else it says must be touched on a change.
 
@@ -82,14 +82,14 @@ Claude Code installs each plugin independently (`/plugin install
 plugin's folder — it won't exist for someone who only installed this one
 skill.
 
-If two skills genuinely need the same underlying facts (e.g. a future
-`interview-prep` skill wanting the same confirmed-role facts
-`cv-tailoring`'s `cv-background.md` already has), the options are, in
+If two skills genuinely need the same underlying facts (e.g. the separate
+`interview-prep` repo wanting the same confirmed-role facts
+`cv-tailoring`'s `03-background.md` already has), the options are, in
 order of preference:
 1. **Duplicate deliberately**, with an explicit note in both files saying
    where the other copy lives and that they need to be kept in sync by
    hand (same pattern already used for cross-references within
-   cv-tailoring — see `cv-scoring.md` / `cv-semantic-clusters.md`).
+   cv-tailoring; see how `04-scoring.md` keeps its method and cluster data in one file).
 2. Don't build a shared/common `plugins/_shared/` folder and reference it
    from multiple plugins' `SKILL.md` — it'll work for you locally (mounted
    as one repo) but silently break for anyone who installs only one of the
@@ -97,16 +97,17 @@ order of preference:
 
 ## Other conventions
 
-- Cross-reference, don't duplicate within a single skill: reference files
-  that describe the same logic from two places (e.g. scoring method vs.
-  cluster lookup data) must say explicitly which one is the single source
-  of truth. See `cv-scoring.md` / `cv-semantic-clusters.md` for the pattern
-  to copy.
+- Cross-reference, don't duplicate within a single skill: a rule lives in one
+  file only. cv-tailoring's reference files are numbered by the workflow step
+  that owns them (`01-config.md`, `03-background.md`, `04-scoring.md`,
+  `05-formatting.md`); when logic would otherwise be described in two places,
+  merge the files (as `04-scoring.md` did with the old scoring and cluster
+  files) rather than cross-referencing them.
 - When a rule changes in one reference file, check whether a sibling file
   states the same rule elsewhere — that's exactly how the DOCX+PDF drift
   and title-blending duplication (fixed in cv-tailoring v1.11.1) happened.
 - Watch for hardcoded, environment-specific absolute paths in a skill's
-  config file. `cv-config.md` uses fixed local Windows paths on purpose
+  config file. `01-config.md` uses fixed local Windows paths on purpose
   (output under `...\claude code\cv-tailoring\CV Output\`, source CVs in
   `...\cv-tailoring\Source CVs\`); the old `/home/claude/cv-work/...` path is
   gone. Don't introduce a new environment-specific path in a skill's

@@ -1,25 +1,24 @@
 /**
- * build_cv_reference.js — reference implementation of every rule in
- * ../references/cv-formatting.md (house style confirmed 2026-09-17).
+ * build_cv_reference.js - reference implementation of every layout rule in
+ * ../references/05-formatting.md (house style confirmed 2026-09-17; grouped
+ * skills rows, two-paragraph profile and 1-2 line page-1 bullets from v2.0.0).
  *
- * This is a WORKING EXAMPLE of the styling/layout, not a generic template
- * engine and NOT real content — the name, contact details, employers, and
- * bullets below are placeholders (deliberately redacted; this file used to
- * carry real personal data and was scrubbed in v1.12.0, see CHANGELOG). For
- * a new JD, copy this file, keep every styling helper and layout constant
- * (fonts, sizes, colours, spacing, margins, keepNext/keepLines wiring,
- * document properties) exactly as-is, and only rewrite the *content*
- * passed into roleBlock(), the Profile Summary paragraphs, and the Key
- * Skills rows to match the target role — pulling real facts from the
- * user's actual local CV library (never this file), never inventing
- * achievements (per SKILL.md's core principle).
+ * This is a WORKING EXAMPLE of the styling/layout, not a template engine and
+ * NOT real content: the name, contact details, employers and bullets below are
+ * placeholders (deliberately redacted). For a new JD, copy this file, keep every
+ * styling helper and layout constant (fonts, sizes, colours, spacing, margins,
+ * keepNext/keepLines wiring, document properties) exactly as-is, and rewrite
+ * only the CONTENT: the two Profile paragraphs, the three skillRow() calls, and
+ * the roleBlock() bullets, pulling real facts from references/03-background.md
+ * (never from this file) and never inventing achievements (SKILL.md core
+ * principle).
  *
- * After running this (`node <file>.js`), always run
- * `python3 scripts/validate_cv.py <output>.docx` before calling it done —
- * see cv-decision-gates.md §5.3. That script only covers what's checkable
- * from the .docx XML directly (dashes, References ban, Author metadata);
- * page count and bullet/role-page-splits still need a manual look at the
- * rendered file.
+ * Bullet length: page-1 roles (the most recent 3-4) may run 1-2 lines; page-2
+ * roles and "Earlier Career" stay single-line. See 05-formatting.md "Bullets".
+ *
+ * After running (`node <file>.js`), run step 07's checks:
+ *   python3 scripts/validate_cv.py <out>.docx --keywords-file must-haves.txt
+ *   powershell -File scripts/word_layout_check.ps1 <out>.docx
  */
 const {
   Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType,
@@ -81,6 +80,18 @@ function companyLine(text, keepNext = true) {
     spacing: { after: 40 },
     keepNext,
     children: [new TextRun({ text, italics: true, size: 21, color: GREY })],
+  });
+}
+
+// One Key Skills row: bold JD-mirrored label, then keywords separated by a
+// middle dot. Exactly 3 rows; each should wrap to roughly 1.4-1.8 lines.
+function skillRow(label, items, last = false) {
+  return new Paragraph({
+    spacing: { after: last ? 0 : 50, line: 276, lineRule: "auto" },
+    children: [
+      new TextRun({ text: label + ": ", bold: true, size: 21, color: DARK }),
+      new TextRun({ text: items.join("  ·  "), size: 21, color: DARK }),
+    ],
   });
 }
 
@@ -174,18 +185,9 @@ const doc = new Document({
         }),
 
         sectionHeading("Key Skills & Competencies"),
-        new Paragraph({ spacing: { after: 50, line: 276, lineRule: "auto" }, children: [new TextRun({
-          text: "AI/ML & Agentic Product Strategy  \u00b7  Product Vision, Multi-Year Roadmaps & Portfolio Ownership  \u00b7  Executive & Board-Level Stakeholder Management (CEO, CMO, CTO)  \u00b7  Product Organisation Design, Hiring & Talent Strategy",
-          size: 21, color: DARK,
-        })]}),
-        new Paragraph({ spacing: { after: 50, line: 276, lineRule: "auto" }, children: [new TextRun({
-          text: "P&L Management & Commercial Monetisation  \u00b7  Platform Build (0-to-1) & API/Integration Architecture  \u00b7  Data Architecture, Clean Rooms & First-Party Data  \u00b7  Vendor Selection & Build-vs-Buy Analysis",
-          size: 21, color: DARK,
-        })]}),
-        new Paragraph({ spacing: { line: 276, lineRule: "auto" }, children: [new TextRun({
-          text: "GTM Strategy & Revenue Growth  \u00b7  M&A Due Diligence & Integration  \u00b7  Cross-Functional & Global Team Leadership  \u00b7  Cloud (AWS, GCP)  \u00b7  B2B / B2B2C / Enterprise SaaS  \u00b7  CPG & FMCG",
-          size: 21, color: DARK,
-        })]}),
+        skillRow("Product & Portfolio Leadership", ["Product Strategy", "Multi-Year Roadmaps", "Operating Model", "OKRs & Performance Frameworks", "P&L Management", "GTM Strategy"]),
+        skillRow("Data, Architecture & Vendors", ["Enterprise Data Architecture", "First-Party Data & Clean Rooms", "Advanced Measurement & Attribution", "Vendor Selection & Governance", "Build-vs-Buy"]),
+        skillRow("Leadership & Change", ["Board & C-Suite Stakeholders", "Change Management", "Team Building", "Cross-Functional Leadership", "Agile & Six Sigma"], true),
 
         sectionHeading("Career & Key Achievements to Date"),
 
@@ -312,7 +314,7 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then((buf) => {
-  // Adjust output path/filename per SKILL.md's naming convention: {YYYY-MM-DD}_{Company}_{Role}.docx
+  // Adjust output path/filename per 05-formatting.md 'Output Format': Hiran_CV_{YYYY.MM.DD}_{Company}_{BriefRole}.docx, inside the output folder from 01-config.md
   require("fs").writeFileSync("./output.docx", buf);
   console.log("written");
 });

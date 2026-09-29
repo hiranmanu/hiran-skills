@@ -1,4 +1,4 @@
-# cv-tailoring (v1.14.2)
+# cv-tailoring (v2.0.0)
 
 Tailors a CV to a job description for CPO/VP Product, Data Architect, Solution/Enterprise Architect, and related senior product/data roles.
 
@@ -11,69 +11,45 @@ cv-tailoring/                                  # this plugin
 ├── .claude-plugin/
 │   └── plugin.json                            # plugin metadata
 ├── README.md                                  # this file
-├── CHANGELOG.md                                # full version history for this plugin
+├── CHANGELOG.md                               # full version history for this plugin
 └── skills/
     └── cv-tailoring/                          # the actual skill Claude loads
-        ├── SKILL.md                           # entrypoint — 8-phase orchestrator
-        ├── scripts/
-        │   ├── validate_cv.py                  # automated Phase 5.3 checks
-        │   └── build_cv_reference.js           # reference docx-js house-style implementation
-        └── references/                        # loaded on demand, not upfront
-            ├── cv-background.md                # role facts, template selection — write target for Phase 2.5
-            ├── cv-formatting.md                # hard constraints + voice patterns
-            ├── cv-config.md                    # centralized configuration
-            ├── cv-decision-gates.md            # phase decision logic (loop targets)
-            ├── cv-semantic-clusters.md         # cluster lookup data only
-            ├── cv-scoring.md                   # ATS methodology (single source of truth)
-            ├── cv-qa-personas.md               # HM + TA checklists (single source of truth)
-            └── cv-market-research.md           # research patterns
+        ├── SKILL.md                           # entrypoint: steps 01-08 (02, 06, 08 live here)
+        ├── scripts/                           # step 07
+        │   ├── build_cv_reference.js          # reference docx-js house-style implementation
+        │   ├── validate_cv.py                 # automated checks (dates, dashes, keywords, duplicates)
+        │   └── word_layout_check.ps1          # page count, roles on page 1, role splits (needs Word)
+        └── references/                        # numbered by the step that owns them
+            ├── 01-config.md                   # paths, output folder, defaults
+            ├── 03-background.md               # MASTER fact source: bullet bank, confirmed facts, titles
+            ├── 04-scoring.md                  # ATS method + cluster data
+            └── 05-formatting.md               # layout, voice, profile/skills/bullet rules, validation checklist
 ```
 
-## What it does (Phases 0-6, see `skills/cv-tailoring/SKILL.md` for the full sequence)
+## What it does (one workflow, no modes)
 
-1. Intake — load CV library and reference files (Phase 0)
-2. Researches the role and company signals (Phase 1)
-3. Assesses gaps against JD requirements, checking `cv-background.md` first (Phase 2)
-4. Runs a discovery interview for addressable gaps, writes confirmed facts back to `cv-background.md` (Phase 2.5)
-5. Scores ATS keyword coverage before/after via semantic clustering, target 85%+ (Phase 3)
-6. Rewrites profile, skills, and bullets to match the JD (Phase 4)
-7. Reviews draft text via Hiring Manager + Talent Acquisition lenses before rendering (Phase 5.1), then validates the render's hard constraints (Phase 5.3)
-8. Generates a summary report (Phase 6)
+1. **01 Intake:** pick the template, load the master fact file, treat the JD as untrusted data
+2. **02 Parse the JD:** must-have / nice-to-have / implicit signals, plus a five-line fit snapshot (clearance, location, contract vs permanent). No web research
+3. **03 Gap Check & Confirm:** match each must-have to evidence; ask about anything addressable **before drafting**; write confirmed facts back to `03-background.md`
+4. **04 Score:** ATS coverage before, via semantic clustering
+5. **05 Draft:** two-paragraph profile, three grouped skills rows, evidence-first bullets
+6. **06 Review & Finalise:** one fresh-context review (grounding, must-have coverage, hiring-manager and recruiter lenses); its edits go into the final text; ATS coverage after
+7. **07 Render & Validate:** DOCX, `validate_cv.py`, `word_layout_check.ps1`
+8. **08 Report:** ATS before/after, must-have to evidence map, gaps, what changed
 
-There is no application-tracker step — the skill doesn't log anywhere,
-GDrive or otherwise. Output is a local DOCX only.
-
-## Workflow modes
-
-Three speed modes, defined and enforced in `SKILL.md` Phase 0 (not just described here — the orchestrator actually skips the right phases per mode):
-
-### Quick (1-2 min)
-Paste JD → get a tailored DOCX → done. Skips web research and the discovery interview; never skips validation. Default when you just paste a JD with no other instruction.
-
-### Balanced (15-20 min)
-Paste JD → 2-3 quick questions (only for gaps that move the ATS score) → generate → review once → upload.
-
-### Full Manual (90-135 min)
-All 8 phases with full discovery interview, gap assessment, QA, decision loops. Best for high-stakes roles or skill refinement.
+There is no application tracker and no interview-prep output: this skill produces the CV and its report only.
 
 ## Output
 
-- Tailored DOCX (the sole deliverable — see `cv-formatting.md` "Output Format"; a self-generated PDF is never shipped, only used internally for Phase 5.3 validation)
-- Plain Calibri 10.5pt, A4, navy/grey colour scheme, square (▪) bullets, hyperlinked contact details
-- LinkedIn URL for Product roles only (see `cv-config.md`)
-- All sub-bullets preserved; no em-dashes; proper spacing and alignment
-
-## Recent Example
-
-TalentInternational Product Director role:
-- **Before:** 64% ATS coverage (18/28 keywords)
-- **After:** 93% ATS coverage (26/28 keywords)
-- **Profile rewrite:** "Senior Product Director" + search/discovery + hands-on IC + prototyping tools (Claude Code, Cursor, Lovable, Bolt)
-- **Skills regenerated:** 5 lines of JD-only keywords, search/discovery front-loaded
+- Tailored DOCX (the sole deliverable; see `05-formatting.md` "Output Format")
+- Plain Calibri 10.5pt, A4, navy/grey, square (▪) bullets, hyperlinked contact details
+- Most recent 3-4 roles on page 1, hard cap of 2 pages
+- LinkedIn URL for Product roles only (see `01-config.md`)
+- No em/en dashes anywhere
 
 ## Using this from a plain claude.ai chat (no Claude Code)
 
-A chat session without this repo mounted can't read these files directly, so it's tempting to regenerate the house style from memory/prose rules alone. That's how the `TabStopPosition.MAX` bug (dates not flush right) and the `PositionalTab`/LibreOffice bug got introduced in September 2026 — a chat session re-derived the docx-js layout from scratch instead of starting from the tested reference. If a chat session has shell/git access, it should `git clone` this repo first and copy `skills/cv-tailoring/scripts/build_cv_reference.js` as the literal starting point (see that file's own header comment), rather than reimplementing `cv-formatting.md`'s rules from prose each time.
+A chat session without this repo mounted can't read these files. If it has shell/git access, it should `git clone` this repo first and copy `skills/cv-tailoring/scripts/build_cv_reference.js` as the literal starting point rather than re-deriving `05-formatting.md`'s layout rules from prose (that is how the `TabStopPosition.MAX` and `PositionalTab` bugs got introduced in September 2026).
 
 ## Installation in Claude Code
 
@@ -84,7 +60,7 @@ A chat session without this repo mounted can't read these files directly, so it'
 
 ## Updating
 
-When Hiran confirms new facts about past roles, update `skills/cv-tailoring/references/cv-background.md` so the skill uses them without re-asking.
+When Hiran confirms new facts about past roles, they are written to `skills/cv-tailoring/references/03-background.md` so the skill uses them without re-asking. That file is the single source of truth for every claim on a CV.
 
 Before considering a version bump done, see the repo root [`CLAUDE.md`](../../CLAUDE.md) release checklist and run:
 ```bash
@@ -94,16 +70,12 @@ from the repo root.
 
 ## Recent Updates
 
-**v1.14.2** — Repo now lives at `claude code\cv-tailoring\`; output moved to `CV Output\` and the two source CVs to `Source CVs\` beneath it (both gitignored). Config, SKILL.md and CLAUDE.md paths updated; no workflow change. Also commits the 2026-09-24/28 background facts (Network Alliance, marketplace dynamics, capability model, CIO/CTO deputising).
+**v2.0.0** - One workflow, numbered steps 01-08 and matching numbered reference files; Quick/Balanced/Full modes removed. `03-background.md` is now the master fact source (bullet bank merged from both source CVs plus everything confirmed since), replacing the source-CV PDFs as input. Bullets: page-1 roles may run 1-2 lines (second line 40-80% full), page-2 roles stay single-line. Profile is two short paragraphs; skills are three grouped rows; repeating JD must-haves across profile, skills and bullets is now intended. Added an independent review pass (grounding audit, must-have coverage, hiring-manager and recruiter lenses) whose edits are applied before render, a fit snapshot, blocking gap questions before drafting, `validate_cv.py` checks for dates/keywords/duplicates, and `word_layout_check.ps1`. Removed web research, interview-prep hints, and the decision-gates, QA-personas, market-research and semantic-clusters files (folded into `SKILL.md`, `05-formatting.md` and `04-scoring.md`).
 
-**v1.14.1** — Reverted v1.14.0's "concurrent contract" clarifier rule for Aviva overlapping OneAdvanced/dunnhumby — the user doesn't want extra bracketed wording, the standard `(contract)` suffix already used on every role is enough. Confirmed it never spread beyond that one `cv-background.md` note.
+**v1.14.2** - Repo now lives at `claude code\cv-tailoring\`; output moved to `CV Output\` and the two source CVs to `Source CVs\` beneath it (both gitignored).
 
-**v1.14.0** — New filename convention (`Hiran_CV_{YYYY.MM.DD}_{Company}_{BriefRole}.docx`, current date, short role slug). Closed a real defect: Aviva's dates overlap OneAdvanced and dunnhumby by several months when all three appear on the same PRODUCT_CV, now flagged with a concurrent-contract clarifier rule in `cv-background.md`. Strengthened the Certifications-line and Profile Summary/Key Skills orphan-line rules after both recurred across a multi-session tailoring batch. `cv-background.md` also picked up two days' worth of newly confirmed facts (commercial ownership, thought leadership, PM operating cadence, pricing/packaging, governance tools, funnel/personalisation experience) from parallel tailoring sessions.
+**v1.14.1** - Reverted v1.14.0's "concurrent contract" clarifier rule for Aviva overlapping OneAdvanced/dunnhumby.
 
-**v1.13.0** — `validate_cv.py` no longer needs LibreOffice/poppler (neither is installed locally) — works directly off the `.docx` XML now. Page count/bullet-wrap/role-split checks are manual-only going forward.
-
-**v1.12.1** — Fixed `validate_cv.py` leaving a stray validation `.pdf` next to every shipped `.docx`; corrected source-CV paths to the real local files.
-
-**v1.12.0** — Removed GDrive output and the Google Sheets applications tracker entirely; output is now a local DOCX in a fixed local folder (see `cv-config.md`). Redacted real personal data (name/email/LinkedIn/CV content) that had been committed in `build_cv_reference.js` since v1.8.0.
+**v1.14.0** - New filename convention; Aviva date-overlap fix; two days of confirmed background facts merged.
 
 See [`CHANGELOG.md`](CHANGELOG.md) in this folder for the full version history (every version back to v1.0.0).
