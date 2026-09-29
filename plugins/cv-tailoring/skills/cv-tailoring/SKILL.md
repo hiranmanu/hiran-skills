@@ -133,8 +133,8 @@ Then compute the **after** ATS score and the **keyword status table** (`04-scori
 
 1. **Render** the DOCX: copy `scripts/build_cv_reference.js` and `scripts/package.json` into a scratch folder (not the plugin folder), run `npm install` there once, and change only the content (see the builder's header; requirements in `01-config.md`). Filename and folder per `01-config.md` and `05-formatting.md` "Output Format". DOCX only.
 2. **Run** `python3 scripts/validate_cv.py <docx> --keywords-file <must-haves.txt>` (the must-haves the bank supports, one per line, `a|b` for synonyms; keep this file in the scratch folder, not the output folder). Matching is whole-word, so "AI" won't match "retail".
-3. **Run** `scripts/word_layout_check.ps1 <docx>` (Windows + Word): page count, roles on page 1, role splits, stranded headings. No Word available: open the DOCX and check by eye.
-4. **Eyeball** what the scripts can't: bullet wraps to a third line or a one-word second line, skills row balance, profile orphans. The checklist is `05-formatting.md` Part 3.
+3. **Run** `powershell -File scripts/word_layout_check.ps1 <docx>` (Windows + Word). It measures the real wrap of every paragraph in Word and fails on: more than 2 pages; fewer than 3 roles on page 1; a split role or stranded heading; a page-1 bullet over 2 lines or whose second line is under 40% full; any page-2 or Qualifications line that wraps; a skills row over 2 lines or under 40% on its second line; a profile paragraph ending on a short last line. Exit code 2 means Word isn't available: open the DOCX and check by eye.
+4. **Eyeball** the little the scripts can't: filename and folder, and that it reads well. The checklist is `05-formatting.md` Part 3.
 
 ### Loops
 
@@ -144,7 +144,7 @@ Then compute the **after** ATS score and the **keyword status table** (`04-scori
 | A must-have is missing from the CV | 05.1-05.3 | re-run 06 |
 | Duplicate keyword inside one skills row | 05.2 | re-render |
 | Page-1 doesn't hold 3-4 roles, or a role splits | 05.4 (trim by relevance) | re-render; re-run 06 only if a keyword or metric was removed |
-| A bullet wraps to a third line or leaves an orphan | 05.3 (trim that bullet) | re-render |
+| A bullet over 2 lines, a second line under 40% full, or a page-2 bullet that wraps | 05.3 (trim or extend that bullet) | re-render |
 | Ungrounded or stretch claim | 03 (ask) or drop it | re-run 06 |
 
 Max 2 full loops; then ship with notes and offer a follow-up. **Ship when:** grounding passes, every must-have the bank supports is covered, validation passes, and gaps are documented rather than forced.

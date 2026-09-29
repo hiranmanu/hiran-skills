@@ -25,11 +25,11 @@ The rule depends on where the role sits:
 
 | Where | Length | Notes |
 |---|---|---|
-| **Page-1 roles** (the most recent 3-4 roles) | 1-2 lines, up to about 210 characters | A complete, tight one-liner is fine. If it wraps, the second line must be **40-80% full**: no orphan word, and never a third line |
+| **Page-1 roles** (the most recent 3-4 roles) | 1-2 lines, up to about 210 characters | A complete, tight one-liner is fine. If it wraps, the second line must be **at least 40% full** (aim 40-80%; fuller is fine): no orphan word, and never a third line |
 | **Page-2 roles, Earlier Career** | Single line, about 105 characters | Keeps page 2 dense and page 1 free for richer bullets |
 | **Qualifications / Certifications lines** | Single line, cap each at 4-5 items | These wrapped most often in practice: don't list every certification |
 
-- Budget characters **while writing**, not after render. Calibri 10.5pt, A4, margins top/bottom 560 twips, left/right 680: a bulleted line holds about 105-108 characters. This shifts if margins, size or font change: re-measure rather than assume.
+- Budget characters **while writing**, not after render. The character counts here are drafting guides only: the pass/fail is the **measured** wrap in Word (`word_layout_check.ps1` reports lines and last-line fill for every bullet). Calibri 10.5pt, A4, margins top/bottom 560 twips, left/right 680: a bulleted line holds about 105-108 characters. This shifts if margins, size or font change: re-measure rather than assume.
 - When a page-1 bullet doesn't fit, cut a weaker clause. Font size and margins are never levers.
 - Bullet marker is a small square (▪).
 - Lead with the JD's keyword where it is truthfully there; reorder to surface JD-relevant work first; never rewrite a bullet to force a keyword that isn't there.
@@ -123,17 +123,15 @@ Automated (`python3 scripts/validate_cv.py <docx> --keywords-file <must-haves.tx
 - [ ] Email present as literal text
 - [ ] No verbatim duplicate keyword within the skills rows
 - [ ] Every must-have appears, and each one in the profile or skills is also evidenced in a bullet (fails if not; warns if it is only in bullets)
-- [ ] Bullets near the length ceiling flagged (warn)
 
-Word check (`scripts/word_layout_check.ps1 <docx>`, Windows + Word):
-- [ ] 2 pages
-- [ ] Most recent 3-4 roles fully on page 1; no role split across a page break
-- [ ] No section heading stranded at the bottom of a page
+Word check (`scripts/word_layout_check.ps1 <docx>`, Windows + Word). It **measures** the real wrap of every paragraph:
+- [ ] 2 pages; most recent 3-4 roles fully on page 1; no role split across a page break; no stranded section heading
+- [ ] Page-1 bullets: 1-2 lines, and a 2-line bullet's second line is at least 40% full
+- [ ] Page-2 bullets, Earlier Career and Qualifications lines: exactly 1 line
+- [ ] Skills rows: 1-2 lines, second line at least 40% full (a single-line row warns)
+- [ ] Profile paragraphs: last line at least 30% full (no 1-2 word orphan); 7 lines or fewer in total
 
 Manual (open the rendered DOCX):
-- [ ] No bullet wraps to a third line, or leaves a one-word second line
-- [ ] Skills rows each ~1.4-1.8 lines, no orphan spill
-- [ ] Profile paragraphs have no 1-2 word last line
 - [ ] Filename and output folder correct
 - [ ] Square bullets; company lines use a colon; LinkedIn only on Product roles
 
